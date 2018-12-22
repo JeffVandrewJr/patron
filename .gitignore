@@ -1,7 +1,5 @@
-#hacky nginx workaround
-default.conf
-
 #persistent storage
+app.db
 data
 dump.rdb
 
