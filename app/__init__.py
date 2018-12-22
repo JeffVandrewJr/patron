@@ -15,6 +15,6 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 sql_storage = SQLAStorage(db=db)
 blog_engine = BloggingEngine(app, sql_storage)
-login_manager = LoginManager(app)
+login = LoginManager(app)
 
 from app import routes, models
