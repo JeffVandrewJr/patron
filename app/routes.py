@@ -1,9 +1,28 @@
-from app import app
-from app import db
+from app import app, db, blogging_bp
 from app.forms import LoginForm, RegistrationForm, AdminForm
 from flask import redirect, url_for, render_template, flash
 from flask_login import current_user, login_user
 from app.models import User
+
+
+# modify flask_blogging bp to protect blog posts
+@blogging_bp.before_request
+def protect():
+    if not current_user.is_authenticated:
+        return url_for('new_patron')
+
+
+# register modified flask_blogging bp
+app.register_blueprint(
+    blogging_bp,
+    url_prefix=app.config.get('BLOGGING_URL_PREFIX')
+)
+
+
+@app.route('/new')
+def new_patron():
+    # TODO create page with signup info
+    return "New Patron Page"
 
 
 @app.route('/login', methods=['GET', 'POST'])
