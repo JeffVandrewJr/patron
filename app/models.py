@@ -1,4 +1,4 @@
-from app import db, login, blog_engine
+from app import db, login, protected_blog_engine
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -8,6 +8,7 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
     password_hash = db.Column(db.String(128))
+    expiration = db.Column(DateTime, index=True)
     role = db.Column(db.String(64))
 
     def __repr__(self):
@@ -24,6 +25,6 @@ class User(UserMixin, db.Model):
 
 
 @login.user_loader
-@blog_engine.user_loader
+@protected_blog_engine.user_loader
 def load_user(id):
     return User.query.get(int(id))
