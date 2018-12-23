@@ -4,6 +4,7 @@ from flask_login import LoginManager
 from flask_blogging import SQLAStorage, BloggingEngine
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from flask.ext.principal import Principal, Permission, RoleNeed
 from config import Config
 
 app = Flask(__name__)
@@ -16,5 +17,9 @@ migrate = Migrate(app, db)
 sql_storage = SQLAStorage(db=db)
 blog_engine = BloggingEngine(app, sql_storage)
 login = LoginManager(app)
+
+# permissions
+principals = Principal(app)
+admin_permission = Permission(RoleNeed('admin'))
 
 from app import routes, models
