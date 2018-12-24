@@ -57,7 +57,7 @@ class ProtectedBloggingEngine(BloggingEngine):
         # external urls
         blueprint_created.send(self.app, engine=self, blueprint=blog_app)
         self.app.register_blueprint(
-            blog_app, url_prefix=self.config.get(
+            blog_app, url_prefix=self.app.config.get(
                 "PROTECTED_BLOGGING_URL_PREFIX"
             ))
 
