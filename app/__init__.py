@@ -2,9 +2,9 @@ from flask import Flask
 from flask_bootstrap import Bootstrap
 from flask_login import LoginManager
 from flask_blogging_protected import ProtectedBloggingEngine, ProtectedSQLAStorage
-from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from flask_principal import Principal, Permission, RoleNeed
+from flask_principal import Permission, RoleNeed
+from flask_sqlalchemy import SQLAlchemy
 from config import Config
 
 app = Flask(__name__)
@@ -19,8 +19,8 @@ db.create_all()
 protected_blog_engine = ProtectedBloggingEngine(app, protected_sql_storage)
 login = LoginManager(app)
 
-# permissions
-principals = Principal(app)
+# permissions - flask_principal objects created by BloggingEngine
+principals = protected_blog_engine.principal
 admin_permission = Permission(RoleNeed('admin'))
 
 # blueprints

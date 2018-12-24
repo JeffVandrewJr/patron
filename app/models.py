@@ -1,7 +1,6 @@
-import app
 from app import db, login, protected_blog_engine
 from flask_login import UserMixin, current_user
-from flask_principal import identity_loaded, RoleNeed, UserNeed
+from flask_principal import identity_loaded, RoleNeed
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
@@ -33,10 +32,9 @@ def load_user(id):
     return User.query.get(int(id))
 
 
-@identity_loaded.connect_via(app)
+@identity_loaded.connect
 def on_identity_loaded(sender, identity):
-    identity.user = current_user
-    if hasattr(current_user, id):
-        identity.provides.add(UserNeed(current_user.id))
     if current_user.role == 'admin':
         identity.provides.add(RoleNeed('admin'))
+        identity.provides.add(RoleNeed('blogger'))
+    identity.user = current_user
