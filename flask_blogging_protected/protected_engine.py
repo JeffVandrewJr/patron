@@ -33,6 +33,8 @@ class ProtectedBloggingEngine(BloggingEngine):
 
         @blog_app.before_request
         def protect():
+            if current_user.is_authenticated:
+                return None
             try:
                 posts = self.storage.get_posts(
                     count=1,
@@ -43,13 +45,15 @@ class ProtectedBloggingEngine(BloggingEngine):
             except Exception as e:
                 traceback.print_tb(e.__traceback__)
                 sys.stdout.flush()
-                return redirect(url_for('auth.register'))
-            if not current_user.is_authenticated:
-                return render_template(
-                    'blogging/page.html',
-                    post=post,
-                    config=self.config
-                )
+                if current_user.is_authenticated:
+                    return redirect(url_for('blogging.editor'))
+                else:
+                    return redirect(url_for('auth.register'))
+            return render_template(
+                'blogging/page.html',
+                post=post,
+                config=self.config
+            )
         # external urls
         blueprint_created.send(self.app, engine=self, blueprint=blog_app)
         self.app.register_blueprint(

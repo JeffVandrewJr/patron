@@ -1,0 +1,17 @@
+{% extends 'blogging/base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block main %}
+<h1>Sign In</h1>
+    <div class="row">
+        <div class="col-md-4">
+            {{ wtf.quick_form(form) }}
+        </div>
+    </div>
+    <br>
+    <p>New User? <a href="{{ url_for('auth.register') }}">Click to Register!</a></p>
+    <p>
+        Forgot Your Password? 
+        <a href="{{ url_for('auth.reset_password_request') }}">Click to Reset It</a>
+    </p>
+{% endblock %}

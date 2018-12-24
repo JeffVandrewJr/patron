@@ -19,14 +19,14 @@ def login():
             return redirect(url_for('auth.login'))
         login_user(user, remember=form.remember_me.data)
         return redirect(url_for('blogging.index'))
-    return render_template('login.html', title='Sign In', form=form)
+    return render_template('auth/login.html', title='Sign In', form=form)
 
 
 @bp.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
         return redirect(url_for('blogging.index'))
-    elif User.query.filter_by(role='admin') is None:
+    elif User.query.filter_by(role='admin').first() is None:
         return redirect(url_for('auth.adminsetup'))
     form = RegistrationForm()
     if form.validate_on_submit():
@@ -41,12 +41,12 @@ def register():
         db.session.commit()
         flash('You are now a registered user.')
         return redirect(url_for('auth.login'))
-    return render_template('register.html', title='Register', form=form)
+    return render_template('auth/register.html', title='Register', form=form)
 
 
 @bp.route('/adminsetup', methods=['GET', 'POST'])
 def adminsetup():
-    if User.query.filter_by(role='admin') is not None:
+    if User.query.filter_by(role='admin').first() is not None:
         return redirect(url_for('blogging.index'))
     form = AdminForm()
     if form.validate_on_submit():
@@ -62,7 +62,7 @@ def adminsetup():
         flash('You are now registered as the admin.')
         return redirect(url_for('auth.login'))
     return render_template(
-        'adminsetup.html',
+        'auth/adminsetup.html',
         title='Register as Administrator',
         form=form
     )

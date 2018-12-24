@@ -4,7 +4,7 @@ from flask_login import LoginManager
 from flask_blogging_protected import ProtectedBloggingEngine, ProtectedSQLAStorage
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from flask.ext.principal import Principal, Permission, RoleNeed
+from flask_principal import Principal, Permission, RoleNeed
 from config import Config
 
 app = Flask(__name__)
