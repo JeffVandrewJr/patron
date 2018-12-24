@@ -2,8 +2,9 @@ from app import db
 from app.auth import bp
 from app.auth.forms import LoginForm, RegistrationForm, AdminForm
 from app.models import User
-from flask import redirect, url_for, render_template, flash
+from flask import redirect, url_for, render_template, flash, current_app
 from flask_login import current_user, login_user
+from flask_principal import Identity, identity_changed
 from datetime import date, timedelta
 
 
@@ -18,6 +19,11 @@ def login():
             flash('Invalid username or password')
             return redirect(url_for('auth.login'))
         login_user(user, remember=form.remember_me.data)
+        if user.role == 'admin':
+            identity_changed.send(
+                current_app._get_current_object(),
+                identity=Identity(user.id)
+            )
         return redirect(url_for('blogging.index'))
     return render_template('auth/login.html', title='Sign In', form=form)
 
