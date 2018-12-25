@@ -11,7 +11,7 @@ from datetime import date, timedelta
 @bp.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('blogging.index'))
+        return redirect(url_for('main.account'))
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
@@ -24,14 +24,21 @@ def login():
                 current_app._get_current_object(),
                 identity=Identity(user.id)
             )
-        return redirect(url_for('blogging.index'))
+        return redirect(url_for('main.index'))
     return render_template('auth/login.html', title='Sign In', form=form)
+
+
+@bp.route('/logout')
+def logout():
+    # TODO logout
+    return 'To be implemented.'
 
 
 @bp.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
-        return redirect(url_for('blogging.index'))
+        flash('You are already registered.')
+        return redirect(url_for('main.index'))
     elif User.query.filter_by(role='admin').first() is None:
         return redirect(url_for('auth.adminsetup'))
     form = RegistrationForm()
@@ -53,7 +60,8 @@ def register():
 @bp.route('/adminsetup', methods=['GET', 'POST'])
 def adminsetup():
     if User.query.filter_by(role='admin').first() is not None:
-        return redirect(url_for('blogging.index'))
+        flash('Administrator is already set.')
+        return redirect(url_for('main.index'))
     form = AdminForm()
     if form.validate_on_submit():
         user = User(
