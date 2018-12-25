@@ -35,8 +35,9 @@
             <div class -"navbar-collapse collapse" id="navbar" aria-expanded="false" style="height: 1px;">
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="{{ url_for('main.index') }}">Home</a></li>
+                    <li><a href="{{ url_for('blogging.index') }}">Updates</a></li>
                     <li><a href="{{ url_for('main.support') }}">Support Levels</a></li>
-                    <li><a href="{{ url_for('main.login') }}">Account</a></li>
+                    <li><a href="{{ url_for('auth.login') }}">Account</a></li>
                 </ul>
             </div>
         </div>
