@@ -1,6 +1,6 @@
 from app.admin import bp
 from app.admin.btcpair import pairing
-from app.admin.forms import BTCCodeForm
+from app.admin.forms import BTCCodeForm, SupportLevelForm
 from flask import flash, redirect, render_template, url_for
 
 
@@ -18,3 +18,9 @@ def btcpay():
         flash('Pairing to BTCPay is complete.')
         return redirect(url_for('admin.index'))
     return render_template('admin.btcpay.html', form=form)
+
+
+@bp.route('/setprices')
+def set_prices():
+    form = SupportLevelForm()
+    # TODO add price levels to database, don't forget to commit database

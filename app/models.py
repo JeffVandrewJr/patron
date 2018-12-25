@@ -4,6 +4,15 @@ from flask_principal import identity_loaded, RoleNeed
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
+class SupportLevel(db.Model):
+    name = db.Column(db.String(64), index=True, unique=True)
+    description = db.Column(db.Text)
+    price = db.Column(db.Float)
+
+    def __repr__(self):
+        return f'<Price Level {self.name}>'
+
+
 class User(UserMixin, db.Model):
     __table_args__ = {'extend_existing': True}
     id = db.Column(db.Integer, primary_key=True)

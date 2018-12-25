@@ -1,0 +1,13 @@
+{% extends "blogging/base.html" %}
+
+{% block main %}
+<section class="jumbotron text-center">
+{% for level in levels %}
+    <div class="container">
+        <h1 class="jumbotron-heading">{{ level.name }}</h1>
+        <p class="lead text-muted">{{ level.description }}</p>
+        <p><a class="btn btn-primary" href="{{ url_for('main.create_invoice', level={{ level }}) }}">Sign Up</a></p>
+    </div>
+{% endfor %}
+</section>
+{% endblock %}

@@ -10,3 +10,7 @@ class BTCCodeForm(FlaskForm):
     )
     code = StringField('Pairing Code', validators=[DataRequired()])
     submit = SubmitField('Submit')
+
+
+class SupportLevelForm(FlaskForm):
+    # TODO

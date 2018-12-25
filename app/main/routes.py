@@ -1,6 +1,6 @@
 from app import protected_blog_engine
 from app.main import bp
-from flask import redirect, url_for, flash
+from flask import redirect, url_for, flash, render_template
 from flask_blogging.processor import PostProcessor
 from flask_blogging.views import page_by_id
 from flask_login import current_user
@@ -36,10 +36,16 @@ def index():
 
 @bp.route('/support')
 def support():
-    # TODO render template showing price plans
-    # if user logged in, clicking a plan takes them to payment
-    # if user not logged in, clicking a plan takes them to register
-    return 'Price Plans'
+    # TODO pull levels from database
+    return render_template('main/support.html', levels=levels)
+
+
+@bp.route('/createinvoice')
+def create_invoice():
+    # TODO accepts URL ? arguments, passes those arguments to BTCPay
+    # to prevent spam, check for user authentication
+    # if unauthenticated, redirect to registration page
+    return 'Not implemented'
 
 
 @bp.route('/account')
