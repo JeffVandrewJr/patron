@@ -41,6 +41,13 @@
         </a>
     </div>
 {% endif %}
+{% if not meta.is_user_blogger %}
+    <div class="pull-right">
+        <a href="{{ url_for('auth.register') }}" id="new">
+            <span class="glyphicon glyphicon-plus"></span>&nbsp;Sign Up!
+        </a>
+    </div>
+{% endif %}
 
 
   <a href="{{ url_for('blogging.page_by_id', post_id=post.post_id, slug=post.slug) }}">
