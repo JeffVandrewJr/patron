@@ -1,4 +1,5 @@
-from flask import redirect, url_for
+from datetime import date
+from flask import redirect, url_for, flash
 from flask_blogging import BloggingEngine
 from flask_blogging.signals import blueprint_created, engine_initialised
 from flask_fileupload import FlaskFileUpload
@@ -32,9 +33,15 @@ class ProtectedBloggingEngine(BloggingEngine):
         @blog_app.before_request
         def protect():
             if current_user.is_authenticated:
-                return None
+                if date.today() <= current_user.expiration:
+                    return None
+                else:
+                    flash('You must have a paid-up subscription \
+                          to view updates.')
+                    redirect(url_for('main.account'))
             else:
-                return redirect(url_for('main.index'))
+                flash('Please login to view updates.')
+                return redirect(url_for('auth.login'))
         # external urls
         blueprint_created.send(self.app, engine=self, blueprint=blog_app)
         self.app.register_blueprint(

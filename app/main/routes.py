@@ -11,8 +11,6 @@ import traceback
 @bp.route('/')
 @bp.route('/index')
 def index():
-    if current_user.is_authenticated:
-        return redirect(url_for('blogging.index'))
     try:
         posts = protected_blog_engine.storage.get_posts(
             count=1,
@@ -32,3 +30,9 @@ def index():
         slug=PostProcessor.create_slug(post['title'])
     )
     return response
+
+
+@bp.route('/account')
+def account():
+    # TODO show expiration and payment link
+    return 'To be implemented.'
