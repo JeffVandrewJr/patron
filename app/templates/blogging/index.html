@@ -22,6 +22,7 @@ Updates
         <a href="{{ post.url }}">
             <h1>{{ post.title }}</h1>
         </a>
+        {{post.rendered_text | safe | truncate(1200)}}
         <hr>
     {% endfor %}
     {% if ((meta)  and (meta.max_pages>1)) %}

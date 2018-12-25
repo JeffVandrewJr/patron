@@ -1,6 +1,8 @@
-from flask import redirect, url_for, render_template
+from flask import redirect, url_for
 from flask_blogging import BloggingEngine
+from flask_blogging.processor import PostProcessor
 from flask_blogging.signals import blueprint_created, engine_initialised
+from flask_blogging.views import page_by_id
 from flask_fileupload import FlaskFileUpload
 from flask_login import current_user
 from flask_principal import Principal
@@ -49,11 +51,11 @@ class ProtectedBloggingEngine(BloggingEngine):
                     return redirect(url_for('blogging.editor'))
                 else:
                     return redirect(url_for('auth.register'))
-            return render_template(
-                'blogging/page.html',
-                post=post,
-                config=self.config
+            response = page_by_id(
+                post_id=post['post_id'],
+                slug=PostProcessor.create_slug(post['title'])
             )
+            return response
         # external urls
         blueprint_created.send(self.app, engine=self, blueprint=blog_app)
         self.app.register_blueprint(
