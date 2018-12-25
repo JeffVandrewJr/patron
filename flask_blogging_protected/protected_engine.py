@@ -1,13 +1,9 @@
 from flask import redirect, url_for
 from flask_blogging import BloggingEngine
-from flask_blogging.processor import PostProcessor
 from flask_blogging.signals import blueprint_created, engine_initialised
-from flask_blogging.views import page_by_id
 from flask_fileupload import FlaskFileUpload
 from flask_login import current_user
 from flask_principal import Principal
-import traceback
-import sys
 
 
 class ProtectedBloggingEngine(BloggingEngine):
@@ -37,25 +33,8 @@ class ProtectedBloggingEngine(BloggingEngine):
         def protect():
             if current_user.is_authenticated:
                 return None
-            try:
-                posts = self.storage.get_posts(
-                    count=1,
-                    recent=True,
-                    tag='public'
-                )
-                post = posts[0]
-            except Exception as e:
-                traceback.print_tb(e.__traceback__)
-                sys.stdout.flush()
-                if current_user.is_authenticated:
-                    return redirect(url_for('blogging.editor'))
-                else:
-                    return redirect(url_for('auth.register'))
-            response = page_by_id(
-                post_id=post['post_id'],
-                slug=PostProcessor.create_slug(post['title'])
-            )
-            return response
+            else:
+                return redirect(url_for('main.index'))
         # external urls
         blueprint_created.send(self.app, engine=self, blueprint=blog_app)
         self.app.register_blueprint(
