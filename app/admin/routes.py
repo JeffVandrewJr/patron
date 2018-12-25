@@ -17,4 +17,4 @@ def btcpay():
         pairing(code=form.code.data, host=form.host.data)
         flash('Pairing to BTCPay is complete.')
         return redirect(url_for('admin.index'))
-    return render_template('btcpay.html', form=form)
+    return render_template('admin.btcpay.html', form=form)
