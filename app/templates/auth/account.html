@@ -5,5 +5,4 @@
     <p>Plan Name: {{ current_user.role }}</p>
     <p>Expiration: {{current_user.expiration }}</p>
     <a href="{{ url_for('main.support') }}" class="btn btn-default">Make a Payment or Change Plans</a>
-    <a href="{{ url_for('auth.reset_password') }}" class="btn btn-default">Reset Password</a>
 {% endblock %}
