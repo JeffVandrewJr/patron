@@ -65,9 +65,3 @@ def create_invoice():
         "redirectURL": url_for('main.index')
     })
     return redirect(inv_data['url'])
-
-
-@bp.route('/account')
-def account():
-    # TODO show expiration and payment link
-    return 'To be implemented.'

@@ -82,7 +82,14 @@ def adminsetup():
     )
 
 
+@bp.route('/account')
+def account():
+    if not current_user.is_authenticated:
+        return redirect(url_for('auth.login'))
+    return render_template('auth/account.html')
+
+
 @bp.route('/reset', methods=['GET', 'POST'])
-def reset_password_request():
+def reset_password():
     # TODO insert password reset function
     return 'Not yet implemented.'
