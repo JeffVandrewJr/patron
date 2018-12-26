@@ -16,13 +16,14 @@ def update_sub():
     if isinstance(invoice, dict):
         if 'status' in invoice:
             if invoice['status'] == "paid" or "confirmed":
-                user = User.query.filter_by(username=invoice['buyer']['name'])
+                user = User.query.filter_by(username=invoice['buyer']['name']).first()
+                if user is None:
+                    return "Payment made for unregistered user.", 200
                 if user.role == 'admin':
                     return "Administrator should not make payments.", 200
                 else:
                     user.expiration = user.expiration + timedelta(days=30)
                     user.role = invoice['orderId']
-                    db.session.add(user)
                     db.session.commit()
                     return "Payment Accepted", 201
             else:

@@ -12,7 +12,7 @@ def pairing(code, host):
     client_store = BTCPayClientStore.query.all().first()
     if client_store is None:
         client_store = BTCPayClientStore(client=btc_client)
+        db.session.add(client_store)
     else:
         client_store.client = btc_client
-    db.session.add(client_store)
     db.session.commit()
