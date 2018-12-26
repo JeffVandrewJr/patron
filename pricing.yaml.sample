@@ -1,0 +1,24 @@
+# be sure to enter price as an integer
+# delete any levels if you want less than four
+# maximum levels are 4
+# descriptions over 600 characters will be truncated
+
+Level 1:
+    name: Patron
+    description: This is a basic level of support.
+    price: 20
+
+Level 2:
+    name: Cool Patron
+    description: This is a better level of support!
+    price: 40
+
+Level 3:
+    name: Cooler Patron
+    description: This is an even better level of support!
+    price: 60
+
+Level 4:
+    name: Coolest Patron
+    description: You rock!
+    price: 80

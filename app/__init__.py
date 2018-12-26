@@ -1,3 +1,4 @@
+from config import Config
 from flask import Flask
 from flask_bootstrap import Bootstrap
 from flask_login import LoginManager
@@ -5,10 +6,11 @@ from flask_blogging_protected import ProtectedBloggingEngine, ProtectedSQLAStora
 from flask_migrate import Migrate
 from flask_principal import Permission, RoleNeed
 from flask_sqlalchemy import SQLAlchemy
-from config import InitialConfig
 
 app = Flask(__name__)
-app.config.from_object(InitialConfig)
+
+app.config.from_object(Config)
+app.config_from_pyfile(config.conf)
 
 # extensions
 bootstrap = Bootstrap(app)
@@ -32,8 +34,3 @@ app.register_blueprint(admin_bp, url_prefix='/admin')
 app.register_blueprint(main_bp)
 
 from app import models
-from app.models import AdminData
-from config import SecondConfig
-
-if AdminData.query.filter_by(initial_setup=True).first() != None:
-    app.config.from_object(SecondConfig)

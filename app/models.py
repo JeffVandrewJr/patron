@@ -4,27 +4,6 @@ from flask_principal import identity_loaded, RoleNeed
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
-class AdminData(db.model):
-    id = db.Column(db.Integer, primary_key=True)
-    initial_setup = (db.Boolean)
-    site_name = db.Column(db.String(128))
-    site_url = db.Column(db.String(128))
-    twitter = db.Column(db.String(64))
-    disqus = db.Column(db.String(64))
-    ga = db.Column(db.String(128))
-    csrf_key = db.Column(db.String(128))
-
-
-class SupportLevel(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(64), index=True, unique=True)
-    description = db.Column(db.Text)
-    price = db.Column(db.Float)
-
-    def __repr__(self):
-        return f'<Price Level {self.name}>'
-
-
 class User(UserMixin, db.Model):
     __table_args__ = {'extend_existing': True}
     id = db.Column(db.Integer, primary_key=True)
@@ -38,7 +17,12 @@ class User(UserMixin, db.Model):
         return f'<User {self.username}>'
 
     def __str__(self):
-        return f'{self.username}'
+        return f'''
+                {self.username}, 
+                {self.email}, 
+                {self.expiration}, 
+                {self.role}
+                '''
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)

@@ -6,6 +6,7 @@ from flask_blogging.views import page_by_id
 from flask_login import current_user
 import sys
 import traceback
+import yaml
 
 
 @bp.route('/')
@@ -36,7 +37,8 @@ def index():
 
 @bp.route('/support')
 def support():
-    # TODO pull levels from database
+    with open('pricing.yaml') as f:
+        levels = yaml.safe_load(f)
     return render_template('main/support.html', levels=levels)
 
 
