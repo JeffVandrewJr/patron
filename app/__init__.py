@@ -10,7 +10,6 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 
 app.config.from_object(Config)
-app.config_from_pyfile(config.conf)
 
 # extensions
 bootstrap = Bootstrap(app)

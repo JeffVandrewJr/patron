@@ -1,6 +1,6 @@
 from app.admin import bp
 from app.admin.btcpair import pairing
-from app.admin.forms import BTCCodeForm, SupportLevelForm
+from app.admin.forms import BTCCodeForm
 from flask import flash, redirect, render_template, url_for
 
 
