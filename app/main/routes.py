@@ -4,9 +4,10 @@ from flask import redirect, url_for, flash, render_template
 from flask_blogging.processor import PostProcessor
 from flask_blogging.views import page_by_id
 from flask_login import current_user
+import os
+from ruamel.yaml import YAML
 import sys
 import traceback
-import yaml
 
 
 @bp.route('/')
@@ -37,8 +38,9 @@ def index():
 
 @bp.route('/support')
 def support():
+    yaml = YAML(typ='safe')
     with open('pricing.yaml') as f:
-        levels = yaml.safe_load(f)
+        levels = yaml.load(f)
     return render_template('main/support.html', levels=levels)
 
 
