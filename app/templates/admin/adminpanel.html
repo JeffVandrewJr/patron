@@ -1,0 +1,8 @@
+{% extends 'blogging/base.html' %}
+
+{% block main %}
+    <h1>Admin Panel</h1>
+        <a href"{{ url_for('admin.pairing') }}" class="btn btn-default">Pair BTCPay</a>
+        <a href"{{ url_for('admin.subscriber_export') }}" class="btn btn-default">Subscriber Export</a>
+    <br>
+{% endblock %}

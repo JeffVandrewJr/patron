@@ -7,7 +7,7 @@ from flask import flash, redirect, render_template, url_for
 @bp.route('/')
 @bp.route('/index')
 def index():
-    return "Admin Panel!"  # TODO
+    return render_template('admin.adminpanel.html')
 
 
 @bp.route('/btcpay')
@@ -18,3 +18,8 @@ def btcpay():
         flash('Pairing to BTCPay is complete.')
         return redirect(url_for('admin.index'))
     return render_template('admin.btcpay.html', form=form)
+
+
+@bp.route('/export')
+def subscriber_export():
+    return "Not Yet Implemented!"  # TODO

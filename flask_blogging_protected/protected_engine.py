@@ -9,18 +9,7 @@ from flask_principal import Principal
 
 class ProtectedBloggingEngine(BloggingEngine):
     def init_app(self, app, storage=None, cache=None):
-        """
-        Initialize the engine.
-
-        :param app: The app to use
-        :type app: Object
-        :param storage: The blog storage instance that implements the
-        :type storage: Object
-        :param cache: (Optional) A Flask-Cache object to enable caching
-        :type cache: Object
-         ``Storage`` class interface.
-        """
-
+        # extension of flask_blogging to allow protected posts
         self.app = app
         self.config = self.app.config
         self.storage = storage or self.storage
