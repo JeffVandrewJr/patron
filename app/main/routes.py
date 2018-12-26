@@ -1,10 +1,10 @@
 from app import protected_blog_engine
 from app.main import bp
-from flask import redirect, url_for, flash, render_template
+from app.models import BTCPayClientStore
+from flask import redirect, url_for, flash, render_template, request
 from flask_blogging.processor import PostProcessor
 from flask_blogging.views import page_by_id
 from flask_login import current_user
-import os
 from ruamel.yaml import YAML
 import sys
 import traceback
@@ -46,10 +46,25 @@ def support():
 
 @bp.route('/createinvoice')
 def create_invoice():
-    # TODO accepts URL ? arguments, passes those arguments to BTCPay
-    # to prevent spam, check for user authentication
-    # if unauthenticated, redirect to registration page
-    return 'Not implemented'
+    if not current_user.is_authenticated:
+        return redirect(url_for('auth.login'))
+    price = int(request.args.get('price'))
+    level = request.args.get('name')
+    btc_client = BTCPayClientStore.query.all().first()
+    if btc_client is None:
+        return 'BTCPay has not been paired!', 501
+    inv_data = btc_client.create_invoice({
+        "price": price,
+        "currency": "USD",
+        "buyer": {
+            "name": current_user.username,
+            "email": current_user.email,
+        },
+        "orderId": level,
+        "notificationURL": url_for('api.update_sub'),
+        "redirectURL": url_for('main.index')
+    })
+    return redirect(inv_data['url'])
 
 
 @bp.route('/account')

@@ -5,20 +5,20 @@
 
 Level 1:
     name: Patron
-    description: This is a basic level of support.
     price: 20
+    description: This is a basic level of support.
 
 Level 2:
     name: Cool Patron
-    description: This is a better level of support!
     price: 40
+    description: This is a better level of support!
 
 Level 3:
     name: Cooler Patron
-    description: This is an even better level of support!
     price: 60
+    description: This is an even better level of support!
 
 Level 4:
     name: Coolest Patron
-    description: You rock!
     price: 80
+    description: You rock!

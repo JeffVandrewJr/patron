@@ -4,6 +4,14 @@ from flask_principal import identity_loaded, RoleNeed
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
+class BTCPayClientStore(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    client = db.Column(db.PickleType)
+
+    def __repr__(self):
+        return f'Pickled BTCPay Client, Id {self.id}'
+
+
 class User(UserMixin, db.Model):
     __table_args__ = {'extend_existing': True}
     id = db.Column(db.Integer, primary_key=True)
