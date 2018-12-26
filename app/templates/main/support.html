@@ -6,7 +6,7 @@
     <div class="container">
         <h1 class="jumbotron-heading">{{ level.name }}</h1>
         <p class="lead text-muted">{{ level.description }}</p>
-        <p><a class="btn btn-primary" href="{{ url_for('main.create_invoice', level={{ level.price }}) }}">Sign Up</a></p>
+        <p><a class="btn btn-primary" href="{{ url_for('main.create_invoice', level=level.price) }}">Sign Up</a></p>
     </div>
 {% endfor %}
 </section>
