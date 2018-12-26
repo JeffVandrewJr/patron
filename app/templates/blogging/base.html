@@ -37,7 +37,14 @@
                     <li><a href="{{ url_for('main.index') }}">Home</a></li>
                     <li><a href="{{ url_for('blogging.index') }}">Updates</a></li>
                     <li><a href="{{ url_for('main.support') }}">Support Levels</a></li>
-                    <li><a href="{{ url_for('auth.login') }}">Account</a></li>
+                    {% if current_user.is_authenticated %}
+                        <li><a href="{{ url_for('main.account') }}">Account</a></li>
+                    {% endif %}
+                    {% if current_user.is_authenticated %}
+                        <li><a href="{{ url_for('auth.login') }}">Login</a></li>
+                    {% else %}
+                        <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
+                    {% endif %}
                 </ul>
             </div>
         </div>

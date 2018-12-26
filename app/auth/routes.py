@@ -3,7 +3,7 @@ from app.auth import bp
 from app.auth.forms import LoginForm, RegistrationForm, AdminForm
 from app.models import User
 from flask import redirect, url_for, render_template, flash, current_app
-from flask_login import current_user, login_user
+from flask_login import current_user, login_user, logout_user
 from flask_principal import Identity, identity_changed
 from datetime import date, timedelta
 
@@ -30,8 +30,8 @@ def login():
 
 @bp.route('/logout')
 def logout():
-    # TODO logout
-    return 'To be implemented.'
+    logout_user()
+    return redirect(url_for('main.index'))
 
 
 @bp.route('/register', methods=['GET', 'POST'])
