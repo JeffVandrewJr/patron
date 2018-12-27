@@ -1,7 +1,7 @@
 from app import app, blog_engine, mail
 from app.models import User
 from flask import render_template
-from flask_blogging import page_by_id_fetched, page_by_id_processed
+from flask_blogging.signals import page_by_id_fetched, page_by_id_processed
 from flask_mail import Message
 from threading import Thread
 

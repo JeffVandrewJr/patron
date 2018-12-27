@@ -10,7 +10,7 @@ class ModifiedBlogEditor(BlogEditor):
     tags = SelectField(
         'Optional Parameters',
         choices=[
-            ('noemail', 'Do Not Email this Update')
+            ('noemail', 'Do Not Email this Update'),
             ('public', 'Post this to homepage rather than updates.')
         ]
     )
