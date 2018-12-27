@@ -1,4 +1,5 @@
 from app import app, db, login, protected_blog_engine
+from flask_blogging import BloggingEngine
 from flask_login import UserMixin, current_user
 from flask_principal import identity_loaded, RoleNeed
 import jwt

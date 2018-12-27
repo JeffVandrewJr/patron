@@ -2,7 +2,7 @@ from app import protected_blog_engine
 from app.main import bp
 from app.models import BTCPayClientStore
 from flask import redirect, url_for, flash, render_template, request
-from flask_blogging.processor import PostProcessor
+from flask_blogging_protected import ProtectedPostProcessor
 from flask_blogging.views import page_by_id
 from flask_login import current_user
 from ruamel.yaml import YAML
@@ -31,7 +31,7 @@ def index():
             return redirect(url_for('auth.register'))
     response = page_by_id(
         post_id=post['post_id'],
-        slug=PostProcessor.create_slug(post['title'])
+        slug=ProtectedPostProcessor.create_slug(post['title'])
     )
     return response
 
