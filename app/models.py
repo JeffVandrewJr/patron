@@ -1,5 +1,4 @@
-from app import app, db, login, protected_blog_engine
-from flask_blogging import BloggingEngine
+from app import app, db, login, blog_engine
 from flask_login import UserMixin, current_user
 from flask_principal import identity_loaded, RoleNeed
 import jwt
@@ -60,7 +59,7 @@ class User(UserMixin, db.Model):
 
 
 @login.user_loader
-@protected_blog_engine.user_loader
+@blog_engine.user_loader
 def load_user(id):
     return User.query.get(int(id))
 
