@@ -1,0 +1,61 @@
+{% extends "blogging/base.html" %}
+{% block meta %}
+    {% include 'blogging/metatags.html' %}
+{% endblock meta %}
+{% block title %}
+    {{post.title}}
+{% endblock title %}
+
+{% block main %}
+{% if meta.is_user_blogger %}
+    <div class="modal fade" id="confirmModal" >
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">Are you sure you want to delete this post?</h4>
+                </div>
+                <div class="modal-footer">
+                    <form action="{{ url_for('blogging.delete', post_id=post.post_id) }}" method="POST">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <input type="submit" value="Yes" class="btn btn-primary" id="confirmedDelete"/>
+                    </form>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <div class="pull-right">
+    {% if post.editable %}
+        <a href="#confirmModal" data-toggle="modal" id="delete">
+            <span class="glyphicon glyphicon-trash"></span>&nbsp;Delete
+        </a>&nbsp&nbsp&nbsp&nbsp
+
+        <a href="{{ url_for('blogging.editor', post_id=post.post_id) }}" id="edit">
+            <span class="glyphicon glyphicon-edit"></span>&nbsp;Edit
+        </a>&nbsp&nbsp&nbsp&nbsp
+    {% endif %}
+        <a href="{{ url_for('blogging.editor') }}" id="new">
+            <span class="glyphicon glyphicon-plus"></span>&nbsp;New
+        </a>
+    </div>
+{% endif %}
+{% if not meta.is_user_blogger %}
+    <div class="pull-right">
+        <a href="{{ url_for('auth.register') }}" id="new">
+            <span class="glyphicon glyphicon-plus"></span>&nbsp;Sign Up!
+        </a>
+    </div>
+{% endif %}
+
+
+      <h1>{{ post.title }}</h1>
+    {{post.rendered_text | safe}}
+
+   <br>
+  <br>
+  {% include "blogging/social_links.html" %}
+  <hr>
+{% include "blogging/disqus.html" %}
+{% endblock main %}

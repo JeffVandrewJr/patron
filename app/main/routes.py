@@ -3,7 +3,7 @@ from app.main import bp
 from app.models import BTCPayClientStore
 from flask import redirect, url_for, flash, render_template, request
 from flask_blogging import PostProcessor
-from flask_blogging.views import page_by_id
+from flask_blogging.views import page_by_id_fetched, page_by_id_processed
 from flask_login import current_user
 from ruamel.yaml import YAML
 import sys
@@ -19,7 +19,7 @@ def index():
             recent=True,
             tag='public'
         )
-        post = posts[0]
+        temp_post = posts[0]
     except Exception as e:
         traceback.print_tb(e.__traceback__)
         sys.stdout.flush()
@@ -29,11 +29,35 @@ def index():
             return redirect(url_for('blogging.editor'))
         else:
             return redirect(url_for('auth.register'))
-    response = page_by_id(
-        post_id=post['post_id'],
-        slug=PostProcessor.create_slug(post['title'])
+    config = blog_engine.config
+    post = blog_engine.storage.get_post_by_id(temp_post['post_id'])
+    meta = {}
+    meta['is_user_blogger'] = False
+    if current_user.is_authenticated:
+        if hasattr(current_user, 'role'):
+            if current_user.role == 'admin':
+                meta['is_user_blogger'] = True
+    meta['post_id'] = temp_post['post_id']
+    meta['slug'] = PostProcessor.create_slug(temp_post['title'])
+    page_by_id_fetched.send(
+        blog_engine.app,
+        engine=blog_engine,
+        post=post,
+        meta=meta
     )
-    return response
+    blog_engine.process_post(post, render=True)
+    page_by_id_processed.send(
+        blog_engine.app,
+        engine=blog_engine,
+        post=post,
+        meta=meta
+    )
+    return render_template(
+        'main/homepage.html',
+        post=post,
+        config=config,
+        meta=meta
+    )
 
 
 @bp.route('/support')
