@@ -10,7 +10,7 @@
 
     <fieldset>
         <!-- Form Name -->
-        <legend>Blog Editor</legend>
+        <legend>Post Update</legend>
         <!-- Text input-->
         <div class="form-group">
             <label class="control-label col-md-offset-2  control-label input-md" for="title">
@@ -33,12 +33,14 @@
             </div>
         </div>
         <!-- Text input-->
-        <div class="form-group">
-            <label class="col-md-offset-2 control-label" for="tags">Tags</label>
-
-            <div class="input-group col-md-8 col-md-offset-2">
-                {{form.tags(id="tags", class="form-control input-md", required="")}}
-            </div>
+        <div class="input-group col-md-8 col-md-offset-2">
+            {% for subfield in form.tags %}
+                <tr>
+                    <td>{{ subfield }}</td>
+                    <td>{{ subfield.label }}</td>
+                    <br>
+                </tr>
+            {% endfor %}
         </div>
         <!-- draft input-->
         <!--div class="form-group">

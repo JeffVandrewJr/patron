@@ -1,8 +1,8 @@
 from config import Config
 from copy import deepcopy
 from flask import Flask
-from flask_blogging import BloggingEngine, SQLAStorage
-from flask_blogging.signals import editor_post_saved
+from flask_blogging_patron import BloggingEngine, SQLAStorage
+from flask_blogging_patron.signals import editor_post_saved
 from flask_bootstrap import Bootstrap
 from flask_login import LoginManager
 from flask_mail import Mail
@@ -31,8 +31,6 @@ admin_permission = Permission(RoleNeed('admin'))
 # deepcopy auto-generated flask_blogging bp, then delete it
 temp_bp = deepcopy(app.blueprints['blogging'])
 del app.blueprints['blogging']
-# delete auto-generated editor
-del app.view_functions['blogging.editor']
 
 # blueprints
 from app.api import bp as api_bp

@@ -2,8 +2,9 @@ from app import blog_engine
 from app.main import bp
 from app.models import BTCPayClientStore
 from flask import redirect, url_for, flash, render_template, request
-from flask_blogging import PostProcessor
-from flask_blogging.views import page_by_id_fetched, page_by_id_processed
+from flask_blogging_patron import PostProcessor
+from flask_blogging_patron.views import page_by_id_fetched,\
+        page_by_id_processed
 from flask_login import current_user
 from ruamel.yaml import YAML
 import sys
