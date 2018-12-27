@@ -1,5 +1,6 @@
 from config import Config
-from datetime import date
+from copy import deepcopy
+from datetime import datetime
 from flask import Flask, flash, redirect, url_for
 from flask_blogging import BloggingEngine, SQLAStorage
 from flask_bootstrap import Bootstrap
@@ -38,18 +39,19 @@ app.register_blueprint(api_bp, url_prefix='/api')
 app.register_blueprint(main_bp)
 
 # modify auto-generated blog blueprint
-blogging_bp = app.blueprints['blogging']
+blogging_bp = deepcopy(app.blueprints['blogging'])
+del app.blueprints['blogging']
 
 
 @blogging_bp.before_request
 def protect():
     if current_user.is_authenticated:
-        if date.today() <= current_user.expiration:
+        if datetime.today() <= current_user.expiration:
             return None
         else:
             flash('You must have a paid-up subscription \
                   to view updates.')
-            redirect(url_for('main.account'))
+            redirect(url_for('auth.account'))
     else:
         flash('Please login to view updates.')
         return redirect(url_for('auth.login'))

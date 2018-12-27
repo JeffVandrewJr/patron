@@ -66,7 +66,8 @@ def load_user(id):
 
 @identity_loaded.connect
 def on_identity_loaded(sender, identity):
-    if current_user.role == 'admin':
-        identity.provides.add(RoleNeed('admin'))
-        identity.provides.add(RoleNeed('blogger'))
+    if hasattr(current_user, 'role'):
+        if current_user.role == 'admin':
+            identity.provides.add(RoleNeed('admin'))
+            identity.provides.add(RoleNeed('blogger'))
     identity.user = current_user

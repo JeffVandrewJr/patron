@@ -40,7 +40,7 @@
                     {% if current_user.is_authenticated %}
                         <li><a href="{{ url_for('auth.account') }}">Account</a></li>
                     {% endif %}
-                    {% if current_user.is_authenticated %}
+                    {% if not current_user.is_authenticated %}
                         <li><a href="{{ url_for('auth.login') }}">Login</a></li>
                     {% else %}
                         <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
