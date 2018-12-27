@@ -1,7 +1,6 @@
 # be sure to enter price as an integer
 # delete any levels if you want less than four
-# maximum levels are 4
-# descriptions over 600 characters will be truncated
+# descriptions over 600 characters may be unaesthetic
 
 Level 1:
     name: Patron

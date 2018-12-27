@@ -41,7 +41,7 @@
         </a>
     </div>
 {% endif %}
-{% if not meta.is_user_blogger %}
+{% if not current_user.is_authenticated %}
     <div class="pull-right">
         <a href="{{ url_for('auth.register') }}" id="new">
             <span class="glyphicon glyphicon-plus"></span>&nbsp;Sign Up!
