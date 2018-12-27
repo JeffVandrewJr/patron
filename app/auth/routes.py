@@ -88,6 +88,9 @@ def adminsetup():
 def account():
     if not current_user.is_authenticated:
         return redirect(url_for('auth.login'))
+    if hasattr(current_user, 'role'):
+        if current_user.role == 'admin':
+            return redirect(url_for('admin.index'))
     return render_template('auth/account.html')
 
 

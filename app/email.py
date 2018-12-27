@@ -25,3 +25,11 @@ def send_password_reset_email(user):
         text_body=render_template('email/reset_password.txt',
                                   user=user, token=token)
     )
+
+
+def email_post(post):
+    # TODO
+    # run through post processor
+    # send processed post to an html template
+    # email the html template
+    pass

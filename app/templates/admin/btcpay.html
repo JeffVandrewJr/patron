@@ -2,12 +2,14 @@
 {% import 'bootstrap/wtf.html' as wtf %}
 
 {% block main %}
-    <h1>Enter your BTCPay Pairing Info</h1>
+    <h2>Enter your BTCPay Pairing Info</h2>
+    <br>
     <div class="row">
         <div class="col-md-4">
             {{ wtf.quick_form(form) }}
         </div>
     </div>
-    <p>You can obtain your code by heading to "~your BTCPay URL~/api-tokens".</p>
+    <br>
+    <p>You can obtain your code by heading to "[your BTCPay URL]/api-tokens".</p>
     <br>
 {% endblock %}

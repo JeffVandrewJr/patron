@@ -30,10 +30,12 @@ class User(UserMixin, db.Model):
 
     def __str__(self):
         return f'''
+                ID: {self.id},
                 {self.username}, 
                 {self.email}, 
-                {self.expiration}, 
-                {self.role}
+                Expires: {self.expiration}, 
+                Plan: {self.role},
+                Email opt out: {self.mail_opt_out}
                 '''
 
     def set_password(self, password):
