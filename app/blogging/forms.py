@@ -11,7 +11,7 @@ class ModifiedBlogEditor(BlogEditor):
         'Optional Parameters',
         choices=[
             ('noemail', 'Do Not Email this Update')
-            ('public', 'This is my homepage text, not an update.')
+            ('public', 'Post this to homepage rather than updates.')
         ]
     )
     draft = BooleanField("draft", default=False)
