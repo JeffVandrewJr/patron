@@ -64,7 +64,7 @@ app.register_blueprint(blogging_bp, url_prefix=app.config.get('BLOGGING_URL_PREF
 # subscribe to new post signal from blog_engine
 from app.email import email_post
 @editor_post_saved.connect
-def email(sender, post):
-    email_post(post)
+def email(sender, post_id):
+    email_post(post_id)
 
 from app import models

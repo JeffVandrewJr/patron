@@ -49,7 +49,8 @@ def register():
         user = User(
             username=form.username.data,
             email=form.email.data,
-            expiration=expiration
+            expiration=expiration,
+            mail_opt_out=False
         )
         user.set_password(form.password.data)
         db.session.add(user)
@@ -91,6 +92,25 @@ def account():
     if hasattr(current_user, 'role'):
         if current_user.role == 'admin':
             return redirect(url_for('admin.index'))
+    if current_user.mail_opt_out is not False:
+        opt_out = True
+    else:
+        opt_out = False
+    return render_template('auth/account.html', opt_out=opt_out)
+
+
+@bp.route('/mailopt')
+def mail_opt():
+    if not current_user.is_authenticated:
+        return redirect(url_for('auth.login'))
+    if hasattr(current_user, 'role'):
+        if current_user.role == 'admin':
+            return redirect(url_for('admin.index'))
+    if current_user.mail_opt_out is not False:
+        current_user.mail_opt_out = False
+    else:
+        current_user.mail_opt_out = True
+    db.session.commit()
     return render_template('auth/account.html')
 
 
