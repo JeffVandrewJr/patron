@@ -56,15 +56,9 @@ from app import models
 
 # set secret key
 
-secret_key_list = models.SecretKey.query.all()
-if secret_key_list is not None:
-    try:
-        app.config['SECRET_KEY'] = secret_key_list[0].key
-    except IndexError:
-        app.config['SECRET_KEY'] = os.urandom(24)
-        secret_key = models.SecretKey(key=app.config['SECRET_KEY'])
-        db.session.add(secret_key)
-        db.session.commit()
+secret_key = models.SecretKey.query.first()
+if secret_key is not None:
+    app.config['SECRET_KEY'] = secret_key.key
 else:
     app.config['SECRET_KEY'] = os.urandom(24)
     secret_key = models.SecretKey(key=app.config['SECRET_KEY'])

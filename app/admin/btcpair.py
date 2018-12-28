@@ -9,7 +9,7 @@ def pairing(code, host):
     btc_client = BTCPayClient(host=host, pem=privkey)
     btc_token = btc_client.pair_client(code)
     btc_client = BTCPayClient(host=host, pem=privkey, tokens=btc_token)
-    client_store = BTCPayClientStore.query.all()[0]
+    client_store = BTCPayClientStore.query.first()
     if client_store is None:
         client_store = BTCPayClientStore(client=btc_client)
         db.session.add(client_store)
