@@ -48,6 +48,8 @@ app.register_blueprint(main_bp)
 from app.email import email_post
 @editor_post_saved.connect
 def email(sender, post_id):
-    email_post(post_id)
+    post = blog_engine.storage.get_post_by_id(post_id)
+    if 'noemail' not in post['tags'] and 'public' not in post['tags']:
+        email_post(post_id)
 
 from app import models
