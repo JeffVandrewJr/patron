@@ -48,7 +48,7 @@ app.register_blueprint(main_bp)
 # subscribe to new post signal from blog_engine
 from app.email import email_post
 @editor_post_saved.connect
-def email(sender, engine, post_id, user, post, email):
+def email_trigger(sender, engine, post_id, user, post, email):
     if email:
         email_post(post_id)
 
