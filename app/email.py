@@ -76,7 +76,7 @@ def email_post(pid):
         meta=meta
     )
     site = app.config.get('BLOGGING_SITENAME')
-    users = User.query.filter_by(mail_opt_out=False)
+    users = User.query.filter_by(mail_opt_out=False).all()
     send_bulkmail(
         f'New Update from {site}',
         sender=app.config.get('ADMIN'),
