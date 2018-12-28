@@ -50,7 +50,7 @@ from app.email import email_post
 @editor_post_saved.connect
 def email_trigger(sender, engine, post_id, user, post, email):
     if email:
-        email_post(post_id)
+        email_post(post)
 
 from app import models
 

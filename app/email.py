@@ -51,28 +51,8 @@ def send_password_reset_email(user):
     )
 
 
-def email_post(pid):
+def email_post(post):
     try:
-        # run through post processor
-        # send processed post to an html template
-        # email the html template
-        post = blog_engine.storage.get_post_by_id(pid)
-        meta = {}
-        meta['is_user_blogger'] = False
-        meta['post_id'] = pid
-        page_by_id_fetched.send(
-            blog_engine.app,
-            engine=blog_engine,
-            post=post,
-            meta=meta
-        )
-        blog_engine.process_post(post, render=True)
-        page_by_id_processed.send(
-            blog_engine.app,
-            engine=blog_engine,
-            post=post,
-            meta=meta
-        )
         html_body = render_template(
             'email/email_post.html',
             post=post,
