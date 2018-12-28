@@ -71,7 +71,8 @@ def adminsetup():
             username=form.username.data,
             email=form.email.data,
             expiration=date.max,
-            role='admin'
+            role='admin',
+            mail_opt_out=False
         )
         user.set_password(form.password.data)
         db.session.add(user)

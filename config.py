@@ -4,7 +4,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 
 class Config(object):
-    ADMIN = os.environ.get('ADMIN') or 'email@domain.com'
+    ADMIN = os.environ.get('EMAIL') or 'email@domain.com'
     BLOGGING_SITENAME = os.environ.get('SITENAME') or 'Patron'
     BLOGGING_SITEURL = os.environ.get('SITEURL') or 'https://example.com'
     BLOGGING_URL_PREFIX = '/updates'

@@ -1,0 +1,5 @@
+{{ post.title }}
+
+{{post.rendered_text | safe}}
+
+If you want to unsubscribe from these updates, log into your account: {{ url_for('auth.account') }} 
