@@ -41,7 +41,8 @@ def send_password_reset_email(user):
         sender=app.config['ADMIN'],
         recipients=[user.email],
         text_body=render_template('email/reset_password.txt',
-                                  user=user, token=token)
+                                  user=user, token=token),
+        html_body=None
     )
 
 
@@ -49,7 +50,6 @@ def email_post(pid):
     # run through post processor
     # send processed post to an html template
     # email the html template
-    config = blog_engine.config
     post = blog_engine.storage.get_post_by_id(pid)
     if 'public' or 'noemail' in post['tags']:
         return None
@@ -72,8 +72,10 @@ def email_post(pid):
     html_body = render_template(
         'email/email_post.html',
         post=post,
-        config=config,
-        meta=meta
+    )
+    text_body = render_template(
+        'email/email_post.txt',
+        post=post,
     )
     site = app.config.get('BLOGGING_SITENAME')
     users = User.query.filter_by(mail_opt_out=False).all()
@@ -81,5 +83,6 @@ def email_post(pid):
         f'New Update from {site}',
         sender=app.config.get('ADMIN'),
         users=users,
-        html_body=html_body
+        html_body=html_body,
+        text_body=text_body
     )
