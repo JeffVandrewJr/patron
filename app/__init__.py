@@ -9,6 +9,7 @@ from flask_mail import Mail
 from flask_migrate import Migrate
 from flask_principal import Permission, RoleNeed
 from flask_sqlalchemy import SQLAlchemy
+import os
 
 app = Flask(__name__)
 
@@ -52,3 +53,20 @@ def email(sender, engine, post_id, user, post, email):
         email_post(post_id)
 
 from app import models
+
+# set secret key
+
+secret_key_list = models.SecretKey.query.all()
+if secret_key_list is not None:
+    try:
+        app.config['SECRET_KEY'] = secret_key_list[0].key
+    except IndexError:
+        app.config['SECRET_KEY'] = os.urandom(24)
+        secret_key = models.SecretKey(key=app.config['SECRET_KEY'])
+        db.session.add(secret_key)
+        db.session.commit()
+else:
+    app.config['SECRET_KEY'] = os.urandom(24)
+    secret_key = models.SecretKey(key=app.config['SECRET_KEY'])
+    db.session.add(secret_key)
+    db.session.commit()
