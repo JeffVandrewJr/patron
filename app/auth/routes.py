@@ -40,7 +40,7 @@ def login():
 @login_required
 def logout():
     logout_user()
-    flash('You are logged out.')
+    flash('You are logged out.', 'info')
     return redirect(url_for('main.index'))
 
 
