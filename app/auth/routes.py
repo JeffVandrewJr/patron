@@ -4,8 +4,10 @@ from app.auth.forms import LoginForm, RegistrationForm, AdminForm,\
         ResetPasswordForm, ResetPasswordRequestForm
 from app.email import send_password_reset_email
 from app.models import User
-from flask import redirect, url_for, render_template, flash, current_app
-from flask_login import current_user, login_user, logout_user
+from app.utils import is_safe_url
+from flask import redirect, url_for, render_template, flash, current_app,\
+        request, abort
+from flask_login import current_user, login_user, logout_user, login_required
 from flask_principal import Identity, identity_changed
 from datetime import date, timedelta
 
@@ -20,17 +22,22 @@ def login():
         if user is None or not user.check_password(form.password.data):
             flash('Invalid username or password')
             return redirect(url_for('auth.login'))
+        flash('Successful login.', 'info')
         login_user(user, remember=form.remember_me.data)
+        next = request.args.get('next')
+        if not is_safe_url(next):
+            return abort(400)
         if user.role == 'admin':
             identity_changed.send(
                 current_app._get_current_object(),
                 identity=Identity(user.id)
             )
-        return redirect(url_for('main.index'))
+        return redirect(next or url_for('main.index'))
     return render_template('auth/login.html', title='Sign In', form=form)
 
 
 @bp.route('/logout')
+@login_required
 def logout():
     logout_user()
     flash('You are logged out.')
@@ -78,7 +85,7 @@ def adminsetup():
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
-        flash('You are now registered as the admin.')
+        flash('You are now registered as the admin.', 'info')
         return redirect(url_for('auth.login'))
     return render_template(
         'auth/adminsetup.html',
@@ -88,9 +95,8 @@ def adminsetup():
 
 
 @bp.route('/account')
+@login_required
 def account():
-    if not current_user.is_authenticated:
-        return redirect(url_for('auth.login'))
     if hasattr(current_user, 'role'):
         if current_user.role == 'admin':
             return redirect(url_for('admin.index'))
@@ -102,9 +108,8 @@ def account():
 
 
 @bp.route('/mailopt')
+@login_required
 def mail_opt():
-    if not current_user.is_authenticated:
-        return redirect(url_for('auth.login'))
     if hasattr(current_user, 'role'):
         if current_user.role == 'admin':
             return redirect(url_for('admin.index'))
@@ -123,9 +128,15 @@ def reset_password_request():
         user = User.query.filter_by(email=form.email.data).first()
         if user:
             send_password_reset_email(user)
-            flash('Check your email for reset instructions.')
+            flash(
+                'Check your email for reset instructions.',
+                'warning'
+            )
         else:
-            flash('No user registered under that email address.')
+            flash(
+                'No user registered under that email address.',
+                'warning'
+            )
         return redirect(url_for('auth.login'))
     return render_template('auth/reset_password.html', form=form)
 
@@ -133,16 +144,19 @@ def reset_password_request():
 @bp.route('/reset_password/<token>', methods=['GET', 'POST'])
 def reset_password(token):
     if current_user.is_authenticated:
-        flash('You must log out before resetting your password.')
+        flash(
+            'You must log out before resetting your password.',
+            'warning'
+        )
         return redirect(url_for('main.index'))
     user = User.verify_reset_password_token(token)
     if not user:
-        flash('Invalid reset token.')
+        flash('Invalid reset token.', 'warning')
         return redirect(url_for('main.index'))
     form = ResetPasswordForm()
     if form.validate_on_submit():
         user.set_password(form.password.data)
         db.session.commit()
-        flash('Your password has been reset.')
+        flash('Your password has been reset.', 'info')
         return redirect(url_for('auth.login'))
     return render_template('auth/reset_password.html', form=form)

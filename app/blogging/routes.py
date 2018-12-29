@@ -11,8 +11,8 @@ def protect():
             return None
         else:
             flash('You must have a paid-up subscription \
-                  to view updates.')
+                  to view updates.', 'warning')
             return redirect(url_for('auth.account'))
     else:
-        flash('Please login to view updates.')
+        flash('Please login to view updates.', 'warning')
         return redirect(url_for('auth.login'))

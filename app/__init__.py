@@ -1,6 +1,6 @@
 from config import Config
 from copy import deepcopy
-from flask import Flask, current_app
+from flask import Flask
 from flask_blogging_patron import BloggingEngine, SQLAStorage
 from flask_bootstrap import Bootstrap
 from flask_login import LoginManager
@@ -8,7 +8,6 @@ from flask_mail import Mail
 from flask_migrate import Migrate
 from flask_principal import Permission, RoleNeed
 from flask_sqlalchemy import SQLAlchemy
-import os
 
 
 # extensions
@@ -18,6 +17,8 @@ migrate = Migrate()
 global sql_storage
 blog_engine = BloggingEngine()
 login = LoginManager()
+login.login_view = 'auth.login'
+login.login_message_category = 'info'
 mail = Mail()
 
 # global

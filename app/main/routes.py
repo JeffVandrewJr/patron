@@ -5,7 +5,7 @@ from flask import redirect, url_for, flash, render_template, request
 from flask_blogging_patron import PostProcessor
 from flask_blogging_patron.views import page_by_id_fetched,\
         page_by_id_processed
-from flask_login import current_user
+from flask_login import current_user, login_required
 from ruamel.yaml import YAML
 import sys
 import traceback
@@ -25,7 +25,7 @@ def index():
         traceback.print_tb(e.__traceback__)
         sys.stdout.flush()
         flash('This site has no homepage yet. \
-              Please create one.')
+              Please create one.', 'warning')
         if current_user.is_authenticated and current_user.role == 'admin':
             return redirect(url_for('blogging.editor'))
         else:
@@ -70,9 +70,8 @@ def support():
 
 
 @bp.route('/createinvoice')
+@login_required
 def create_invoice():
-    if not current_user.is_authenticated:
-        return redirect(url_for('auth.login'))
     price = int(request.args.get('price'))
     level = request.args.get('name')
     btc_client = BTCPayClientStore.query.first().client

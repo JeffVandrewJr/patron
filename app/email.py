@@ -62,7 +62,7 @@ def send_reminder_emails(app, reminder_list):
                 for user in reminder_list:
                     url = urljoin(
                         site,
-                        f'{user.id}/{user.email}'
+                        f'{user.id}/{user.username}'
                     )
                     expires = user.expiration.date()
                     msg = Message(
