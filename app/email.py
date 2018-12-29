@@ -5,6 +5,7 @@ from flask_mail import Message
 import logging
 from markdown import Markdown
 from threading import Thread
+from urllib.parse import urljoin
 
 
 def send_async_email(app, msg):
@@ -29,6 +30,36 @@ def send_email(subject, sender, recipients, text_body, html_body):
     msg.body = text_body
     msg.html = html_body
     Thread(target=send_async_email, args=(app, msg)).start()
+
+
+def send_reminder_emails(app, reminder_list):
+    with app.app_context():
+        try:
+            site = app.config['BLOGGING_SITENAME']
+            with mail.connect() as conn:
+                for user in reminder_list:
+                    url = urljoin(
+                        site,
+                        f'{user.id}/{user.email}'
+                    )
+                    expires = user.expiration.date()
+                    msg = Message(
+                        f'{site} Renewal',
+                        sender=app.config['ADMIN'],
+                        recipients=[user.email],
+                        text_body=render_template(
+                            'renewal.txt',
+                            site,
+                            user,
+                            url,
+                            expires,
+                        ),
+                        html_body=None
+                    )
+                    conn.send(msg)
+        except Exception:
+            logging.exception('Exception in send_reminder_emails')
+            raise
 
 
 def send_bulkmail(subject, sender, users, text_body, html_body):

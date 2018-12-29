@@ -58,7 +58,7 @@ def email_trigger(sender, engine, post_id, user, post):
     if email:
         email_post(send_post)
 
-from app import models
+from app import models, cli
 
 # set secret key
 

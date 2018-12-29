@@ -1,0 +1,10 @@
+Dear {{ user.username }}.
+
+Your support this past month has been greatly appreciated.
+
+Your subscription to {{ site }} expires on {{ expiration }}.
+
+To renew another month of patronage, please click here:
+{{ url }}
+
+Thanks!
