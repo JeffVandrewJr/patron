@@ -48,9 +48,15 @@ app.register_blueprint(main_bp)
 # subscribe to new post signal from blog_engine
 from app.email import email_post
 @editor_post_saved.connect
-def email_trigger(sender, engine, post_id, user, post, email):
+def email_trigger(sender, engine, post_id, user, post):
+    send_post = blog_engine.storage.get_post_by_id(post_id)
+    for tag in send_post['tags']:
+        email = True
+        if tag.lower() == 'public' or tag.lower() == 'noemail':
+            email = False
+            break
     if email:
-        email_post(post)
+        email_post(send_post)
 
 from app import models
 

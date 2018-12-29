@@ -1,10 +1,9 @@
-from app import app, mail, blog_engine
+from app import app, mail
 from app.models import User
 from flask import render_template
-from flask_blogging_patron.signals import page_by_id_fetched,\
-        page_by_id_processed
 from flask_mail import Message
 import logging
+from markdown import Markdown
 from threading import Thread
 
 
@@ -20,7 +19,7 @@ def send_async_bulkmail(app, msg, users):
                 for user in users:
                     msg.recipients = [user.email]
                     conn.send(msg)
-        except Exception as e:
+        except Exception:
             logging.exception('Exception in send_async_bulkmail')
             raise
 
@@ -53,6 +52,8 @@ def send_password_reset_email(user):
 
 def email_post(post):
     try:
+        markdown = Markdown()
+        post['rendered_text'] = markdown.convert(post['text'])
         html_body = render_template(
             'email/email_post.html',
             post=post,
@@ -70,6 +71,6 @@ def email_post(post):
             html_body=html_body,
             text_body=text_body
         )
-    except Exception as e:
+    except Exception:
         logging.exception('Exception in email_post')
         raise

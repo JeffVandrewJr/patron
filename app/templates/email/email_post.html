@@ -1,5 +1,7 @@
 <h1>{{ post.title }}</h1>
 <br>
-<div>{{post.rendered_text | safe}}</div>
+{{ post.rendered_text | safe }}
+<br>
+<br>
 <br>
 <p><small>If you want to unsubscribe from these updates, log into your account <a href="{{ url_for('auth.account') }}">here.</a></small></p>
