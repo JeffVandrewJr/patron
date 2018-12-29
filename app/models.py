@@ -39,13 +39,14 @@ class User(UserMixin, db.Model):
         return f'<User {self.username}>'
 
     def __str__(self):
+        expire_date = self.expiration.date()
         return f'''
-                ID: {self.id},
+                {self.id},
                 {self.username}, 
                 {self.email}, 
-                Expires: {self.expiration}, 
-                Plan: {self.role},
-                Email opt out: {self.mail_opt_out}
+                {expire_date}, 
+                {self.role},
+                {self.mail_opt_out}
                 '''
 
     def set_password(self, password):
