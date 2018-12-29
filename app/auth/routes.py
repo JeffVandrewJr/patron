@@ -104,7 +104,15 @@ def account():
         opt_out = True
     else:
         opt_out = False
-    return render_template('auth/account.html', opt_out=opt_out)
+    if current_user.expiration.date() < date.today():
+        expires = 'Expired'
+    else:
+        expires = current_user.expiration.date()
+    return render_template(
+        'auth/account.html',
+        opt_out=opt_out,
+        expires=expires
+    )
 
 
 @bp.route('/mailopt')

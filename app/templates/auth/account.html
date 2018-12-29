@@ -3,7 +3,7 @@
 {% block main %}
     <h1>Account Information</h1>
     <p>Plan Name: {{ current_user.role }}</p>
-    <p>Expiration: {{current_user.expiration.date() }}</p>
+    <p>Expiration: {{ expires }}</p>
     <a href="{{ url_for('main.support') }}" class="btn btn-default">Make a Payment or Change Plans</a>
     {% if opt_out %}
     <a href="{{ url_for('auth.mail_opt') }}" class="btn btn-default">Opt In to Emails</a>
