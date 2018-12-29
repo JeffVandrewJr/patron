@@ -11,7 +11,7 @@ def index():
     return render_template('admin/adminpanel.html')
 
 
-@bp.route('/btcpay')
+@bp.route('/btcpay', methods=['GET', 'POST'])
 def btcpay():
     form = BTCCodeForm()
     if form.validate_on_submit():
