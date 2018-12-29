@@ -1,6 +1,7 @@
 from config import Config
 from copy import deepcopy
 from flask import Flask
+from flask_apscheduler import APScheduler
 from flask_blogging_patron import BloggingEngine, SQLAStorage
 from flask_bootstrap import Bootstrap
 from flask_login import LoginManager
@@ -20,6 +21,7 @@ login = LoginManager()
 login.login_view = 'auth.login'
 login.login_message_category = 'info'
 mail = Mail()
+scheduler = APScheduler()
 
 # global
 temp_bp = None
@@ -41,6 +43,8 @@ def create_app(config_class=Config):
     login.init_app(app)
     mail.init_app(app)
     blog_engine.init_app(app, sql_storage)
+    scheduler.init_app(app)
+    scheduler.start()
 
     # deepcopy auto-generated flask_blogging bp, then delete it
     global temp_bp
@@ -65,4 +69,4 @@ def create_app(config_class=Config):
     return app
 
 
-from app import models, subscriptions
+from app import models, subscriptions, tasks

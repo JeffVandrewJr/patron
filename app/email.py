@@ -1,6 +1,5 @@
-from app import  mail
+from app import mail
 from app.models import User
-from datetime import datetime, timedelta
 from flask import render_template, current_app
 from flask_mail import Message
 import logging
@@ -33,25 +32,6 @@ def send_email(subject, sender, recipients, text_body, html_body):
     Thread(
         target=send_async_email,
         args=(current_app._get_current_object(), msg)).start()
-
-
-def renewals():
-    yesterday = datetime.today() - timedelta(hours=24)
-    tomorrow = datetime.today() + timedelta(hours=24)
-    last_reminder = User.query.filter_by(
-        expiration < tomorrow,
-        expiration > yesterday
-    ).all()
-    six = datetime.today() + timedelta(hours=144)
-    four = datetime.today() + timedelta(hours=96)
-    first_reminder = User.query.filter_by(
-        expiration < six,
-        expiration > four
-    ).all()
-    reminder_list = first_reminder + last_reminder
-    Thread(
-        target=send_reminder_emails,
-        args=(current_app._get_current_object(), reminder_list)).start()
 
 
 def send_reminder_emails(app, reminder_list):
@@ -129,7 +109,3 @@ def email_post(post):
     except Exception:
         logging.exception('Exception in email_post')
         raise
-
-
-if __name__ == 'main':
-    renewals()
