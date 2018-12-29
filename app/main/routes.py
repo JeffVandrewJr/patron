@@ -1,4 +1,4 @@
-from app import blog_engine
+from app import blog_engine, price_levels, price_plans
 from app.main import bp
 from app.models import BTCPayClientStore
 from flask import redirect, url_for, flash, render_template, request
@@ -6,8 +6,6 @@ from flask_blogging_patron import PostProcessor
 from flask_blogging_patron.views import page_by_id_fetched,\
         page_by_id_processed
 from flask_login import current_user, login_required
-from pathlib import Path
-from ruamel.yaml import YAML
 import traceback
 
 
@@ -62,22 +60,36 @@ def index():
 
 @bp.route('/support')
 def support():
-    yaml = YAML(typ='safe')
-    file = Path('pricing.yaml')
-    if file.is_file():
-        pricing = file
-    else:
-        pricing = Path('pricing.yaml.sample')
-    with open(pricing) as f:
-        levels = yaml.load(f)
-    return render_template('main/support.html', levels=levels)
+    return render_template('main/support.html',
+                           levels=price_levels)
 
 
 @bp.route('/createinvoice')
 @login_required
 def create_invoice():
-    price = int(request.args.get('price'))
-    level = request.args.get('name')
+    user_arg = request.args.get('username')
+    if user_arg is not None:
+        if user_arg != current_user.username:
+            flash('You are logged in as a different user!\
+                  Please log out first.', 'warning')
+            return redirect(url_for('main.index'))
+        else:
+            current_plan = current_user.role
+            if current_plan is not None:
+                price = price_plans.get(current_plan)
+                if price is None:
+                    return redirect(url_for('main.support'))
+                plan = current_plan
+            else:
+                return redirect(url_for('main.support'))
+    else:
+        string_price = request.args.get('price')
+        if string_price is None:
+            return redirect(url_for('main.support'))
+        plan = request.args.get('name')
+        price = int(string_price)
+        if price_plans.get('name') != price:
+            return redirect(url_for('main.support'))
     btc_client = BTCPayClientStore.query.first().client
     if btc_client is None:
         return 'BTCPay has not been paired!', 501
@@ -88,7 +100,7 @@ def create_invoice():
             "name": current_user.username,
             "email": current_user.email,
         },
-        "orderId": level,
+        "orderId": plan,
         "notificationURL": url_for('api.update_sub'),
         "redirectURL": url_for('main.index')
     })

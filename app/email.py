@@ -1,11 +1,11 @@
 from app import mail
 from app.models import User
-from flask import render_template, current_app
+from flask import render_template, current_app, url_for
 from flask_mail import Message
 import logging
 from markdown import Markdown
 from threading import Thread
-from urllib.parse import urljoin
+from urllib.parse import urlencode
 
 
 def send_async_email(app, msg):
@@ -40,14 +40,13 @@ def send_reminder_emails(app, reminder_list):
             site = app.config['BLOGGING_SITENAME']
             with mail.connect() as conn:
                 for user in reminder_list:
-                    url = urljoin(
-                        site,
-                        f'{user.id}/{user.username}'
-                    )
+                    params = urlencode(('username', user.username))
+                    url = str(url_for('main.create_invoice')) + \
+                        '?' + str(params)
                     expires = user.expiration.date()
                     msg = Message(
                         f'{site} Renewal',
-                        sender=app.config['ADMIN'],
+                        sender=app.config.get('ADMIN'),
                         recipients=[user.email],
                         text_body=render_template(
                             'renewal.txt',

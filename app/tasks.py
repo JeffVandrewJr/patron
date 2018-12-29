@@ -6,8 +6,8 @@ from datetime import datetime, timedelta
 
 @scheduler.task(
     'cron', id='do_renewals',
-    hour=scheduler.app.config['SCHEDULER_HOUR'],
-    minute=scheduler.app.config['SCHEDULER_MINUTE'],
+    hour=scheduler.app.config.get('SCHEDULER_HOUR'),
+    minute=scheduler.app.config.get('SCHEDULER_MINUTE'),
 )
 def renewals():
     yesterday = datetime.today() - timedelta(hours=24)

@@ -24,7 +24,7 @@ mail = Mail()
 scheduler = APScheduler()
 
 # global
-temp_bp = None
+global temp_bp
 
 # permissions - flask_principal objects created by BloggingEngine
 principals = blog_engine.principal
@@ -70,3 +70,9 @@ def create_app(config_class=Config):
 
 
 from app import models, subscriptions, tasks
+from app.utils import parse_pricing, levels_to_plans
+
+global price_levels
+price_levels = parse_pricing()
+global price_plans
+price_plans = levels_to_plans(price_levels)
