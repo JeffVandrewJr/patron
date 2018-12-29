@@ -40,7 +40,9 @@ def send_reminder_emails(app, reminder_list):
             site = app.config['BLOGGING_SITENAME']
             with mail.connect() as conn:
                 for user in reminder_list:
-                    params = urlencode(('username', user.username))
+                    dict = {}
+                    dict['username'] = user.username
+                    params = urlencode(dict)
                     url = str(url_for('main.create_invoice')) + \
                         '?' + str(params)
                     expires = user.expiration.date()
@@ -48,14 +50,14 @@ def send_reminder_emails(app, reminder_list):
                         f'{site} Renewal',
                         sender=app.config.get('ADMIN'),
                         recipients=[user.email],
-                        text_body=render_template(
-                            'renewal.txt',
-                            site,
-                            user,
-                            url,
-                            expires,
+                        body=render_template(
+                            'email/reminder.txt',
+                            site=site,
+                            user=user,
+                            url=url,
+                            expires=expires,
                         ),
-                        html_body=None
+                        html=None
                     )
                     conn.send(msg)
         except Exception:
