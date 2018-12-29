@@ -1,6 +1,7 @@
-from app import blog_engine, price_levels, price_plans
+from app import blog_engine
 from app.main import bp
 from app.models import BTCPayClientStore
+from app.pricing import Pricing
 from flask import redirect, url_for, flash, render_template, request
 from flask_blogging_patron import PostProcessor
 from flask_blogging_patron.views import page_by_id_fetched,\
@@ -60,6 +61,7 @@ def index():
 
 @bp.route('/support')
 def support():
+    price_levels = Pricing().price_levels
     return render_template('main/support.html',
                            levels=price_levels)
 
@@ -67,6 +69,7 @@ def support():
 @bp.route('/createinvoice')
 @login_required
 def create_invoice():
+    price_plans = Pricing().price_plans
     user_arg = request.args.get('username')
     if user_arg is not None:
         if user_arg != current_user.username:
@@ -88,7 +91,7 @@ def create_invoice():
             return redirect(url_for('main.support'))
         plan = request.args.get('name')
         price = int(string_price)
-        if price_plans.get('name') != price:
+        if price_plans.get(plan) != price:
             return redirect(url_for('main.support'))
     btc_client = BTCPayClientStore.query.first().client
     if btc_client is None:

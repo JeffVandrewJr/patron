@@ -2,13 +2,19 @@ from app import scheduler
 from app.email import send_reminder_emails
 from app.models import User
 from datetime import datetime, timedelta
+import os
+
+hour = os.environ.get('SCHEDULER_HOUR')
+minute = os.environ.get('SCHEDULER_MINUTE')
+if hour is not None:
+    hour = int(hour)
+else:
+    hour = 9
+if minute is not None:
+    minute = int(minute)
 
 
-@scheduler.task(
-    'cron', id='do_renewals',
-    hour=scheduler.app.config.get('SCHEDULER_HOUR'),
-    minute=scheduler.app.config.get('SCHEDULER_MINUTE'),
-)
+@scheduler.task('cron', id='do_renewals', hour=hour, minute=minute)
 def renewals():
     yesterday = datetime.today() - timedelta(hours=24)
     tomorrow = datetime.today() + timedelta(hours=24)

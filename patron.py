@@ -2,6 +2,7 @@
 
 from app import create_app, db, blog_engine
 from app.models import User, BTCPayClientStore, SecretKey
+from app.pricing import Pricing
 from flask_blogging_patron.signals import editor_post_saved
 import os
 
@@ -26,4 +27,5 @@ def make_shell_context():
             'editor_post_saved': editor_post_saved,
             'blog_engine': blog_engine,
             'BTCPayClientStore': BTCPayClientStore,
+            'Pricing': Pricing,
            }
