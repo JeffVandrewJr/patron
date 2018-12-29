@@ -10,13 +10,15 @@ def update_sub():
     # receives and processes pmt notifications from BTCPay
     if not request.json or 'id' not in request.json:
         abort(400)
-    btc_client_store = BTCPayClientStore.query.all().first()
+    btc_client_store = BTCPayClientStore.query.all()[0]
     btc_client = btc_client_store.client
     invoice = btc_client.get_invoice(request.json['id'])
     if isinstance(invoice, dict):
         if 'status' in invoice:
-            if invoice['status'] == "paid" or "confirmed":
-                user = User.query.filter_by(username=invoice['buyer']['name']).first()
+            if invoice['status'] == "paid" or \
+               invoice['status'] == "confirmed":
+                user = User.query.filter_by(
+                    username=invoice['buyer']['name']).first()
                 if user is None:
                     return "Payment made for unregistered user.", 200
                 if user.role == 'admin':

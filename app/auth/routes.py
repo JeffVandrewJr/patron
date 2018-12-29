@@ -105,7 +105,7 @@ def account():
     else:
         opt_out = False
     if current_user.expiration.date() < date.today():
-        expires = 'Expired'
+        expires = 'No Current Subscription'
     else:
         expires = current_user.expiration.date()
     return render_template(
