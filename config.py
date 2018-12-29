@@ -4,7 +4,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 
 class Config(object):
-    ADMIN = os.environ.get('EMAIL') or 'email@domain.com'
+    ADMIN = os.environ.get('EMAIL')
     BLOGGING_SITENAME = os.environ.get('SITENAME') or 'Patron'
     BLOGGING_SITEURL = os.environ.get('SITEURL') or 'https://example.com'
     BLOGGING_URL_PREFIX = '/updates'
@@ -22,7 +22,7 @@ class Config(object):
     MAIL_USE_TLS = os.environ.get('MAIL_USE_TLS') is not None
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
-    SECRET_KEY = os.environ.get('SECRET_KEY') or '085767hsjd83dhddfvjhd74t'
+    SECRET_KEY = 'handled & stored by app/__init__.py'
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
         'sqlite:///' + os.path.join(basedir, 'app.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
