@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 
 
 @scheduler.task(
-    'cron', id='renewals',
+    'cron', id='do_renewals',
     hour=scheduler.app.config['SCHEDULER_HOUR'],
     minute=scheduler.app.config['SCHEDULER_MINUTE'],
 )
