@@ -24,7 +24,7 @@ class Config(object):
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
     SCHEDULER_HOUR = int(os.environ.get('SCHEDULER_HOUR')) or 9
     SCHEDULER_MINUTE = int(os.environ.get('SCHEDULER_MINUTE'))
-    SECRET_KEY = 'handled & stored by app/__init__.py'
+    SECRET_KEY = 'handled & stored by patron.py'
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
         'sqlite:///' + os.path.join(basedir, 'app.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
