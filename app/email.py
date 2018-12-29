@@ -1,7 +1,7 @@
-from app import app, mail
+from app import  mail
 from app.models import User
 from datetime import datetime, timedelta
-from flask import render_template
+from flask import render_template, current_app
 from flask_mail import Message
 import logging
 from markdown import Markdown
@@ -30,7 +30,9 @@ def send_email(subject, sender, recipients, text_body, html_body):
     msg = Message(subject, sender=sender, recipients=recipients)
     msg.body = text_body
     msg.html = html_body
-    Thread(target=send_async_email, args=(app, msg)).start()
+    Thread(
+        target=send_async_email,
+        args=(current_app._get_current_object(), msg)).start()
 
 
 def renewals():
@@ -47,7 +49,9 @@ def renewals():
         expiration > four
     ).all()
     reminder_list = first_reminder + last_reminder
-    Thread(target=send_reminder_emails, args=(app, reminder_list)).start()
+    Thread(
+        target=send_reminder_emails,
+        args=(current_app._get_current_object(), reminder_list)).start()
 
 
 def send_reminder_emails(app, reminder_list):
@@ -84,14 +88,16 @@ def send_bulkmail(subject, sender, users, text_body, html_body):
     msg = Message(subject, sender=sender)
     msg.body = text_body
     msg.html = html_body
-    Thread(target=send_async_bulkmail, args=(app, msg, users)).start()
+    Thread(
+        target=send_async_bulkmail,
+        args=(current_app._get_current_object(), msg, users)).start()
 
 
 def send_password_reset_email(user):
     token = user.get_reset_password_token()
     send_email(
         'Password Reset',
-        sender=app.config['ADMIN'],
+        sender=current_app.config['ADMIN'],
         recipients=[user.email],
         text_body=render_template('email/reset_password.txt',
                                   user=user, token=token),
@@ -111,11 +117,11 @@ def email_post(post):
             'email/email_post.txt',
             post=post,
         )
-        site = app.config.get('BLOGGING_SITENAME')
+        site = current_app.config.get('BLOGGING_SITENAME')
         users = User.query.filter_by(mail_opt_out=False).all()
         send_bulkmail(
             f'New Update from {site}',
-            sender=app.config.get('ADMIN'),
+            sender=current_app.config.get('ADMIN'),
             users=users,
             html_body=html_body,
             text_body=text_body
