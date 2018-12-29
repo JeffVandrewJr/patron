@@ -6,8 +6,8 @@ from flask_blogging_patron import PostProcessor
 from flask_blogging_patron.views import page_by_id_fetched,\
         page_by_id_processed
 from flask_login import current_user, login_required
+from pathlib import Path
 from ruamel.yaml import YAML
-import sys
 import traceback
 
 
@@ -23,7 +23,6 @@ def index():
         temp_post = posts[0]
     except Exception as e:
         traceback.print_tb(e.__traceback__)
-        sys.stdout.flush()
         flash('This site has no homepage yet. \
               Please create one.', 'warning')
         if current_user.is_authenticated and current_user.role == 'admin':
@@ -64,7 +63,12 @@ def index():
 @bp.route('/support')
 def support():
     yaml = YAML(typ='safe')
-    with open('pricing.yaml') as f:
+    file = Path('pricing.yaml')
+    if file.is_file():
+        pricing = file
+    else:
+        pricing = Path('pricing.yaml.sample')
+    with open(pricing) as f:
         levels = yaml.load(f)
     return render_template('main/support.html', levels=levels)
 
