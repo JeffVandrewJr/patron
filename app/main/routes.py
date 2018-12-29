@@ -75,7 +75,7 @@ def create_invoice():
         return redirect(url_for('auth.login'))
     price = int(request.args.get('price'))
     level = request.args.get('name')
-    btc_client = BTCPayClientStore.query.all().first()
+    btc_client = BTCPayClientStore.query.first().client
     if btc_client is None:
         return 'BTCPay has not been paired!', 501
     inv_data = btc_client.create_invoice({
