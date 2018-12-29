@@ -4,7 +4,11 @@ from app.models import User
 from datetime import datetime, timedelta
 
 
-@scheduler.task('cron', id='renewals', hour=9)
+@scheduler.task(
+    'cron', id='renewals',
+    hour=scheduler.app.config['SCHEDULER_HOUR'],
+    minute=scheduler.app.config['SCHEDULER_MINUTE'],
+)
 def renewals():
     yesterday = datetime.today() - timedelta(hours=24)
     tomorrow = datetime.today() + timedelta(hours=24)
