@@ -115,10 +115,12 @@ def mail_opt():
             return redirect(url_for('admin.index'))
     if current_user.mail_opt_out is not False:
         current_user.mail_opt_out = False
+        flash('Succesfully opted in.', 'info')
     else:
         current_user.mail_opt_out = True
+        flash('Succesfully opted out.', 'info')
     db.session.commit()
-    return render_template('auth/account.html')
+    return redirect(url_for('auth.account'))
 
 
 @bp.route('/resetrequest', methods=['GET', 'POST'])
