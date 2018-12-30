@@ -50,7 +50,7 @@ sudo docker-compose up -d
 ```
 Your site will then be launched and operational!
 
-The first visitor to the site will be prompted to register as administrator. The administrator is hte user that posts updates, gets paid, etc. The administrator is the content creator.
+The first visitor to the site will be prompted to register as administrator. The administrator is the user that posts updates, gets paid, etc. The administrator is the content creator.
 
 After registering as administrator, be sure to first make a "homepage" post. A "homepage" post does not appear on your updates, but sets the text for the main page that all visitors (subscribed or not) can view. Then you can add some updates.
 
