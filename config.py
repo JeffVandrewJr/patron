@@ -30,4 +30,4 @@ class Config(object):
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
         'sqlite:///' + join(basedir, 'app.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    # SERVER_NAME='127.0.0.1'
+    SERVER_NAME = os.environ.get('VIRTUAL_HOST')
