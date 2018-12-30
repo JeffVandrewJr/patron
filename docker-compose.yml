@@ -34,6 +34,7 @@ services:
 
 volumes:
     data-volume:
+        driver: local
 
 networks:  
   default:
