@@ -104,7 +104,7 @@ def create_invoice():
             "email": current_user.email,
         },
         "orderId": plan,
-        "notificationURL": url_for('api.update_sub'),
-        "redirectURL": url_for('main.index')
+        "notificationURL": url_for('api.update_sub', _external=True),
+        "redirectURL": url_for('main.index', _external=True)
     })
     return redirect(inv_data['url'])
