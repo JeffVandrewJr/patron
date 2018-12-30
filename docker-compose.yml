@@ -23,7 +23,7 @@ services:
 
     librepatron:
         container_name: librepatron
-        image: jvandrew/librepatron:0.1.4
+        image: jvandrew/librepatron:0.1.5
         volumes:
             - data-volume:/var/lib/db
         env_file:
