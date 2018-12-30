@@ -55,3 +55,20 @@ The first visitor to the site will be prompted to register as administrator. The
 After registering as administrator, be sure to first make a "homepage" post. A "homepage" post does not appear on your updates, but sets the text for the main page that all visitors (subscribed or not) can view. Then you can add some updates.
 
 Before letting people know about your site, be sure to click "Account" to pair your site to your BTCPay server!
+
+<h3>Notes</h3>
+
+You'll note that during setup, you must provide a "secret code" of random digits. This is necessary for a variety of reasons. If you don't know how to get one, here is one method:
+
+```bash
+python3
+```
+
+```python
+import os
+os.urandom(24).hex()
+```
+
+A random string will be printed to screen that you can then copy and paste.
+
+You'll also need SMTP server info. Gmail is not a good server to use for this purpose. If you need one, here's an example of a service that would work: https://www.easy-smtp.com/
