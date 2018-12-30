@@ -2,7 +2,6 @@ import os
 from os.path import normpath, abspath, join
 
 basedir = abspath(os.path.dirname(__file__))
-db_dir = normpath(join(basedir, '/db'))
 
 
 class Config(object):
@@ -27,6 +26,6 @@ class Config(object):
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'placeholder'
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
-        'sqlite:///' + join(db_dir, 'app.db')
+        'sqlite:///' + join(basedir, 'app.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     # SERVER_NAME='127.0.0.1'

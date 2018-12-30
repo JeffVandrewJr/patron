@@ -1,5 +1,5 @@
 #persistent storage
-app.db
+*.db
 data
 dump.rdb
 
