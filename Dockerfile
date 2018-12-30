@@ -1,8 +1,8 @@
 FROM python:3.7.1-alpine3.8
 
-WORKDIR /btcqbo
+WORKDIR /patron
 
-COPY . /btcqbo
+COPY . /patron
 
 RUN pip install gunicorn
 RUN pip install -r requirements.txt
