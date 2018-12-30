@@ -2,10 +2,9 @@ from app import scheduler, db
 from app.email import send_reminder_emails
 from app.models import User
 from datetime import datetime, timedelta
-import os
 
-hour = os.environ.get('SCHEDULER_HOUR')
-minute = os.environ.get('SCHEDULER_MINUTE')
+hour = scheduler.app.config.get('SCHEDULER_HOUR')
+minute = scheduler.app.config.get('SCHEDULER_MINUTE')
 if hour is not None:
     hour = int(hour)
 else:
@@ -18,14 +17,14 @@ if minute is not None:
 def renewals():
     yesterday = datetime.today() - timedelta(hours=24)
     tomorrow = datetime.today() + timedelta(hours=24)
-    with db.app.app_context():
+    with scheduler.app.app_context():
         last_reminder = User.query.filter(
             User.expiration < tomorrow,
             User.expiration > yesterday
         ).all()
     six = datetime.today() + timedelta(hours=144)
     four = datetime.today() + timedelta(hours=96)
-    with db.app.app_context():
+    with scheduler.app.app_context():
         first_reminder = User.query.filter(
             User.expiration < six,
             User.expiration > four
