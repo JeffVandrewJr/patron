@@ -23,7 +23,7 @@ services:
 
     librepatron:
         container_name: librepatron
-        image: jvandrew/librepatron:0.1.16
+        image: jvandrew/librepatron:0.1.17
         expose:
             - "8006"
         volumes:
