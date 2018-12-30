@@ -30,4 +30,4 @@ def renewals():
             User.expiration > four
         ).all()
     reminder_list = first_reminder + last_reminder
-    send_reminder_emails(db.app, reminder_list)
+    send_reminder_emails(scheduler.app, reminder_list)
