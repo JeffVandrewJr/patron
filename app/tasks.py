@@ -1,4 +1,4 @@
-from app import scheduler
+from app import scheduler, db
 from app.email import send_reminder_emails
 from app.models import User
 from datetime import datetime, timedelta
@@ -18,15 +18,17 @@ if minute is not None:
 def renewals():
     yesterday = datetime.today() - timedelta(hours=24)
     tomorrow = datetime.today() + timedelta(hours=24)
-    last_reminder = User.query.filter(
-        User.expiration < tomorrow,
-        User.expiration > yesterday
-    ).all()
+    with db.app.app_context():
+        last_reminder = User.query.filter(
+            User.expiration < tomorrow,
+            User.expiration > yesterday
+        ).all()
     six = datetime.today() + timedelta(hours=144)
     four = datetime.today() + timedelta(hours=96)
-    first_reminder = User.query.filter(
-        User.expiration < six,
-        User.expiration > four
-    ).all()
+    with db.app.app_context():
+        first_reminder = User.query.filter(
+            User.expiration < six,
+            User.expiration > four
+        ).all()
     reminder_list = first_reminder + last_reminder
-    send_reminder_emails(scheduler.app, reminder_list)
+    send_reminder_emails(db.app, reminder_list)
