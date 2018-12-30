@@ -8,7 +8,7 @@ RUN apk add --no-cache gcc musl-dev libffi libffi-dev python3-dev openssl-dev tz
 RUN ln -sf /usr/share/zoneinfo/America/New_York /etc/localtime
 RUN pip install gunicorn
 RUN pip install -r requirements.txt
-RUN flask db upgrade
+RUN chmod +x boot.sh
 
 ENV FLASK_APP=patron.py
 ENV TZ=America/New_York
@@ -17,4 +17,4 @@ ENV GUNICORN_CMD_ARGS="--bind=0.0.0.0:8006 --workers=3 --access-logfile=- --erro
 
 EXPOSE 8006
 
-CMD ["gunicorn", "patron:app"]
+ENTRYPOINT ["./boot.sh"]
