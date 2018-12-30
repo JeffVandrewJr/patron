@@ -7,10 +7,10 @@ COPY . /patron
 RUN apk add --no-cache gcc musl-dev libffi libffi-dev python3-dev openssl-dev tzdata
 RUN pip install gunicorn
 RUN pip install -r requirements.txt
-RUN flask db upgrade
+
+CMD flask db upgrade
 
 ENV FLASK_APP=patron.py
-ENV TZ=America/New_York
 ENV SQLALCHEMY_DATABASE_URI=/var/lib/db
 ENV GUNICORN_CMD_ARGS="--bind=0.0.0.0:8001 --workers=3 --access-logfile=- --error-logfile=-"
 
