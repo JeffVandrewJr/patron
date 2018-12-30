@@ -12,7 +12,6 @@ RUN chmod +x boot.sh
 
 ENV FLASK_APP=patron.py
 ENV TZ=America/New_York
-ENV DATABASE_URL=sqlite:///patron/db
 ENV GUNICORN_CMD_ARGS="--bind=0.0.0.0:8006 --workers=3 --access-logfile=- --error-logfile=-"
 
 EXPOSE 8006
