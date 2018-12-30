@@ -1,5 +1,6 @@
 from app import mail
 from app.models import User
+from datetime import datetime
 from flask import render_template, current_app, url_for
 from flask_mail import Message
 import logging
@@ -18,6 +19,8 @@ def send_async_bulkmail(app, msg, users):
         try:
             with mail.connect() as conn:
                 for user in users:
+                    if user.expiration <= datetime.today():
+                        break
                     msg.recipients = [user.email]
                     conn.send(msg)
         except Exception:
