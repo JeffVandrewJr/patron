@@ -1,0 +1,57 @@
+<h1>LibrePatron: A Self-Hosted Patreon Alternative Backed by BTCPay</h1>
+
+Copyright (C) 2018 Jeff Vandrew Jr
+
+Patreon is a popular service that allows content creators to receive contributions from supporters on a recurring basis. Unfortunately, Patreon is also a dedicated enemy of the concept of free speech as an important civic virtue. Patreon is known to arbitarily ban its creators for "thought crime."
+
+Unfortunately most Patreon alternatives to date do not implement all of Patreon's main features, namely:
+
+* Main page to entice new subscribers
+* Google Analytics
+* Protected page to post updates (viewable by subscribers only)
+* Automatic bulk emailing of updates to subscribers
+* Managing billing and subscription expiration
+* Automatic monthly billing via email
+
+While still in alpha status, LibrePatron implements all of these features. 
+
+Portions of this package rely on a fork of the Flask-Blogging package by Gouthaman Balaraman.
+
+If you're a creator reading this unconcerned with free speech issues, Patreon still takes a percentage of your earnings, which can be avoided by using LibrePatron.
+
+<h2>Improvements Roadmap</h2>
+
+1. Right now the site isn't mobile-responsive. This is the top priority.
+2. Fiat integration. We're not in a 100% Bitcoin world yet (unfortunately). A plugin for accepting credit card payments is another big priority.
+3. The subscriber export feature in the administrator web interface currently displays the subscriber CSV data to screen, which has to be cut and pasted to export. This should instead allow the browser to download the CSV directly.
+4. Allowing subsribers to comment on updates is turned off by default, but is permitted by entering Disqus information in the configuration file. If turning this feature on is pupular, factoring out Disqus could be a long term improvement.
+
+<h2>Installation</h2>
+
+A docker-compose is provided that automatically installs LibrePatron along with nginx and obtains SSL certificates, all in a few easy steps:
+
+```bash
+wget https://raw.githubusercontent.com/JeffVandrewJr/patron/master/librepatron.env
+
+# open librepatron.env and fill in the necessary info as mentioned in the file comments, and then save
+nano librepatron.env
+
+mkdir pricing
+cd pricing
+wget -O pricing.yaml https://raw.githubusercontent.com/JeffVandrewJr/patron/master/pricing.yaml.sample
+
+# open pricing.yaml, enter your subscription plans, and then save it
+nano pricing.yaml
+
+cd ..
+sudo docker network create nginx-net
+wget https://raw.githubusercontent.com/JeffVandrewJr/patron/master/docker-compose.yml
+sudo docker-compose up -d
+```
+Your site will then be launched and operational!
+
+The first visitor to the site will be prompted to register as administrator. The administrator is hte user that posts updates, gets paid, etc. The administrator is the content creator.
+
+After registering as administrator, be sure to first make a "homepage" post. A "homepage" post does not appear on your updates, but sets the text for the main page that all visitors (subscribed or not) can view. Then you can add some updates.
+
+Before letting people know about your site, be sure to click "Account" to pair your site to your BTCPay server!
