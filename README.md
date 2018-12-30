@@ -60,10 +60,8 @@ Before letting people know about your site, be sure to click "Account" to pair y
 
 You'll note that during setup, you must provide a "secret code" of random digits. This is necessary for a variety of reasons. If you don't know how to get one, here is one method:
 
-```bash
-python3
-```
 ```python
+python3
 >>>import os
 >>>os.urandom(24).hex()
 >>>exit()
