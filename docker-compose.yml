@@ -28,7 +28,7 @@ services:
             - "8006"
         volumes:
             - '~/pricing:/var/pricing'
-            - data-volume:/var/lib/db
+            - data-volume:/patron/db
         env_file:
             - librepatron.env
 
