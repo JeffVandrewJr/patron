@@ -2,4 +2,4 @@
 
 {{ post.text }}
 
-If you want to unsubscribe from these updates, log into your account: {{ url_for('auth.account') }} 
+If you want to unsubscribe from these updates, log into your account: {{ url_for('auth.account', _external=True) }} 

@@ -46,8 +46,8 @@ def send_reminder_emails(app, reminder_list):
                     dict = {}
                     dict['username'] = user.username
                     params = urlencode(dict)
-                    url = str(url_for('main.create_invoice')) + \
-                        '?' + str(params)
+                    url = str(url_for('main.create_invoice', external=True))\
+                        + '?' + str(params)
                     expires = user.expiration.date()
                     msg = Message(
                         f'{site} Renewal',
