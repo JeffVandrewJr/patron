@@ -4,7 +4,7 @@ WORKDIR /patron
 
 COPY . /patron
 
-RUN apk add --no-cache gcc musl-dev libffi
+RUN apk add --no-cache gcc musl-dev libffi libffi-dev python3-dev
 RUN pip install gunicorn
 RUN pip install -r requirements.txt
 
