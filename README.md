@@ -28,7 +28,7 @@ If you're a creator reading this unconcerned with free speech issues, Patreon st
 
 <h2>Installation</h2>
 
-A docker-compose is provided that automatically installs LibrePatron along with nginx and obtains SSL certificates, all in a few easy steps (to be executed from $HOME):
+A docker-compose is provided that automatically installs LibrePatron along with nginx and obtains SSL certificates, all in a few easy steps (to be executed from `$HOME`):
 
 ```bash
 wget https://raw.githubusercontent.com/JeffVandrewJr/patron/master/librepatron.env
