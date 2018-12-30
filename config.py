@@ -1,4 +1,3 @@
-from flask_apscheduler.auth import HTTPBasicAuth
 import os
 
 basedir = os.path.abspath(os.path.dirname(__file__))
