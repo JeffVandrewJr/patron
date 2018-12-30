@@ -65,8 +65,9 @@ python3
 ```
 
 ```python
-import os
-os.urandom(24).hex()
+>>>import os
+>>>os.urandom(24).hex()
+>>>exit()
 ```
 
 A random string will be printed to screen that you can then copy and paste.
