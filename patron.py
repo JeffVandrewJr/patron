@@ -10,17 +10,6 @@ import os
 
 app = create_app()
 
-# automate secret key
-with app.app_context():
-    secret_key = SecretKey.query.first()
-    if secret_key is not None:
-        app.config['SECRET_KEY'] = secret_key.key
-    else:
-        app.config['SECRET_KEY'] = os.urandom(24)
-        secret_key = SecretKey(key=app.config['SECRET_KEY'])
-        db.session.add(secret_key)
-        db.session.commit()
-
 
 @app.shell_context_processor
 def make_shell_context():
