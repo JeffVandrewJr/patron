@@ -13,7 +13,7 @@ RUN flask db upgrade
 ENV FLASK_APP=patron.py
 ENV TZ=America/New_York
 ENV SQLALCHEMY_DATABASE_URI=/var/lib/db
-ENV GUNICORN_CMD_ARGS="--bind=0.0.0.0:8001 --workers=3 --access-logfile=- --error-logfile=-"
+ENV GUNICORN_CMD_ARGS="--bind=0.0.0.0:8006 --workers=3 --access-logfile=- --error-logfile=-"
 
 EXPOSE 8006
 
