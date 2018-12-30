@@ -63,7 +63,6 @@ You'll note that during setup, you must provide a "secret code" of random digits
 ```bash
 python3
 ```
-
 ```python
 >>>import os
 >>>os.urandom(24).hex()
