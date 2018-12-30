@@ -9,8 +9,9 @@ RUN pip install gunicorn
 RUN pip install -r requirements.txt
 
 ENV FLASK_APP=patron.py
+ENV SQLALCHEMY_DATABASE_URI=/var/lib/db
 ENV GUNICORN_CMD_ARGS="--bind=0.0.0.0:8001 --workers=3 --access-logfile=- --error-logfile=-"
 
-EXPOSE 8001
+EXPOSE 8006
 
 CMD ["gunicorn", "patron:app"]
