@@ -1,4 +1,4 @@
-Dear {{ user.username }}.
+Dear {{ user.username }},
 
 Your support this past month has been greatly appreciated.
 
