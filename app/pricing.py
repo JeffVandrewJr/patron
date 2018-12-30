@@ -9,7 +9,7 @@ class Pricing(object):
 
     def _get_price_levels(self):
         yaml = YAML(typ='safe')
-        file = Path('pricing.yaml')
+        file = Path('/var/pricing/pricing.yaml')
         if file.is_file():
             pricing = file
         else:

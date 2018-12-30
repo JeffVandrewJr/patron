@@ -27,6 +27,7 @@ services:
         expose:
             - "8006"
         volumes:
+            - '~/pricing:/var/pricing'
             - data-volume:/var/lib/db
         env_file:
             - librepatron.env
