@@ -24,7 +24,7 @@ If you're a creator reading this unconcerned with free speech issues, Patreon st
 1. Right now the site isn't mobile-responsive. This is the top priority.
 2. Fiat integration. We're not in a 100% Bitcoin world yet (unfortunately). A plugin for accepting credit card payments is another big priority.
 3. The subscriber export feature in the administrator web interface currently displays the subscriber CSV data to screen, which has to be cut and pasted to export. This should instead allow the browser to download the CSV directly.
-4. Allowing subsribers to comment on updates is turned off by default, but is permitted by entering Disqus information in the configuration file. If turning this feature on is pupular, factoring out Disqus could be a long term improvement.
+4. Allowing subsribers to comment on updates is turned off by default, but is permitted by entering Disqus information in the configuration file. If turning this feature on is popular, factoring out Disqus could be a long term improvement.
 
 <h2>Installation</h2>
 
