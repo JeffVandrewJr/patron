@@ -50,7 +50,7 @@ sudo docker-compose up -d
 ```
 Your site will then be launched and operational!
 
-**IMPORTANT**: Your MUST configure your "stor" on your BTCPay Server to consider 0conf transactions to be "confirmed," or else when your patron is redirected back to your site, he won't have access to resources for 10+ minutes. To do this, from your BTCPay administration interface, click Stores>Settings>Consider the invoice confirmed when the payment transaction...>is unconfirmed.
+**IMPORTANT**: Your _**MUST**_ configure your "store" on your BTCPay Server to consider 0-conf transactions to be "confirmed," or else when your patron is redirected back to your site he won't have access to resources for 10+ minutes. To do this, from your BTCPay administration interface, click Stores>Settings>Consider the invoice confirmed when the payment transaction...>is unconfirmed.
 
 The first visitor to the site will be prompted to register as administrator. The administrator is the user that posts updates, gets paid, etc. The administrator is the content creator.
 
