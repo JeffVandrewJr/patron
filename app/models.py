@@ -1,10 +1,20 @@
-from app import db, login, blog_engine
-from flask import current_app
+from app import db, login, blog_engine, admin
+from flask import current_app, redirect, url_for
+from flask_admin.contrib.sqla import ModelView
 from flask_login import UserMixin, current_user
 from flask_principal import identity_loaded, RoleNeed
 import jwt
 from time import time
 from werkzeug.security import generate_password_hash, check_password_hash
+
+
+class LibrePatronModelView(ModelView):
+    def is_accessible(self):
+        return current_user.is_authenticated and \
+                current_user.role == 'admin'
+
+    def inaccessible_callback(self, name, **kwargs):
+        return redirect(url_for('auth.login'))
 
 
 class BTCPayClientStore(db.Model):
@@ -85,3 +95,6 @@ def on_identity_loaded(sender, identity):
             identity.provides.add(RoleNeed('admin'))
             identity.provides.add(RoleNeed('blogger'))
     identity.user = current_user
+
+
+admin.add_view(ModelView(User, db.session))
