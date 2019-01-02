@@ -10,9 +10,9 @@ class BlogEditor(FlaskForm):
     tags = RadioField(
         'Optional Parameters',
         choices=[
-            ('normal', 'Post this update and email to all subscribers.'),
-            ('noemail', 'Do Not Email this Update'),
-            ('public', 'Post this to homepage rather than updates.'),
+            ('normal', 'Post this as a subscriber update and email to all subscribers.'),
+            ('noemail', 'Post this as a subscriber update, but do not email it.'),
+            ('public', 'Post this to the public homepage rather than updates.'),
         ]
     )
     draft = BooleanField("draft", default=False)

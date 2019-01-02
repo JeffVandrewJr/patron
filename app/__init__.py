@@ -23,7 +23,7 @@ login.login_view = 'auth.login'
 login.login_message_category = 'info'
 mail = Mail()
 scheduler = APScheduler()
-admin = Admin(name='LibrePatron', template_mode='bootstrap3')
+admin = Admin(name='LibrePatron Admin', template_mode='bootstrap3')
 
 # global
 global temp_bp
