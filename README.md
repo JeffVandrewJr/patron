@@ -2,7 +2,7 @@
 
 Copyright (C) 2018 Jeff Vandrew Jr
 
-Latest Stable Release: 0.1.27
+Latest Stable Release: 0.1.28
 
 Patreon is a popular service that allows content creators to receive contributions from supporters on a recurring basis. Unfortunately, Patreon is also a dedicated enemy of the concept of free speech as an important civic virtue. Patreon is known to arbitarily ban its creators for "thought crime."
 
@@ -61,7 +61,7 @@ The first visitor to the site will be prompted to register as administrator. The
 
 After registering as administrator, be sure to first make a "homepage" post. A "homepage" post does not appear on your updates, but sets the text for the main page that all visitors (subscribed or not) can view. Then you can add some updates.
 
-Before letting people know about your site, be sure to click "Account" to pair your site to your BTCPay server!
+Before letting people know about your site, be sure to click "Admin Panel" to pair your site to your BTCPay server!
 
 <h3>Notes</h3>
 
