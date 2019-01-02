@@ -3,7 +3,8 @@
 {% block main %}
     <h1>Account Information</h1>
     <p>Plan Name: {{ current_user.role }}</p>
-    <p>Expiration: {{ expires }}</p>
+    <p>Expiration: {{ expires }}
+    Note that if you made a payment today, your full 30 day extension will not be reflected until the blockchain confirms payment.</p>
     <a href="{{ url_for('main.support') }}" class="btn btn-default">Make a Payment or Change Plans</a>
     {% if opt_out %}
     <a href="{{ url_for('auth.mail_opt') }}" class="btn btn-default">Opt In to Emails</a>

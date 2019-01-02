@@ -9,7 +9,7 @@ from flask import request, abort
 def update_sub():
     # receives and processes pmt notifications from BTCPay
     if not request.json or 'id' not in request.json:
-        abort(400)
+        return "Not a valid IPN.", 200
     btc_client_store = BTCPayClientStore.query.all()[0]
     btc_client = btc_client_store.client
     invoice = btc_client.get_invoice(request.json['id'])
@@ -33,9 +33,11 @@ def update_sub():
                     user.role = invoice['orderId']
                     db.session.commit()
                     return "Payment Accepted", 201
+                else:
+                    return "IPN Received", 200
             else:
                 return "Status not paid or confirmed.", 200
         else:
-            return "No payment status received.", 400
+            return "No payment status received.", 200
     else:
         return "Invalid transaction ID.", 400
