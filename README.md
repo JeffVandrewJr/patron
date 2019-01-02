@@ -1,6 +1,7 @@
 <h1>LibrePatron: A Self-Hosted Patreon Alternative Backed by BTCPay</h1>
 
 Copyright (C) 2018 Jeff Vandrew Jr
+
 Latest Stable Release: 0.1.27
 
 Patreon is a popular service that allows content creators to receive contributions from supporters on a recurring basis. Unfortunately, Patreon is also a dedicated enemy of the concept of free speech as an important civic virtue. Patreon is known to arbitarily ban its creators for "thought crime."
@@ -23,7 +24,7 @@ If you're a creator reading this unconcerned with free speech issues, Patreon st
 <h2>Improvements Roadmap</h2>
 
 1. Fiat integration. We're not in a 100% Bitcoin world yet (unfortunately). 
-2. Subscriber export.
+2. Easier subscriber export.
 3. Allowing subsribers to comment on updates is turned off by default, but is permitted by entering Disqus information in the configuration file. If turning this feature on is popular, factoring out Disqus could be a long term improvement.
 
 <h2>Installation</h2>
