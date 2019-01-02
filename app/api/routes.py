@@ -24,7 +24,7 @@ def update_sub():
                 if user.role == 'admin':
                     return "Administrator should not make payments.", 200
                 elif invoice['status'] == "confirmed":
-                    user.expiration = datetime.today() + timedelta(days=29)
+                    user.expiration = datetime.today() + timedelta(days=30)
                     user.role = invoice['orderId']
                     db.session.commit()
                     return "Payment Accepted", 201
