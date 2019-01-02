@@ -1,6 +1,7 @@
 <h1>LibrePatron: A Self-Hosted Patreon Alternative Backed by BTCPay</h1>
 
 Copyright (C) 2018 Jeff Vandrew Jr
+Latest Stable Release: 0.1.27
 
 Patreon is a popular service that allows content creators to receive contributions from supporters on a recurring basis. Unfortunately, Patreon is also a dedicated enemy of the concept of free speech as an important civic virtue. Patreon is known to arbitarily ban its creators for "thought crime."
 
@@ -21,10 +22,9 @@ If you're a creator reading this unconcerned with free speech issues, Patreon st
 
 <h2>Improvements Roadmap</h2>
 
-1. Right now the site isn't mobile-responsive. This is the top priority.
-2. Fiat integration. We're not in a 100% Bitcoin world yet (unfortunately). A plugin for accepting credit card payments is another big priority.
-3. The subscriber export feature in the administrator web interface currently displays the subscriber CSV data to screen, which has to be cut and pasted to export. This should instead allow the browser to download the CSV directly.
-4. Allowing subsribers to comment on updates is turned off by default, but is permitted by entering Disqus information in the configuration file. If turning this feature on is popular, factoring out Disqus could be a long term improvement.
+1. Fiat integration. We're not in a 100% Bitcoin world yet (unfortunately). 
+2. Subscriber export.
+3. Allowing subsribers to comment on updates is turned off by default, but is permitted by entering Disqus information in the configuration file. If turning this feature on is popular, factoring out Disqus could be a long term improvement.
 
 <h2>Installation</h2>
 
@@ -50,7 +50,7 @@ sudo docker-compose up -d
 ```
 Your site will then be launched and operational!
 
-**IMPORTANT**: Your _**MUST**_ configure your "store" on your BTCPay Server to consider unconfirmed transactions to be "confirmed," or else when your patron is redirected back to your site he won't have access to resources for 10+ minutes. To do this, from your BTCPay administration interface, click Stores>Settings>Consider the invoice confirmed when the payment transaction...>is unconfirmed.
+Users get a one day subscription as soon as they pay the BTCPay invoice. That is bumped to 30 days as soon as BTCPay recognizes the payment as "confirmed". BTCPay settings determine how many confirmations are required to make a payment "confirmed."
 
 The first visitor to the site will be prompted to register as administrator. The administrator is the user that posts updates, gets paid, etc. The administrator is the content creator.
 
