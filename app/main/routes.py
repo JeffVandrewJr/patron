@@ -104,6 +104,8 @@ def create_invoice():
             "email": current_user.email,
         },
         "orderId": plan,
+        "extendedNotifications": True,
+        "fullNotifications": True,
         "notificationURL": url_for('api.update_sub', _external=True, _scheme='https'),
         "redirectURL": url_for('main.index', _external=True, _scheme='https')
     })

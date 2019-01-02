@@ -38,8 +38,10 @@
                     <li><a href="{{ url_for('main.index') }}">Home</a></li>
                     <li><a href="{{ url_for('blogging.index') }}">Updates</a></li>
                     <li><a href="{{ url_for('main.support') }}">Support Levels</a></li>
-                    {% if current_user.is_authenticated %}
+                    {% if current_user.is_authenticated and current_user.role != 'admin'%}
                         <li><a href="{{ url_for('auth.account') }}">Account</a></li>
+                    {% elif current_user.is_authenticated and current_user.role == 'admin'%}
+                        <li><a href="{{ url_for('admin.index') }}" target="_blank">Admin Panel</a></li>
                     {% endif %}
                     {% if not current_user.is_authenticated %}
                         <li><a href="{{ url_for('auth.login') }}">Login</a></li>

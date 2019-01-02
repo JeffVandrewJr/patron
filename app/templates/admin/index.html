@@ -2,5 +2,9 @@
 
 {% block body %}
     <h1>Admin Panel</h1>
+    {% if current_user.is_authenticated and current_user.role =='admin'%}
     <p>Choose from the menu options above.</p>
+    {% else %}
+    <p>You do not have permission to view this page.</p>
+    {% endif %}
 {% endblock %}
