@@ -26,7 +26,7 @@ pip install -r requirements.txt
 nano librepatron.env
 export SITEURL=https://example.com
 export VIRTUAL_HOST=example.com
-<keep setting the rest of the variables mentioned in librepatron.env>
+# <keep setting the rest of the variables mentioned in librepatron.env>
 
 # set up the database
 flask db upgrade
