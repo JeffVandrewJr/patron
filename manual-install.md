@@ -30,7 +30,7 @@ export VIRTUAL_HOST=example.com
 
 # set pricing
 cp pricing.yaml.sample ~/var/pricing/pricing.yaml
-nano ~/pricing.yaml
+nano ~/var/pricing/pricing.yaml
 
 # set up the database
 flask db upgrade
