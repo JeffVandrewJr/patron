@@ -32,6 +32,8 @@ Slack Group: https://slack.librepatron.com
 3. Allowing subsribers to comment on updates is turned off by default, but is permitted by entering Disqus information in the configuration file. If turning this feature on is popular, factoring out Disqus could be a long term improvement.
 4. More granular control over subscription levels.
 
+Easy install is below, or if you prefer you can do it the [hard way](https://github.com/JeffVandrewJr/patron/blob/master/manual-install.md).
+
 <h2>Easy Install Method</h2>
 
 A docker-compose is provided that automatically installs LibrePatron along with nginx and obtains SSL certificates, all in a few easy steps (to be executed from `$HOME` directory):
