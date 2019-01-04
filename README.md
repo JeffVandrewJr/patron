@@ -30,6 +30,7 @@ Slack Group: https://slack.librepatron.com
 1. Fiat integration. We're not in a 100% Bitcoin world yet (unfortunately). 
 2. Easier subscriber export.
 3. Allowing subsribers to comment on updates is turned off by default, but is permitted by entering Disqus information in the configuration file. If turning this feature on is popular, factoring out Disqus could be a long term improvement.
+4. More granular control over subscription levels.
 
 <h2>Easy Install Method</h2>
 
