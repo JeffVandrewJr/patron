@@ -31,7 +31,7 @@ Slack Group: https://slack.librepatron.com
 2. Easier subscriber export.
 3. Allowing subsribers to comment on updates is turned off by default, but is permitted by entering Disqus information in the configuration file. If turning this feature on is popular, factoring out Disqus could be a long term improvement.
 
-<h2>Installation</h2>
+<h2>Easy Install Method</h2>
 
 A docker-compose is provided that automatically installs LibrePatron along with nginx and obtains SSL certificates, all in a few easy steps (to be executed from `$HOME` directory):
 
@@ -64,6 +64,8 @@ After registering as administrator, be sure to first make a "homepage" post. A "
 Before letting people know about your site, be sure to click "Admin Panel" to pair your site to your BTCPay server!
 
 <h3>Notes</h3>
+
+If you don't use the official Docker image and instead choose to install from source, LibrePatron will fail in sending email reminders if your server doesn't have a validly set timezone. This is because LibrePatron depends on the APScheduler library, which needs a set timezone at all times. The Docker image takes care of this for you by setting a timezone in the container.
 
 You'll note that during setup, you must provide a "secret code" of random digits. This is necessary for a variety of reasons. If you don't know how to get one, here is one method:
 
