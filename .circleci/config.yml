@@ -3,7 +3,7 @@ version: 2.1
 executors:
   my-executor:
     docker: 
-      - image: circleci/python:3.71
+      - image: circleci/python:3.72
         environment:
           FLASK_APP: patron.py
           TZ: America/New_York
