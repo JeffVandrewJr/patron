@@ -22,7 +22,6 @@ jobs:
             pip install gunicorn
             pip install -r requirements.txt
             chmod +x boot.sh
-            ./boot.sh
       - run: python3 -m pytest
 
   # Everytimes if a tag of specific format is push on git, a docker image is created and pushed to dockerhub
