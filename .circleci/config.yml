@@ -3,7 +3,7 @@ version: 2.1
 executors:
   my-executor:
     docker: 
-      - image: python:3.71-alpine3.8
+      - image: cricleci/python:3.71
         environment:
           FLASK_APP: patron.py
           TZ: America/New_York
@@ -17,8 +17,6 @@ jobs:
       - checkout
       - run: 
           command: |
-            sudo apk add gcc musl-dev libffi libffi-dev python3-dev openssl-dev tzdata
-            sudo ln -sf /usr/share/zoneinfo/America/New_York /etc/localtime
             sudo pip install gunicorn
             sudo pip install -r requirements.txt
             sudo chmod +x boot.sh
