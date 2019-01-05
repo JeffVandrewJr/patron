@@ -1,10 +1,29 @@
-version: 2
+version: 2.1
+
+executors:
+  my-executor:
+    docker: 
+      - image: circleci/python:3.71-alpine3.8
+        environment:
+          FLASK_APP: patron.py
+          TZ: America/New_York
+          GUNICORN_CMD_ARGS: "--bind=0.0.0.0:8006 --workers=3 --access-logfile=- --error-logfile=-"
+
+
 jobs:
   build:
-    machine: 
-      docker_layer_caching: true
+    executor: my-executor
     steps: 
       - checkout
+      - run: 
+          command: |
+            sudo apk add gcc musl-dev libffi libffi-dev python3-dev openssl-dev tzdata
+            sudo ln -sf /usr/share/zoneinfo/America/New_York /etc/localtime
+            sudo pip install gunicorn
+            sudo pip install -r requirements.txt
+            sudo chmod +x boot.sh
+            ./boot.sh
+      - run: python3 -m pytest
 
   # Everytimes if a tag of specific format is push on git, a docker image is created and pushed to dockerhub
   # eg. You tag v1.0, then the docker image  $DOCKERHUB_REPO:1.0 will be built and push to docker hub.
@@ -30,6 +49,12 @@ jobs:
             sudo docker push "$DOCKERHUB_DESTINATION"
 workflows:
   version: 2
+  build_and_test:
+    jobs:
+      - build:
+          filters:
+            tags: 
+              only: /^test.*/
   publish:
     jobs:
       - publish_linuxamd64:
