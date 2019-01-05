@@ -1,6 +1,6 @@
 from app import create_app, db
 from app.models import User
-from app.tests.tconfig import Config
+from tests.tconfig import Config
 from datetime import datetime, timedelta
 import pytest
 
