@@ -6,10 +6,6 @@ jobs:
       - image: jvandrew/librepatron:0.1.28
         entrypoint: pip install pytest
     steps: 
-      - run: 
-          command: |
-            cd ..
-            rm patron
       - checkout
       - run: python3 -m pytest
 
