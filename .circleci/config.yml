@@ -4,7 +4,7 @@ jobs:
   build:
     docker: 
       - image: jvandrew/librepatron:0.1.28
-        entrypoint: apk add git
+        entrypoint: echo hello
     steps: 
       - checkout
       - run: 
