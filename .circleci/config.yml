@@ -4,7 +4,7 @@ executors:
   my-executor:
     docker: 
       - image: jvandrew/librepatron:0.1.28
-      - entrypoint: pip install pytest
+        entrypoint: pip install pytest
 
 jobs:
   build:
