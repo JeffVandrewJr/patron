@@ -4,10 +4,13 @@ jobs:
   build:
     docker: 
       - image: jvandrew/librepatron:0.1.28
-        entrypoint: pip install pytest
+        entrypoint: apk add git
     steps: 
       - checkout
-      - run: python3 -m pytest
+      - run: 
+          command: |
+            pip install pytest
+            python3 -m pytest
 
   # Everytimes if a tag of specific format is push on git, a docker image is created and pushed to dockerhub
   # eg. You tag v1.0, then the docker image  $DOCKERHUB_REPO:1.0 will be built and push to docker hub.
