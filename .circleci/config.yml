@@ -5,11 +5,12 @@ jobs:
     docker: 
       - image: jvandrew/librepatron:0.1.28
     steps: 
-      - run: apk add git
-      - checkout
       - run: 
           command: |
+            apk add git
+            git clone https://github.com/JeffVandrewJr/patron.git
             pip install pytest
+            cd patron
             python3 -m pytest
 
   # Everytimes if a tag of specific format is push on git, a docker image is created and pushed to dockerhub
