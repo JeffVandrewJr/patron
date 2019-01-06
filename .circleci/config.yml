@@ -1,14 +1,10 @@
 version: 2.1
 
-executors:
-  my-executor:
+jobs:
+  build:
     docker: 
       - image: jvandrew/librepatron:0.1.28
         entrypoint: pip install pytest
-
-jobs:
-  build:
-    executor: my-executor
     steps: 
       - run: 
           command: |
