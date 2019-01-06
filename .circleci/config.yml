@@ -5,6 +5,7 @@ jobs:
     docker: 
       - image: jvandrew/librepatron:0.1.28
     steps: 
+      - run: apk add git
       - checkout
       - run: 
           command: |
