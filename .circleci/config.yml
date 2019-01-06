@@ -3,25 +3,18 @@ version: 2.1
 executors:
   my-executor:
     docker: 
-      - image: python:3.7.1-alpine3.8
-        environment:
-          FLASK_APP: patron.py
-          TZ: America/New_York
-          GUNICORN_CMD_ARGS: "--bind=0.0.0.0:8006 --workers=3 --access-logfile=- --error-logfile=-"
-
+      - image: jvandrew/librepatron:0.1.28
+      - entrypoint: pip install pytest
 
 jobs:
   build:
     executor: my-executor
     steps: 
-      - checkout
       - run: 
           command: |
-            apk add --no-cache gcc musl-dev libffi libffi-dev python3-dev openssl-dev tzdata
-            ln -sf /usr/share/zoneinfo/America/New_York /etc/localtime
-            pip install gunicorn
-            pip install -r requirements.txt
-            chmod +x boot.sh
+            cd ..
+            rm patron
+      - checkout
       - run: python3 -m pytest
 
   # Everytimes if a tag of specific format is push on git, a docker image is created and pushed to dockerhub
@@ -52,6 +45,8 @@ workflows:
     jobs:
       - build:
           filters:
+            branches:
+              ignore: /.*/
             tags: 
               only: /^test.*/
   publish:

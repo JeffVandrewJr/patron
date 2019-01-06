@@ -30,6 +30,7 @@ Markdown==3.0.1
 MarkupSafe==1.1.0
 pycparser==2.19
 PyJWT==1.7.1
+pytest==4.0.2
 python-dateutil==2.7.5
 python-dotenv==0.10.1
 python-editor==1.0.3
