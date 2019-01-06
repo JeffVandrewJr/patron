@@ -26,26 +26,18 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
-    <div class="pull-right">
+    <div class="d-flex flex-row-reverse">
     {% if post.editable %}
-        <a href="#confirmModal" data-toggle="modal" id="delete">
-            <span class="glyphicon glyphicon-trash"></span>&nbsp;Delete
-        </a>&nbsp&nbsp&nbsp&nbsp
-
-        <a href="{{ url_for('blogging.editor', post_id=post.post_id) }}" id="edit">
-            <span class="glyphicon glyphicon-edit"></span>&nbsp;Edit
-        </a>&nbsp&nbsp&nbsp&nbsp
+            <div class=" col-sm-1 col-sm-offset-2">
+            <a href="#confirmModal" data-toggle="modal" id="delete">Delete</a>
+            </div>
+            <div class="col-sm-1 col-sm-offset-2">
+            <a href="{{ url_for('blogging.editor', post_id=post.post_id) }}" id="edit">Edit</a>
+            </div>
     {% endif %}
-        <a href="{{ url_for('blogging.editor') }}" id="new">
-            <span class="glyphicon glyphicon-plus"></span>&nbsp;New
-        </a>
-    </div>
-{% endif %}
-{% if not current_user.is_authenticated %}
-    <div class="pull-right">
-        <a href="{{ url_for('auth.register') }}" id="new">
-            <span class="glyphicon glyphicon-plus"></span>&nbsp;Sign Up!
-        </a>
+            <div class="col-sm-1 col-sm-offset-2">
+            <a href="{{ url_for('blogging.editor') }}" id="new">New</a>
+            </div>
     </div>
 {% endif %}
 

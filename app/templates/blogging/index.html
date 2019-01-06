@@ -11,10 +11,10 @@ Updates
     {% endif %}
 
     {% if meta.is_user_blogger %}
-        <div class="pull-right">
-            <a href="{{ url_for('blogging.editor') }}" id="new">
-                <span class="glyphicon glyphicon-plus"></span>&nbsp;New
-            </a>
+        <div class="d-flex flex-row-reverse">
+            <div>
+            <a href="{{ url_for('blogging.editor') }}" id="new">New Post</a>
+            </div>
         </div>
     {% endif %}
 
