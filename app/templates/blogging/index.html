@@ -30,22 +30,16 @@ Updates
         {% endfor %}
     {% endfor %}
     {% if ((meta)  and (meta.max_pages>1)) %}
-        <div class="row">
-            <div class="col-md-12">
-                <ul class="pager">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
                     {% if meta.pagination.prev_page %}
                         <li><a href="{{meta.pagination.prev_page}}">&laquo; Prev</a></li>
-                    {% else %}
-                        <li class="disabled"><a href="">&laquo; Prev</a></li>
                     {% endif %}
                     {% if meta.pagination.next_page %}
                         <li><a href="{{meta.pagination.next_page}}">Next &raquo;</a></li>
-                    {% else %}
-                        <li class="disabled"><a href="">Next &raquo;</a></li>
                     {% endif %}
 
-                </ul>
-            </div>
-        </div>
+         </ul>
+    </nav>
     {% endif %}
 {% endblock main %}
