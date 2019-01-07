@@ -1,6 +1,6 @@
 from app import blog_engine
 from app.main import bp
-from app.models import BTCPayClientStore
+from app.models import BTCPayClientStore, SquareClient
 from app.pricing import Pricing
 from flask import redirect, url_for, flash, render_template, request
 from flask_blogging_patron import PostProcessor
@@ -64,6 +64,19 @@ def support():
     price_levels = Pricing().price_levels
     return render_template('main/support.html',
                            levels=price_levels)
+
+
+@bp.route('/creditcard')
+def credit_card():
+    square = SquareClient.query.first()
+    if square is not None:
+        return render_template(
+            'main/creditcard.html',
+            application_id=square.application_id,
+            location_id=square.location_id,
+        )
+    else:
+        return redirect(url_for('main.index'))
 
 
 @bp.route('/createinvoice')

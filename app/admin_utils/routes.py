@@ -5,7 +5,7 @@ from flask import redirect, url_for, flash
 
 
 @bp.route('/deletesquare')
-def delete_square(self):
+def delete_square():
     square = SquareClient.query.first()
     if square is not None:
         db.session.delete(square)
