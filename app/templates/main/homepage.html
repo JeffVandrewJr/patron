@@ -29,11 +29,8 @@
     <div class="pull-right">
     <div class="d-flex flex-row-reverse">
     {% if post.editable %}
-            <div class=" col-sm-1 col-sm-offset-2">
-            <a href="#confirmModal" data-toggle="modal" id="delete">Delete</a>
-            </div>
-            <div class="col-sm-1 col-sm-offset-2">
-            <a href="{{ url_for('blogging.editor', post_id=post.post_id) }}" id="edit">Edit</a>
+            <div class="col-md-5">
+            <a href="{{ url_for('blogging.editor', post_id=post.post_id) }}" id="edit">Edit Homepage</a>
             </div>
     {% endif %}
     </div>
