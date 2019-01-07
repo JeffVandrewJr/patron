@@ -28,7 +28,7 @@ class Config(object):
     SCHEDULER_HOUR = os.environ.get('SCHEDULER_HOUR') or 9
     SCHEDULER_MINUTE= os.environ.get('SCHEDULER_MINUTE')
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'placeholder'
+    SERVER_NAME = os.environ.get('VIRTUAL_HOST')
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
         'sqlite:///' + join(basedir, 'app.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SERVER_NAME = os.environ.get('VIRTUAL_HOST')

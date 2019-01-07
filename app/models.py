@@ -7,6 +7,19 @@ from time import time
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
+class SquareClient(db.model):
+    __table_args__ = {'extend_existing': True}
+    id = db.Column(db.Integer, primary_key=True)
+    application_id = db.Column(db.String(128))
+    location_id = db.Column(db.String(128))
+
+    def __repr__(self):
+        return f'''
+                Square App ID: {self.application_id} \n
+                Square Location ID: {self.location_id}
+                '''
+
+
 class BTCPayClientStore(db.Model):
     __table_args__ = {'extend_existing': True}
     id = db.Column(db.Integer, primary_key=True)
