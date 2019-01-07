@@ -6,16 +6,16 @@
 
     <!-- set application ID and location ID --> 
     <script type="text/javascript">
-        var applicationID = {{ application_id }};
-        var locationID = {{ location_id }};
+        var applicationID = "{{ application_id }}";
+        var locationID = "{{ location_id }}";
     </script>
 
     <!-- link to the local SqPaymentForm initialization -->
-    <script type="text/javascript" src="{{ url_for('static', filename='sqpaymentform.js') }}">
+    <script type="text/javascript" src="static/sqpaymentform-basic.js">
     </script>
 
     <!-- link to the custom styles for SqPaymentForm -->
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='sqpaymentform.css') }}">
+    <link rel="stylesheet" type="text/css" href="static/sqpaymentform-basic.css">
 {% endblock extrastyle %}
 {% block main %}
 <div id="form-container">
