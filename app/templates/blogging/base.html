@@ -30,7 +30,7 @@
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item"><a class="nav-link text-light" href="{{ url_for('main.index') }}">Home</a></li>
                     <li class="nav-item"><a class="nav-link text-light" href="{{ url_for('blogging.index') }}">Updates</a></li>
-                    <li class="nav-item"><a class="nav-link text-light" href="{{ url_for('main.support') }}">Support Levels</a></li>
+                    <li class="nav-item"><a class="nav-link text-light" href="{{ url_for('main.support') }}">Subscriptions</a></li>
                     {% if current_user.is_authenticated and current_user.role != 'admin'%}
                         <li class="nav-item"><a class="nav-link text-light" href="{{ url_for('auth.account') }}">Account</a></li>
                     {% elif current_user.is_authenticated and current_user.role == 'admin'%}
