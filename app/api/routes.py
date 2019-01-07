@@ -3,6 +3,8 @@ from app.api import bp
 from app.models import BTCPayClientStore, User
 from datetime import datetime, timedelta
 from flask import request, abort
+import requests
+from urllib.parse import parse_qsl
 
 
 @bp.route('/v1/updatesub', methods=['GET', 'POST'])
@@ -41,3 +43,26 @@ def update_sub():
             return "No payment status received.", 200
     else:
         return "Invalid transaction ID.", 400
+
+
+@bp.route('/v1/updatesubpaypal', methods=['GET', 'POST'])
+def update_sub_paypal():
+    # TODO
+    params = parse_qsl(request.form)
+    params.append(('cmd', '_notify-validate'))
+    headers = {
+        'content-type': 'application/x-www-form-urlencoded',
+        'user-agent': 'Python-IPN-Verification-Script'
+    }
+    r = requests.post(
+        VERIFY_URL,
+        params=params,
+        headers=headers,
+        verify=True
+    )
+    r.raise_for_status()
+    if r.text == 'VERIFIED':
+        user.expiration = datetime.today() + timedelta(days=30)
+        db.session.commit()
+    elif r.text == 'INVALID':
+        return None
