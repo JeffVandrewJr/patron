@@ -1,6 +1,6 @@
 from app import admin, db
-from app.admin_views.forms import BTCCodeForm
-from app.models import User
+from app.admin_views.forms import BTCCodeForm, SquareSetupForm
+from app.models import User, SquareClient
 from app.utils import pairing
 from flask_admin import BaseView, expose
 from flask_admin.contrib.sqla import ModelView
@@ -29,6 +29,30 @@ class BTCPayView(LibrePatronBaseView):
 
 
 admin.add_view(BTCPayView(name='BTCPay Setup', endpoint='btcpay'))
+
+
+class SquareView(LibrePatronBaseView):
+    @expose('/', methods=['GET', 'POST'])
+    def square(self):
+        form = SquareSetupForm()
+        if form.validate_on_submit():
+            square = SquareClient.query.first()
+            if square is None:
+                square = SquareClient(
+                    application_id=form.application_id.data,
+                    location_id=form.location_id.data,
+                )
+                db.session.add(square)
+            else:
+                square.application_id = form.application_id.data
+                square.location_id = form.location_id.data
+            db.session.commit()
+            flash('Square data saved.')
+            return redirect(url_for('admin.index'))
+        return self.render('admin/square.html', form=form)
+
+
+admin.add_view(SquareView(name='Square Setup', endpoint='square'))
 
 
 class LibrePatronModelView(ModelView):

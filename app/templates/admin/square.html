@@ -1,0 +1,18 @@
+{% extends 'admin/master.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block body %}
+    <h2>Enter your Square Account Info</h2>
+    <br>
+    <div class="row">
+        <div class="col-md-4">
+            {{ wtf.quick_form(form) }}
+        </div>
+    </div>
+    <br>
+    <p>After creating your Square account, go to <a href="https://connect.squareup.com/apps" target="_blank">connect.squareup.com/apps</a> to get this info. If you have not already done so, you will create an app called 'LibrePatron', and then you'll have access to an app id and location id.</p>
+    <br>
+    <p>To deactivate Square, click below</p>
+    <p> WARNING: This will delete all customer recurring payments.</p>
+    <p><a href="{{ url_for('admin_utils.delete_square') }}" class="btn btn-default">Deactivate Square</a></p>
+{% endblock %}

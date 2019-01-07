@@ -7,7 +7,7 @@ from time import time
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
-class SquareClient(db.model):
+class SquareClient(db.Model):
     __table_args__ = {'extend_existing': True}
     id = db.Column(db.Integer, primary_key=True)
     application_id = db.Column(db.String(128))

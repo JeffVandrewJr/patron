@@ -55,10 +55,12 @@ def create_app(config_class=Config):
     del app.blueprints['blogging']
 
     # blueprints
+    from app.admin_utils import bp as admin_utils_bp
     from app.api import bp as api_bp
     from app.auth import bp as auth_bp
     from app.blogging import bp as blogging_bp
     from app.main import bp as main_bp
+    app.register_blueprint(admin_utils_bp, url_prefix='/admin_utils')
     app.register_blueprint(auth_bp, url_prefix='/auth')
     app.register_blueprint(api_bp, url_prefix='/api')
     app.register_blueprint(

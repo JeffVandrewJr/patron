@@ -10,3 +10,15 @@ class BTCCodeForm(FlaskForm):
     )
     code = StringField('Pairing Code', validators=[DataRequired()])
     submit = SubmitField('Submit')
+
+
+class SquareSetupForm(FlaskForm):
+    application_id = StringField(
+        'Square Application ID',
+        validators=[DataRequired()]
+    )
+    location_id = StringField(
+        'Square Location ID',
+        validators=[DataRequired()]
+    )
+    submit = SubmitField('Submit')
