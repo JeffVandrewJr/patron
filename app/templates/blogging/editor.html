@@ -22,7 +22,7 @@
 
         <div class="form-group">
             <div>
-                {{form.text(placeholder="Blog text", required="", data_provide="markdown", rows="16")}}
+                {{ form.text }}
                 <span class="help-block">
                     Learn more about <a href="http://en.wikipedia.org/wiki/Markdown" target="_blank">MarkDown</a><br>
                     {% if config.BLOGGING_ALLOW_FILEUPLOAD %}
@@ -60,5 +60,7 @@
 
 {% block extrajs %}
     <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
-    <script>var simplemde = new SimpleMDE({ element: document.getElementById("text") });</script>
+    <script>
+        var simplemde = new SimpleMDE({ element: $("#MyID")[0] });
+    </script>
 {% endblock extrajs %}
