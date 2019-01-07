@@ -1,60 +1,7 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-{% block meta %}
-{% endblock meta %}
-{% block style %}
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet"/>
-    <style>
-        body { padding-top: 80px;}
-    </style>
-{% endblock style %}
+{% extends 'blogging/base.html' %}
 {% block extrastyle %}
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-markdown/2.10.0/css/bootstrap-markdown.min.css"
-      rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
 {% endblock extrastyle %}
-<title>Editor</title>
-<body>
-<!-- navbar header -->
-<nav class="navbar navbar-primary navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            </div>
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="{{ url_for('main.index') }}">Cancel & Return Home</a></li>
-                </ul>
-            </div>
-        </div>
-</nav>
-<div class="container">
-         {% block message %}
-         {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                <div class="row">
-                    <div class="col-md-6 col-md-offset-3">
-                    <div id="alert_div" class="alert alert-{{category}} alert-dismissible" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        {{ message }}
-                    </div>
-                    </div>
-                 </div>
-                {% endfor %}
-            {% endif %}
-         {% endwith %}
-
-         {% endblock %}
 {% block main %}
 <form class="form-horizontal" action="{{url_for('blogging.editor', post_id=post_id or None)}}" method="POST">
 
@@ -62,19 +9,19 @@
 
     <fieldset>
         <!-- Form Name -->
-        <legend>Editor</legend>
+        <legend>Update Editor</legend>
         <!-- Text input-->
         <div class="form-group">
-            <label class="control-label col-md-offset-2  control-label input-md" for="title">
+            <label>
                 Title
             </label>
-            <div class="input-group col-md-8 col-md-offset-2">
+            <div>
                 {{form.title(placeholder="Title", id="title", class="form-control", required="" )}}
             </div>
         </div>
 
         <div class="form-group">
-            <div class="input-group col-md-8 col-md-offset-2">
+            <div>
                 {{form.text(placeholder="Blog text", required="", data_provide="markdown", rows="16")}}
                 <span class="help-block">
                     Learn more about <a href="http://en.wikipedia.org/wiki/Markdown" target="_blank">MarkDown</a><br>
@@ -85,7 +32,7 @@
             </div>
         </div>
         <!-- Text input-->
-        <div class="input-group col-md-8 col-md-offset-2">
+        <div>
             {% for subfield in form.tags %}
                 <tr>
                     <td>{{ subfield }}</td>
@@ -103,47 +50,15 @@
             </div>
         </div-->
         <div class="form-group">
-            <div class="col-md-offset-2">
-                {{ form.submit(id="submit", class="btn btn-primary") }}
+            <div>
+                {{ form.submit(id="submit", class="btn btn-default") }}
             </div>
         </div>
     </fieldset>
 </form>
 {% endblock main %}
-         {% block extramain %}
-         {% endblock extramain %}
-</div>
 
-{% block js %}
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
-    <script type="text/x-mathjax-config">
-          MathJax.Hub.Config({
-          "HTML-CSS": {
-          styles: {
-          ".MathJax .mo, .MathJax .mi": {color: "black ! important"}}
-          },
-          tex2jax: {inlineMath: [['$','$'], ['\\\\(','\\\\)']],processEscapes: true}
-          });
-    </script>
-
-    <script>
-        $(document).ready(function(){
-            $("#alert_div").fadeTo(3000, 500).slideUp(500, function(){
-               $("#alert_div").slideUp(500);
-                });
-        })
-    </script>
-    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-
-{% endblock js %}
 {% block extrajs %}
-    <script type="text/javascript"
-        src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.5.1/marked.min.js">
-    </script>
-    <script type="text/javascript"
-        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-markdown/2.10.0/js/bootstrap-markdown.min.js">
-    </script>
- {% endblock extrajs %}
-</body>
-</html>
+    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+    <script>var simplemde = new SimpleMDE({ element: document.getElementById("text") });</script>
+{% endblock extrajs %}

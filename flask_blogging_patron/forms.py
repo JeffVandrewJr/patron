@@ -6,7 +6,7 @@ from wtforms.validators import DataRequired
 
 class BlogEditor(FlaskForm):
     title = StringField("title", validators=[DataRequired()])
-    text = TextAreaField("text", validators=[DataRequired()])
+    text = TextAreaField("text")
     tags = RadioField(
         'Optional Parameters',
         choices=[
