@@ -1,14 +1,23 @@
 {% extends "blogging/base.html" %}
 
 {% block main %}
-<section class="jumbotron text-center">
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+  <h1 class="display-4">Support Levels</h1>
+</div>
+<div class="container">
+<div class="card-deck mb-3 text-center">
 {% for value in levels.values() %}
-    <div class="container">
-        <h1 class="jumbotron-heading">{{ value.name }}</h1>
-        <p class="lead">{{ value.description }}</p>
-        <p class="lead text-muted">${{ value.price }} per month</p>
+      <div class="card mb-4 shadow-sm" style="min-width: 18rem;">
+      <div class="card-header">
+        <h4 class="my-0 font-weight-normal">{{ value.name }}</h4>
+      </div>
+      <div class="card-body">
+        <h1 class="card-title pricing-card-title">${{ value.price }} <small class="text-muted">/ mo</small></h1>
+        <p>{{ value.description }}</p>
         <p><a class="btn btn-primary" href="{{ url_for('main.create_invoice', name=value.name, price=value.price) }}">Select</a></p>
-    </div>
+      </div>
+      </div>
 {% endfor %}
-</section>
+</div>
+</div>
 {% endblock %}
