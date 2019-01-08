@@ -28,10 +28,6 @@ export SITEURL=https://example.com
 export VIRTUAL_HOST=example.com
 # <keep setting the rest of the variables mentioned in librepatron.env>
 
-# set pricing
-cp pricing.yaml.sample ~/var/pricing/pricing.yaml
-nano ~/var/pricing/pricing.yaml
-
 # set up the database
 flask db upgrade
 
