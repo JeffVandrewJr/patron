@@ -21,4 +21,8 @@ class SquareSetupForm(FlaskForm):
         'Square Location ID',
         validators=[DataRequired()]
     )
+    access_token = StringField(
+        'Square Access Token',
+        validators=[DataRequired()]
+    )
     submit = SubmitField('Submit')
