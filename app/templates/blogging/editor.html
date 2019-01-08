@@ -24,7 +24,8 @@
             <div>
                 {{ form.text }}
                 <span class="help-block">
-                    Learn more about <a href="http://en.wikipedia.org/wiki/Markdown" target="_blank">MarkDown</a><br>
+                    <p>If you enter a fullscreen view, press ESC to return.</p>
+                    <p>Learn more about <a href="http://en.wikipedia.org/wiki/Markdown" target="_blank">MarkDown</a></p><br>
                     {% if config.BLOGGING_ALLOW_FILEUPLOAD %}
                         <a target="_blank" href="{{ url_for("flask_fileupload.upload") }}">Upload new File</a>
                     {% endif %}
