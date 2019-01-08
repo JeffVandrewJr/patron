@@ -24,7 +24,7 @@ class PriceLevel(db.Model):
     __table_args__ = {'extend_existing': True}
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), index=True, unique=True)
-    price = db.Column(db.Integer, index=True)
+    price = db.Column(db.Integer, index=True, unique=True)
     description = db.Column(db.Text)
 
 
@@ -55,6 +55,8 @@ class User(UserMixin, db.Model):
     expiration = db.Column(db.DateTime, index=True)
     mail_opt_out = db.Column(db.Boolean, index=True)
     role = db.Column(db.String(64))
+    square_id = db.Column(db.String(120), index=True)
+    square_card = db.Column(db.String(120), index=True)
 
     def __repr__(self):
         return f'<User {self.username}>'
