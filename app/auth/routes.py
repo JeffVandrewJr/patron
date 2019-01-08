@@ -104,6 +104,8 @@ def account():
         opt_out = True
     else:
         opt_out = False
+    if current_user.square_id is not None:
+        square = True
     if current_user.expiration.date() < date.today():
         expires = 'No Current Subscription'
     else:
@@ -111,8 +113,23 @@ def account():
     return render_template(
         'auth/account.html',
         opt_out=opt_out,
-        expires=expires
+        expires=expires,
+        square=square
     )
+
+
+@bp.route('/cancelcc')
+@login_required
+def cancel_square():
+    if hasattr(current_user, 'role'):
+        if current_user.role == 'admin':
+            return redirect(url_for('admin.index'))
+    if current_user.square_id is not None:
+        current_user.square_id = None
+        current_user.square_card = None
+        db.session.commit()
+        flash('Succesfully canceled credit card billing.', 'info')
+    return redirect(url_for('auth.account'))
 
 
 @bp.route('/mailopt')
