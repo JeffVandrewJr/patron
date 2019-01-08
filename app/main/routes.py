@@ -89,12 +89,17 @@ def support():
 
 @bp.route('/creditcard')
 def credit_card():
+    price = request.args.get('price')
+    if price is None:
+        flash('There was an error. Try again.')
+        return redirect(url_for('main.support'))
     square = Square.query.first()
     if square is not None:
         return render_template(
             'main/creditcard.html',
             application_id=square.application_id,
             location_id=square.location_id,
+            price=price,
         )
     else:
         return redirect(url_for('main.index'))
