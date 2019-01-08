@@ -106,6 +106,8 @@ def account():
         opt_out = False
     if current_user.square_id is not None:
         square = True
+    else:
+        square = False
     if current_user.expiration.date() < date.today():
         expires = 'No Current Subscription'
     else:
@@ -114,7 +116,7 @@ def account():
         'auth/account.html',
         opt_out=opt_out,
         expires=expires,
-        square=square
+        square=square,
     )
 
 
