@@ -2,7 +2,7 @@
 
 Copyright (C) 2018 Jeff Vandrew Jr
 
-Latest Stable Release: 0.4.1
+Latest Stable Release: 0.5.2
 
 Patreon is a popular service that allows content creators to receive contributions from supporters on a recurring basis. Unfortunately, Patreon is also a dedicated enemy of the concept of free speech as an important civic virtue. Patreon is known to arbitarily ban its creators for "thought crime."
 
@@ -45,10 +45,6 @@ wget https://raw.githubusercontent.com/JeffVandrewJr/patron/master/librepatron.e
 # open librepatron.env and fill in the necessary info as mentioned in the file comments, and then save
 nano librepatron.env
 
-mkdir pricing
-cd pricing
-wget -O pricing.yaml https://raw.githubusercontent.com/JeffVandrewJr/patron/master/pricing.yaml.sample
-
 # open pricing.yaml, enter your subscription plans, and then save it
 nano pricing.yaml
 
@@ -59,13 +55,13 @@ sudo docker-compose up -d
 ```
 Your site will then be launched and operational!
 
-Users get a one day subscription as soon as they pay the BTCPay invoice. That is bumped to 30 days as soon as BTCPay recognizes the payment as "confirmed". BTCPay settings determine how many confirmations are required to make a payment "confirmed."
+Users get a 5 hour subscription as soon as they pay the BTCPay invoice. That is bumped to 30 days as soon as BTCPay recognizes the payment as "confirmed". BTCPay settings determine how many confirmations are required to make a payment "confirmed."
 
 The first visitor to the site will be prompted to register as administrator. The administrator is the user that posts updates, gets paid, etc. The administrator is the content creator.
 
 After registering as administrator, be sure to first make a "homepage" post. A "homepage" post does not appear on your updates, but sets the text for the main page that all visitors (subscribed or not) can view. Then you can add some updates.
 
-Before letting people know about your site, be sure to click "Admin Panel" to pair your site to your BTCPay server!
+Before letting people know about your site, be sure to click "Admin Panel" to pair your site to your BTCPay server and set your price levels!
 
 <h3>Notes</h3>
 
