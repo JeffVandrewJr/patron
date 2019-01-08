@@ -41,6 +41,7 @@ class SquareView(LibrePatronBaseView):
                 square = Square(
                     application_id=form.application_id.data,
                     location_id=form.location_id.data,
+                    access_token=form.access_token.data,
                 )
                 db.session.add(square)
             else:
