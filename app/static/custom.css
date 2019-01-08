@@ -1,3 +1,7 @@
+body {
+  padding-top: 80px;
+}
+
 .navbar {
   background-color: #245fd6;
 }

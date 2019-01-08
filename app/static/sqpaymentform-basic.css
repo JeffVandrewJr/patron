@@ -7,11 +7,12 @@ body, html {
   color: #373F4A;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: normal;
+  padding-top: 150px
 }
 
 iframe {
   margin: 0;
-  padding: 0;
+  padding-top: 0;
   border: 0;
 }
 
