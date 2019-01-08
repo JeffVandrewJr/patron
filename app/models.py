@@ -11,6 +11,7 @@ class Square(db.Model):
     __table_args__ = {'extend_existing': True}
     id = db.Column(db.Integer, primary_key=True)
     application_id = db.Column(db.String(128))
+    access_token = db.Column(db.String(200))
     location_id = db.Column(db.String(128))
 
     def __repr__(self):
