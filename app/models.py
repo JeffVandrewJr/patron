@@ -20,6 +20,14 @@ class Square(db.Model):
                 '''
 
 
+class PriceLevel(db.Model):
+    __table_args__ = {'extend_existing': True}
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(64), index=True, unique=True)
+    price = db.Column(db.Integer, index=True)
+    description = db.Column(db.Text)
+
+
 class BTCPayClientStore(db.Model):
     __table_args__ = {'extend_existing': True}
     id = db.Column(db.Integer, primary_key=True)

@@ -2,17 +2,15 @@
 
 from app import create_app, db, blog_engine
 from app.email import send_reminder_emails
-from app.models import User, BTCPayClientStore, SecretKey
-from app.pricing import Pricing
-from datetime import datetime, date, timedelta
+from app.models import User, BTCPayClientStore, PriceLevel
+from datetime import datetime, timedelta
 from flask_blogging_patron.signals import editor_post_saved
-import os
 
 app = create_app()
 
-
 if __name__ == '__main__':
     app.run(load_dotenv=True, ssl_context='adhoc')
+
 
 @app.shell_context_processor
 def make_shell_context():
@@ -20,7 +18,7 @@ def make_shell_context():
             'editor_post_saved': editor_post_saved,
             'blog_engine': blog_engine,
             'BTCPayClientStore': BTCPayClientStore,
-            'Pricing': Pricing,
+            'Pricing': PriceLevel.query.all(),
             'send_reminder_emails': send_reminder_emails,
             'tomorrow': datetime.today() + timedelta(hours=24),
             'yesterday': datetime.today() - timedelta(hours=24),

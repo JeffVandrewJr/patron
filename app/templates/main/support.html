@@ -6,15 +6,15 @@
 </div>
 <div class="container">
 <div class="card-deck mb-3 text-center">
-{% for value in levels.values() %}
+{% for level in levels %}
       <div class="card mb-4 shadow-sm" style="min-width: 18rem;">
       <div class="card-header">
-        <h4 class="my-0 font-weight-normal">{{ value.name }}</h4>
+        <h4 class="my-0 font-weight-normal">{{ level.name }}</h4>
       </div>
       <div class="card-body">
-        <h1 class="card-title pricing-card-title">${{ value.price }} <small class="text-muted">/ mo</small></h1>
-        <p>{{ value.description }}</p>
-        <p><a class="btn btn-primary" href="{{ url_for('main.create_invoice', name=value.name, price=value.price) }}">Select</a></p>
+        <h1 class="card-title pricing-card-title">${{ level.price }} <small class="text-muted">/ mo</small></h1>
+        <p>{{ level.description }}</p>
+        <p><a class="btn btn-primary" href="{{ url_for('main.create_invoice', name=level.name, price=level.price) }}">Select</a></p>
       </div>
       </div>
 {% endfor %}

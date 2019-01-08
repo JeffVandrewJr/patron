@@ -1,6 +1,6 @@
 from app import admin, db
 from app.admin_views.forms import BTCCodeForm, SquareSetupForm
-from app.models import User, Square
+from app.models import User, Square, PriceLevel
 from app.utils import pairing
 from flask_admin import BaseView, expose
 from flask_admin.contrib.sqla import ModelView
@@ -56,6 +56,10 @@ admin.add_view(SquareView(name='Square Setup', endpoint='square'))
 
 
 class LibrePatronModelView(ModelView):
+    can_export = True;
+    create_modal=True
+    edit_modal=True
+
     def is_accessible(self):
         return current_user.is_authenticated and \
                 current_user.role == 'admin'
@@ -64,4 +68,10 @@ class LibrePatronModelView(ModelView):
         return redirect(url_for('auth.login'))
 
 
-admin.add_view(LibrePatronModelView(User, db.session))
+class UserView(LibrePatronModelView):
+    column_exclude_list = ['password_hash']
+    column_searchable_list = ['username', 'email']
+
+
+admin.add_view(UserView(User, db.session, name='Manage Users'))
+admin.add_view(LibrePatronModelView(PriceLevel, db.session, name='Price Levels'))

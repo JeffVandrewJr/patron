@@ -1,7 +1,6 @@
-from app import blog_engine
+from app import blog_engine, db
 from app.main import bp
-from app.models import BTCPayClientStore, Square
-from app.pricing import Pricing
+from app.models import BTCPayClientStore, Square, PriceLevel
 from flask import redirect, url_for, flash, render_template, request
 from flask_blogging_patron import PostProcessor
 from flask_blogging_patron.views import page_by_id_fetched,\
@@ -61,7 +60,29 @@ def index():
 
 @bp.route('/support')
 def support():
-    price_levels = Pricing().price_levels
+    # set default pricing if none exists
+    if PriceLevel.query.all() == []:
+        level_1 = PriceLevel(
+            name='Patron',
+            description="You're a patron!",
+            price=10,
+        )
+        level_2 = PriceLevel(
+            name='Cooler Patron',
+            description="You're a cooler patron!",
+            price=20,
+        )
+        level_3 = PriceLevel(
+            name='Coolest Patron',
+            description="You're the best!",
+            price=60,
+        )
+        db.session.add(level_1)
+        db.session.add(level_2)
+        db.session.add(level_3)
+        db.session.commit()
+    price_levels = PriceLevel.query.all()
+    price_levels.sort(key=lambda x: x.price, reverse=False)
     return render_template('main/support.html',
                            levels=price_levels)
 
@@ -82,7 +103,6 @@ def credit_card():
 @bp.route('/createinvoice')
 @login_required
 def create_invoice():
-    price_plans = Pricing().price_plans
     user_arg = request.args.get('username')
     if user_arg is not None:
         if user_arg != current_user.username:
@@ -92,7 +112,7 @@ def create_invoice():
         else:
             current_plan = current_user.role
             if current_plan is not None:
-                price = price_plans.get(current_plan)
+                price = PriceLevel.query.filter_by(name=current_plan).first()
                 if price is None:
                     return redirect(url_for('main.support'))
                 plan = current_plan
@@ -104,7 +124,7 @@ def create_invoice():
             return redirect(url_for('main.support'))
         plan = request.args.get('name')
         price = int(string_price)
-        if price_plans.get(plan) != price:
+        if PriceLevel.query.filter_by(price=price).first() != price:
             return redirect(url_for('main.support'))
     btc_client = BTCPayClientStore.query.first().client
     if btc_client is None:
