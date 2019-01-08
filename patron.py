@@ -18,7 +18,7 @@ def make_shell_context():
             'editor_post_saved': editor_post_saved,
             'blog_engine': blog_engine,
             'BTCPayClientStore': BTCPayClientStore,
-            'Pricing': PriceLevel.query.all(),
+            'PriceLevel': PriceLevel,
             'send_reminder_emails': send_reminder_emails,
             'tomorrow': datetime.today() + timedelta(hours=24),
             'yesterday': datetime.today() - timedelta(hours=24),

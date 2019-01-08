@@ -124,7 +124,7 @@ def create_invoice():
             return redirect(url_for('main.support'))
         plan = request.args.get('name')
         price = int(string_price)
-        if PriceLevel.query.filter_by(price=price).first() != price:
+        if PriceLevel.query.filter_by(price=price).first().price != price:
             return redirect(url_for('main.support'))
     btc_client = BTCPayClientStore.query.first().client
     if btc_client is None:
