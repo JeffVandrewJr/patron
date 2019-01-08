@@ -45,10 +45,6 @@ wget https://raw.githubusercontent.com/JeffVandrewJr/patron/master/librepatron.e
 # open librepatron.env and fill in the necessary info as mentioned in the file comments, and then save
 nano librepatron.env
 
-# open pricing.yaml, enter your subscription plans, and then save it
-nano pricing.yaml
-
-cd ..
 sudo docker network create nginx-net
 wget https://raw.githubusercontent.com/JeffVandrewJr/patron/master/docker-compose.yml
 sudo docker-compose up -d
