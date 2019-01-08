@@ -28,10 +28,8 @@ Slack Group: https://slack.librepatron.com
 <h2>Improvements Roadmap</h2>
 
 1. Fiat integration. We're not in a 100% Bitcoin world yet (unfortunately). 
-2. Easier subscriber export.
-3. Allowing subsribers to comment on updates is turned off by default, but is permitted by entering Disqus information in the configuration file. If turning this feature on is popular, factoring out Disqus could be a long term improvement.
-4. More granular control over subscription levels.
-5. Move pricing configuration into web interface admin panel.
+2. Allowing subsribers to comment on updates is turned off by default, but is permitted by entering Disqus information in the configuration file. If turning this feature on is popular, factoring out Disqus could be a long term improvement.
+3. More granular control over subscription levels.
 
 Easy install is below, or if you prefer you can do it the [hard way](https://github.com/JeffVandrewJr/patron/blob/master/manual-install.md).
 
