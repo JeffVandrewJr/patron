@@ -1,3 +1,14 @@
+var sq = document.getElementById("sq");
+var applicationId = sq.dataset.appid;
+var locationId = sq.dataset.locid;
+
+document.addEventListener("DOMContentLoaded", function(event) {
+if (SqPaymentForm.isSupportedBrowser()) {
+  paymentForm.build();
+  paymentForm.recalculateSize();
+}
+});
+
 function buildForm(form) {
   if (SqPaymentForm.isSupportedBrowser()) {
     form.build();

@@ -1,6 +1,6 @@
 from app import admin, db
 from app.admin_views.forms import BTCCodeForm, SquareSetupForm
-from app.models import User, SquareClient
+from app.models import User, Square
 from app.utils import pairing
 from flask_admin import BaseView, expose
 from flask_admin.contrib.sqla import ModelView
@@ -36,9 +36,9 @@ class SquareView(LibrePatronBaseView):
     def square(self):
         form = SquareSetupForm()
         if form.validate_on_submit():
-            square = SquareClient.query.first()
+            square = Square.query.first()
             if square is None:
-                square = SquareClient(
+                square = Square(
                     application_id=form.application_id.data,
                     location_id=form.location_id.data,
                 )

@@ -1,24 +1,25 @@
 {% extends 'blogging/base.html' %}
+{% block meta %}
+<meta id="sq" name="application-name" content="LibrePatron"
+                         data-appid="{{ application_id }}"
+                         data-locid="{{ location_id }}"
+/>
+{% endblock meta %}
 {% block extrastyle %}
     <!-- link to the SqPaymentForm library -->
     <script type="text/javascript" src="https://js.squareup.com/v2/paymentform">
     </script>
 
-    <!-- set application ID and location ID --> 
-    <script type="text/javascript">
-        var applicationID = "{{ application_id }}";
-        var locationID = "{{ location_id }}";
-    </script>
-
     <!-- link to the local SqPaymentForm initialization -->
     <script type="text/javascript" src="static/sqpaymentform-basic.js">
     </script>
-
     <!-- link to the custom styles for SqPaymentForm -->
     <link rel="stylesheet" type="text/css" href="static/sqpaymentform-basic.css">
 {% endblock extrastyle %}
 {% block main %}
-<div id="form-container">
+<div id="form-container"
+   data-appId="{{ application_id }}"
+   data-locId="{{ location_id }}">
   <div id="sq-ccbox">
     <!--
       Be sure to replace the action attribute of the form with the path of
@@ -60,13 +61,5 @@
 </div> <!-- end #form-container -->
 {% endblock main %}
 {% block extrajs %}
-    <script type="text/javascript">
-        document.addEventListener("DOMContentLoaded", function(event) {
-        if (SqPaymentForm.isSupportedBrowser()) {
-          paymentForm.build();
-          paymentForm.recalculateSize();
-        }
-        });
-    </script>
 {% endblock extrajs %}
 
