@@ -26,12 +26,20 @@ def update_sub():
                 if user.role == 'admin':
                     return "Administrator should not make payments.", 200
                 elif invoice['status'] == "confirmed":
-                    user.expiration = datetime.today() + timedelta(days=30)
+                    if user.expiration <= datetime.today():
+                        base = datetime.today()
+                    else:
+                        base = user.expiration
+                    user.expiration = base + timedelta(days=30)
                     user.role = invoice['orderId']
                     db.session.commit()
                     return "Payment Accepted", 201
                 elif invoice['status'] == "paid":
-                    user.expiration = datetime.today() + timedelta(days=1)
+                    if user.expiration <= datetime.today():
+                        base = datetime.today()
+                    else:
+                        base = user.expiration
+                    user.expiration = base + timedelta(hours=6)
                     user.role = invoice['orderId']
                     db.session.commit()
                     return "Payment Accepted", 201
@@ -47,7 +55,7 @@ def update_sub():
 
 @bp.route('/v1/updatesubpaypal', methods=['GET', 'POST'])
 def update_sub_paypal():
-    # TODO
+    # TODO this was probably mooted by Square integration
     params = parse_qsl(request.form)
     params.append(('cmd', '_notify-validate'))
     headers = {
