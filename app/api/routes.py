@@ -2,7 +2,7 @@ from app import db
 from app.api import bp
 from app.models import BTCPayClientStore, User
 from datetime import datetime, timedelta
-from flask import request, abort
+from flask import request
 import requests
 from urllib.parse import parse_qsl
 
@@ -35,13 +35,13 @@ def update_sub():
                     db.session.commit()
                     return "Payment Accepted", 201
                 elif invoice['status'] == "paid":
-                    if user.expiration <= datetime.today():
-                        base = datetime.today()
-                    else:
-                        base = user.expiration
-                    user.expiration = base + timedelta(hours=6)
-                    user.role = invoice['orderId']
-                    db.session.commit()
+                    # add a few hours if expired or almost expired
+                    measure = user.expiration - timedelta(hours=6)
+                    if measure <= datetime.today():
+                        user.expiration = datetime.today()\
+                                + timedelta(hours=6)
+                        user.role = invoice['orderId']
+                        db.session.commit()
                     return "Payment Accepted", 201
                 else:
                     return "IPN Received", 200
