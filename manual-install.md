@@ -6,7 +6,7 @@ git clone https://github.com/JeffVandrewJr/patron.git
 
 cd patron
 
-git checkout v0.4.1
+git checkout v0.5.2
 
 # one of LibrePatron's dependencies will crash without a valid timezone setting (see notes in README)
 # different distros set timezone differently; below is an Ubuntu example
@@ -18,6 +18,7 @@ sudo apt-get install build-essential libffi-dev python3-dev libssl-dev
 # venv and pip dependencies
 python3 -m venv venv
 source venv/bin/activate
+pip install gunicorn
 pip install -r requirements.txt
 
 # open librepatron.env, which shows all environmental variables which you need to set
