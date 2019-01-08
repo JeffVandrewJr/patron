@@ -23,11 +23,10 @@ services:
 
     librepatron:
         container_name: librepatron
-        image: jvandrew/librepatron:0.4.1
+        image: jvandrew/librepatron:0.5.2
         expose:
             - "8006"
         volumes:
-            - '~/pricing:/var/pricing'
             - data-volume:/var/lib/db
         env_file:
             - librepatron.env
