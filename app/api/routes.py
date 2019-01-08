@@ -117,7 +117,8 @@ def process_square(price):
     try:
         transactions_api = TransactionsApi(api_client)
         idempotency_key = str(uuid.uuid1())
-        amount = {'amount': price, 'currency': 'USD'}
+        cents = price * 100
+        amount = {'amount': cents, 'currency': 'USD'}
         body = {
             'idempotency_key': idempotency_key,
             'customer_id': customer.id,
@@ -144,8 +145,13 @@ def process_square(price):
             else:
                 base = current_user.expiration
             current_user.expiration = base + timedelta(days=30)
-            current_user.role = PriceLevel.query.filter_by(
-                price=price).first().name
+            try:
+                current_user.role = PriceLevel.query.filter_by(
+                    price=price).first().name
+            except Exception as e:
+                if current_user.role is None:
+                    current_user.role = PriceLevel.query.first().name
+                current_app.logger.error(e, exc_info=True)
             db.session.commit()
             return redirect(url_for('main.index'))
     except Exception as e:
