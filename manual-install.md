@@ -9,9 +9,9 @@ cd patron
 # this checkout step is IMPORTANT, otherwise you may run an unstable version
 git checkout v0.6.7
 
-# one of LibrePatron's dependencies will crash without a valid timezone setting (see notes in README)
+# one of LibrePatron's dependencies will crash without a valid timezone setting
 # different distros set timezone differently; below is an Ubuntu example
-export TZ=America/New_York
+export TZ=Universal
 
 # install dependencies
 sudo apt-get install build-essential libffi-dev python3-dev libssl-dev
