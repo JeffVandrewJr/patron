@@ -21,6 +21,7 @@ def renewals():
             User.expiration < tomorrow,
             User.expiration > yesterday,
             User.square_id == None,
+            User.role != None,
         ).all()
     six = datetime.today() + timedelta(hours=144)
     four = datetime.today() + timedelta(hours=96)
@@ -29,6 +30,7 @@ def renewals():
             User.expiration < six,
             User.expiration > four,
             User.square_id == None,
+            User.role != None,
         ).all()
     reminder_list = first_reminder + last_reminder
     send_reminder_emails(scheduler.app, reminder_list)
