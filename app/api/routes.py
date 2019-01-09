@@ -3,7 +3,7 @@ from app.api import bp
 from app.models import BTCPayClientStore, User, Square, PriceLevel
 from datetime import datetime, timedelta
 from flask import request, redirect, flash, url_for, current_app
-from flask_login import current_user
+from flask_login import current_user, login_required
 import requests
 from squareconnect.api_client import ApiClient
 from squareconnect.apis.customers_api import CustomersApi
@@ -63,102 +63,104 @@ def update_sub():
 
 
 @bp.route('/v1/square/<int:price>', methods=['GET', 'POST'])
+@login_required
 def process_square(price):
-    with current_app.app_context():
-        if not request.form or 'nonce' not in request.form:
-            return "Bad Request", 422
-        square = Square.query.first()
-        nonce = request.form['nonce']
-        api_client = ApiClient()
-        api_client.configuration.access_token = square.access_token
-        if current_user.square_id is None:
-            customers_api = CustomersApi(api_client)
-            customer_request = CreateCustomerRequest(
-                email_address=current_user.email)
-            try:
-                customer_res = customers_api.create_customer(customer_request)
-                customer = customer_res.customer
-                if customer is None:
-                    flash('Card could not be processed.')
-                    current_app.logger.info(
-                        f'''
-                        {current_user.username} card declined:
-                        {customer_res.errors}
-                        '''
-                    )
-                    return redirect(url_for('main.support'))
-                else:
-                    customer_card_request = CreateCustomerCardRequest(
-                        card_nonce=nonce,
-                    )
-                    card_res = customers_api.create_customer_card(
-                        customer.id,
-                        customer_card_request,
-                    )
-                    card = card_res.card
-                    if card is None:
-                        flash('Card could not be processed.')
-                        current_app.logger.info(
-                            f'''
-                            {current_user.username} card declined:
-                            {card_res.errors}
-                            '''
-                        )
-                        return redirect(url_for('main.support'))
-                    else:
-                        current_user.square_id = customer
-                        current_user.square_card = card
-            except Exception as e:
-                flash('Card could not be processed.')
-                current_app.logger.error(e, exc_info=True)
-                return redirect(url_for('main.support'))
-        else:
-            customer = current_user.square_id
-            card = current_user.square_card
+    if not request.form or 'nonce' not in request.form:
+        return "Bad Request", 422
+    square = Square.query.first()
+    nonce = request.form['nonce']
+    api_client = ApiClient()
+    api_client.configuration.access_token = square.access_token
+    if current_user.square_id is None:
+        customers_api = CustomersApi(api_client)
+        customer_request = CreateCustomerRequest(
+            email_address=current_user.email)
         try:
-            transactions_api = TransactionsApi(api_client)
-            idempotency_key = str(uuid.uuid1())
-            cents = price * 100
-            amount = {'amount': cents, 'currency': 'USD'}
-            body = {
-                'idempotency_key': idempotency_key,
-                'customer_id': customer.id,
-                'customer_card_id': card.id,
-                'amount_money': amount,
-            }
-            charge_response = transactions_api.charge(
-                square.location_id, body
-            )
-            transaction = charge_response.transaction
-            if transaction is None:
-                flash('Card could not be processed.')
-                current_app.logger.info(
-                    f'''
-                    {current_user.username} card declined:
-                    {charge_response.errors}
-                    '''
-                )
-                return redirect(url_for('main.support'))
-            elif transaction.id is not None:
-                flash('Subscription Updated')
-                if current_user.expiration <= datetime.today():
-                    base = datetime.today()
-                else:
-                    base = current_user.expiration
-                current_user.expiration = base + timedelta(days=30)
-                try:
-                    current_user.role = PriceLevel.query.filter_by(
-                        price=price).first().name
-                except Exception as e:
-                    if current_user.role is None:
-                        current_user.role = PriceLevel.query.first().name
-                    current_app.logger.error(e, exc_info=True)
-                db.session.commit()
-                return redirect(url_for('main.index'))
+            customer_res = customers_api.create_customer(customer_request)
         except Exception as e:
             flash('Card could not be processed.')
             current_app.logger.error(e, exc_info=True)
             return redirect(url_for('main.support'))
+        customer = customer_res.customer
+        if customer is None:
+            flash('Card could not be processed.')
+            current_app.logger.info(
+                f'''
+                {current_user.username} card declined:
+                {customer_res.errors}
+                '''
+            )
+            return redirect(url_for('main.support'))
+        else:
+            customer_card_request = CreateCustomerCardRequest(
+                card_nonce=nonce,
+            )
+            try:
+                card_res = customers_api.create_customer_card(
+                    customer.id,
+                    customer_card_request,
+                )
+            except Exception as e:
+                flash('Card could not be processed.')
+                current_app.logger.error(e, exc_info=True)
+                return redirect(url_for('main.support'))
+            card = card_res.card
+            if card is None:
+                flash('Card could not be processed.')
+                current_app.logger.info(
+                    f'''
+                    {current_user.username} card declined:
+                    {card_res.errors}
+                    '''
+                )
+                return redirect(url_for('main.support'))
+            else:
+                current_user.square_id = customer.id
+                current_user.square_card = card.id
+    transactions_api = TransactionsApi(api_client)
+    idempotency_key = str(uuid.uuid1())
+    cents = price * 100
+    amount = {'amount': cents, 'currency': 'USD'}
+    body = {
+        'idempotency_key': idempotency_key,
+        'customer_id': current_user.square_id,
+        'customer_card_id': current_user.square_card,
+        'amount_money': amount,
+    }
+    try:
+        charge_response = transactions_api.charge(
+            square.location_id, body
+        )
+    except Exception as e:
+        flash('Card could not be processed.')
+        current_app.logger.error(e, exc_info=True)
+        return redirect(url_for('main.support'))
+    transaction = charge_response.transaction
+    if transaction is None:
+        flash('Card could not be processed.')
+        current_app.logger.info(
+            f'''
+            {current_user.username} card declined:
+            {charge_response.errors}
+            '''
+        )
+        return redirect(url_for('main.support'))
+    elif transaction.id is not None:
+        flash('Subscription Updated')
+        if current_user.expiration <= datetime.today():
+            base = datetime.today()
+        else:
+            base = current_user.expiration
+        current_user.expiration = base + timedelta(days=30)
+        new_role = PriceLevel.query.filter_by(price=price).first()
+        if hasattr(new_role, 'name'):
+            current_user.role = new_role.name
+        else:
+            current_user.role = PriceLevel.query.first().name
+            current_app.logger.error(f'{current_user.username} \
+                        signed up for nonexistent price level.')
+        db.session.commit()
+        return redirect(url_for('main.index'))
 
 
 @bp.route('/v1/updatesubpaypal', methods=['GET', 'POST'])
