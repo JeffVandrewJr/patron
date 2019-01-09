@@ -15,8 +15,6 @@ Unfortunately most Patreon alternatives to date do not implement all of Patreon'
 * Managing billing and subscription expiration
 * Automatic monthly billing via email
 
-While still in alpha status, LibrePatron implements all of these features. 
-
 Portions of this package rely on a fork of the Flask-Blogging package by Gouthaman Balaraman.
 
 If you're a creator reading this unconcerned with free speech issues, Patreon still takes a percentage of your earnings, which can be avoided by using LibrePatron.
