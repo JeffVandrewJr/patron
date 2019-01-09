@@ -3,7 +3,7 @@
 {% block main %}
     <h1>Account Information</h1>
     <p><b>Plan Name:</b> {{ current_user.role }}</p>
-    <p><b>Expiration:</b> {{ expires }}</p>
+    <p><b>Expiration (UTC):</b> {{ expires }}</p>
     {% if not square %}
     <p>Note that if you made a payment today, your full 30 day extension will not be reflected until the blockchain confirms payment.</p>
     {% else %}
