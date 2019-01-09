@@ -88,6 +88,7 @@ def support():
 
 
 @bp.route('/creditcard')
+@login_required
 def credit_card():
     price = request.args.get('price')
     if price is None:
