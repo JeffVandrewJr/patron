@@ -64,7 +64,7 @@ def update_sub():
 
 @bp.route('/v1/square/<int:price>', methods=['GET', 'POST'])
 def process_square(price):
-    with current_app._get_current_object.app_context():
+    with current_app.app_context():
         if not request.form or 'nonce' not in request.form:
             return "Bad Request", 422
         square = Square.query.first()
