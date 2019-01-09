@@ -7,7 +7,7 @@ git clone https://github.com/JeffVandrewJr/patron.git
 cd patron
 
 # this checkout step is IMPORTANT, otherwise you may run an unstable version
-git checkout v0.5.2
+git checkout v0.6.7
 
 # one of LibrePatron's dependencies will crash without a valid timezone setting (see notes in README)
 # different distros set timezone differently; below is an Ubuntu example
