@@ -1,5 +1,5 @@
 import os
-from os.path import normpath, abspath, join
+from os.path import abspath, join
 
 basedir = abspath(os.path.dirname(__file__))
 
@@ -25,8 +25,14 @@ class Config(object):
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
     PREFERRED_URL_SCHEME = 'https'
-    SCHEDULER_HOUR = os.environ.get('SCHEDULER_HOUR') or 9
-    SCHEDULER_MINUTE= os.environ.get('SCHEDULER_MINUTE')
+    if os.environ.get('SCHEDULER_HOUR') is not None:
+        SCHEDULER_HOUR = int(os.environ.get('SCHEDULER_HOUR'))
+    else:
+        SCHEDULER_HOUR = 9
+    if os.environ.get('SCHEDULER_MINUTE') is not None:
+        SCHEDULER_MINUTE = int(os.environ.get('SCHEDULER_MINUTE'))
+    else:
+        SCHEDULER_MINUTE = None
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'placeholder'
     SERVER_NAME = os.environ.get('VIRTUAL_HOST')
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
