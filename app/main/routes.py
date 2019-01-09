@@ -1,12 +1,13 @@
 from app import blog_engine, db
 from app.main import bp
 from app.models import BTCPayClientStore, Square, PriceLevel
-from flask import redirect, url_for, flash, render_template, request
+from datetime import datetime
+from flask import redirect, url_for, flash, render_template, request,\
+        current_app
 from flask_blogging_patron import PostProcessor
 from flask_blogging_patron.views import page_by_id_fetched,\
         page_by_id_processed
 from flask_login import current_user, login_required
-import traceback
 
 
 @bp.route('/')
@@ -19,16 +20,29 @@ def index():
             tag='public'
         )
         temp_post = posts[0]
+        post = blog_engine.storage.get_post_by_id(temp_post['post_id'])
     except Exception as e:
-        traceback.print_tb(e.__traceback__)
-        flash('This site has no homepage yet. \
-              Please create one.', 'warning')
-        if current_user.is_authenticated and current_user.role == 'admin':
-            return redirect(url_for('blogging.editor'))
+        if hasattr(current_user, 'id'):
+            current_app.logger.info(
+                f'''
+                Automatically generated non-existent homepage due to
+                 the following: {e}
+                '''
+            )
+            blog_engine.storage.save_post(
+                'Welcome to LibrePatron!',
+                text='Your homepage goes here.',
+                tags=['public'],
+                draft=False,
+                user_id=current_user.id,
+                post_date=datetime.today(),
+                last_modified_date=datetime.today(),
+                post_id=None,
+            )
+            return redirect(url_for('main.index'))
         else:
             return redirect(url_for('auth.register'))
     config = blog_engine.config
-    post = blog_engine.storage.get_post_by_id(temp_post['post_id'])
     meta = {}
     meta['is_user_blogger'] = False
     if current_user.is_authenticated:

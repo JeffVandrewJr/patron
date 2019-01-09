@@ -8,7 +8,7 @@ from .processor import PostProcessor
 from flask_login import login_required, current_user
 from flask import Blueprint, current_app, render_template, request, redirect, \
     url_for, flash, make_response
-from flask_blogging_patron.forms import BlogEditor
+from flask_blogging_patron.forms import BlogEditor, HomePageEditor
 import math
 from werkzeug.contrib.atom import AtomFeed
 import datetime
@@ -228,7 +228,10 @@ def editor(post_id):
             config = blogging_engine.config
             storage = blogging_engine.storage
             if request.method == 'POST':
-                form = BlogEditor(request.form)
+                if request.form['tags'] == 'PUBLIC':
+                    form = HomePageEditor(request.form)
+                else:
+                    form = BlogEditor(request.form)
                 if form.validate():
                     post = storage.get_post_by_id(post_id)
                     if (post is not None) and \
@@ -250,7 +253,10 @@ def editor(post_id):
                                          
                     flash("Update posted successfully!", "info")
                     slug = post_processor.create_slug(form.title.data)
-                    return redirect(url_for("blogging.page_by_id", post_id=pid,
+                    if isinstance(form, HomePageEditor):
+                        return redirect(url_for('main.index'))
+                    else:
+                        return redirect(url_for("blogging.page_by_id", post_id=pid,
                                             slug=slug))
                 else:
                     flash("There were errors in update submission", "warning")
@@ -261,9 +267,14 @@ def editor(post_id):
                     post = storage.get_post_by_id(post_id)
                     if (post is not None) and \
                             (PostProcessor.is_author(post, current_user)):
-                        tags = ", ".join(post["tags"])
-                        form = BlogEditor(title=post["title"],
-                                          text=post["text"], tags=tags)
+                        if 'PUBLIC' in post["tags"]:
+                            tags = "PUBLIC"
+                            form = HomePageEditor(title=post["title"],
+                                                text=post["text"], tags=tags)
+                        else:
+                            tags = ", ".join(post["tags"])
+                            form = BlogEditor(title=post["title"],
+                                              text=post["text"], tags=tags)
                         editor_get_fetched.send(blogging_engine.app,
                                                 engine=blogging_engine,
                                                 post_id=post_id,

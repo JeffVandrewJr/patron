@@ -1,4 +1,4 @@
-from app import scheduler
+from app import scheduler, db
 from app.email import send_reminder_emails, send_failed_emails
 from app.models import User, Square, PriceLevel
 from datetime import datetime, timedelta, date
@@ -99,7 +99,7 @@ def renewals_square():
                     else:
                         base = user.expiration
                     user.expiration = base + timedelta(days=30)
-                    scheduler.app.db.session.commit()
+                    db.session.commit()
     send_failed_emails(
         scheduler.app,
         failed_list=declined_list,

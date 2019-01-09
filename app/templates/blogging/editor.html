@@ -9,7 +9,11 @@
 
     <fieldset>
         <!-- Form Name -->
+        {% if form.tags.type != "RadioField" %}
+        <legend>Edit Homepage</legend>
+        {% else %}
         <legend>Update Editor</legend>
+        {% endif %}
         <!-- Text input-->
         <div class="form-group">
             <label>
@@ -34,6 +38,7 @@
         </div>
         <!-- Text input-->
         <div>
+            {% if form.tags.type == "RadioField" %}
             {% for subfield in form.tags %}
                 <tr>
                     <td>{{ subfield }}</td>
@@ -41,6 +46,7 @@
                     <br>
                 </tr>
             {% endfor %}
+            {% endif %}
         </div>
         <!-- draft input-->
         <!--div class="form-group">
