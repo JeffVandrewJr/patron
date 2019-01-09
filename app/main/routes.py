@@ -117,10 +117,13 @@ def create_invoice():
         else:
             current_plan = current_user.role
             if current_plan is not None:
-                price = PriceLevel.query.filter_by(name=current_plan).first()
-                if price is None:
+                price_level = PriceLevel.query.filter_by(
+                    name=current_plan).first()
+                if price_level is None:
                     return redirect(url_for('main.support'))
-                plan = current_plan
+                else:
+                    plan = price_level.name
+                    price = price_level.price
             else:
                 return redirect(url_for('main.support'))
     else:
@@ -129,22 +132,37 @@ def create_invoice():
             return redirect(url_for('main.support'))
         plan = request.args.get('name')
         price = int(string_price)
-        if PriceLevel.query.filter_by(price=price).first().price != price:
+        compare = PriceLevel.query.filter_by(price=price).first()
+        if compare is None:
             return redirect(url_for('main.support'))
-    btc_client = BTCPayClientStore.query.first().client
-    if btc_client is None:
+        elif compare.name != plan:
+            return redirect(url_for('main.support'))
+    btc_client_store = BTCPayClientStore.query.first()
+    if btc_client_store is None:
         return 'BTCPay has not been paired!', 501
-    inv_data = btc_client.create_invoice({
-        "price": price,
-        "currency": "USD",
-        "buyer": {
-            "name": current_user.username,
-            "email": current_user.email,
-        },
-        "orderId": plan,
-        "extendedNotifications": True,
-        "fullNotifications": True,
-        "notificationURL": url_for('api.update_sub', _external=True, _scheme='https'),
-        "redirectURL": url_for('main.index', _external=True, _scheme='https')
-    })
-    return redirect(inv_data['url'])
+    elif btc_client_store.client is None:
+        return 'BTCPay has not been paired!', 501
+    else:
+        btc_client = btc_client_store.client
+        inv_data = btc_client.create_invoice({
+            "price": price,
+            "currency": "USD",
+            "buyer": {
+                "name": current_user.username,
+                "email": current_user.email,
+            },
+            "orderId": plan,
+            "extendedNotifications": True,
+            "fullNotifications": True,
+            "notificationURL": url_for(
+                'api.update_sub',
+                _external=True,
+                _scheme='https'
+            ),
+            "redirectURL": url_for(
+                'main.index',
+                _external=True,
+                _scheme='https'
+            )
+        })
+        return redirect(inv_data['url'])

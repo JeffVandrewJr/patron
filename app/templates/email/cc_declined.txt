@@ -4,7 +4,7 @@ Your support this past month has been greatly appreciated.
 
 Your subscription to {{ site }} expires on {{ expires }} (UTC).
 
-To renew another month of patronage, please click here:
+Your credit card was declined this past month. To renew another month of patronage, please click here:
 {{ url }}
 
 Thanks!

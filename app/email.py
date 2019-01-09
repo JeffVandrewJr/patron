@@ -68,6 +68,45 @@ def send_reminder_emails(app, reminder_list):
             raise
 
 
+def send_failed_emails(app, failed_list, declined_list):
+    with app.app_context():
+        site = app.config['BLOGGING_SITENAME']
+        url = url_for('main.support')
+        with mail.connect() as conn:
+            for user in failed_list:
+                expires = user.expiration.date()
+                msg = Message(
+                    f'{site} Subscription Update',
+                    sender=app.config.get('ADMIN'),
+                    recipients=[user.email],
+                    body=render_template(
+                        'email/reminder_cc.txt',
+                        site=site,
+                        user=user,
+                        url=url,
+                        expires=expires,
+                    ),
+                    html=None
+                )
+                conn.send(msg)
+            for user in declined_list:
+                expires = user.expiration.date()
+                msg = Message(
+                    f'{site} Card Declined',
+                    sender=app.config.get('ADMIN'),
+                    recipients=[user.email],
+                    body=render_template(
+                        'email/cc_declined.txt',
+                        site=site,
+                        user=user,
+                        url=url,
+                        expires=expires,
+                    ),
+                    html=None
+                )
+                conn.send(msg)
+
+
 def send_bulkmail(subject, sender, users, text_body, html_body):
     msg = Message(subject, sender=sender)
     msg.body = text_body
