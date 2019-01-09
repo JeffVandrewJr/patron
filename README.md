@@ -27,7 +27,7 @@ Slack Group: https://slack.librepatron.com
 
 <h2>Improvements Roadmap</h2>
 
-1. Fiat integration. We're not in a 100% Bitcoin world yet (unfortunately). 
+1. Fiat integration. We're not in a 100% Bitcoin world yet (unfortunately). Square has been integrated for fiat payments, but is not yet fully tested and should not yet be activated in production.
 2. Allowing subsribers to comment on updates is turned off by default, but is permitted by entering Disqus information in the configuration file. If turning this feature on is popular, factoring out Disqus could be a long term improvement.
 3. More granular control over subscription levels.
 
