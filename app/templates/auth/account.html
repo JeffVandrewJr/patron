@@ -11,7 +11,7 @@
     {% endif %}
     <a href="{{ url_for('main.support') }}" class="btn btn-default">Make a Payment or Change Plans</a>
     {% if square %}
-    <a href="{{ url_for('auth.cancel_square') }}" class="btn btn-default">cancel Credit Card Billing</a>
+    <a href="{{ url_for('auth.cancel_square') }}" class="btn btn-default">Cancel Credit Card Billing</a>
     {% endif %}
     {% if opt_out %}
     <a href="{{ url_for('auth.mail_opt') }}" class="btn btn-default">Opt In to Emails</a>
