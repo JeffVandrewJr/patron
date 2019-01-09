@@ -46,8 +46,8 @@ class SquareView(LibrePatronBaseView):
                 db.session.add(square)
             else:
                 square.application_id = form.application_id.data
-                square.location_id = form.location_id.data,
-                square.access_token=form.access_token.data,
+                square.location_id = form.location_id.data
+                square.access_token = form.access_token.data
             db.session.commit()
             flash('Square data saved.')
             return redirect(url_for('admin.index'))
