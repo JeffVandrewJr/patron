@@ -4,7 +4,6 @@ from app.models import BTCPayClientStore, User, Square, PriceLevel
 from datetime import datetime, timedelta
 from flask import request, redirect, flash, url_for, current_app
 from flask_login import current_user, login_required
-import requests
 from squareconnect.api_client import ApiClient
 from squareconnect.apis.customers_api import CustomersApi
 from squareconnect.apis.transactions_api import TransactionsApi
@@ -12,7 +11,6 @@ from squareconnect.models.create_customer_request import \
         CreateCustomerRequest
 from squareconnect.models.create_customer_card_request import \
         CreateCustomerCardRequest
-from urllib.parse import parse_qsl
 import uuid
 
 
@@ -161,26 +159,3 @@ def process_square(price):
                         signed up for nonexistent price level.')
         db.session.commit()
         return redirect(url_for('main.index'))
-
-
-@bp.route('/v1/updatesubpaypal', methods=['GET', 'POST'])
-def update_sub_paypal():
-    # TODO this was probably mooted by Square integration
-    params = parse_qsl(request.form)
-    params.append(('cmd', '_notify-validate'))
-    headers = {
-        'content-type': 'application/x-www-form-urlencoded',
-        'user-agent': 'Python-IPN-Verification-Script'
-    }
-    r = requests.post(
-        VERIFY_URL,
-        params=params,
-        headers=headers,
-        verify=True
-    )
-    r.raise_for_status()
-    if r.text == 'VERIFIED':
-        user.expiration = datetime.today() + timedelta(days=30)
-        db.session.commit()
-    elif r.text == 'INVALID':
-        return None
