@@ -20,16 +20,20 @@ services:
             - '/var/run/docker.sock:/var/run/docker.sock:ro'
         volumes_from:
             - nginx-proxy
+        restart: on-failure
 
     librepatron:
         container_name: librepatron
-        image: jvandrew/librepatron:0.6.9
+        image: jvandrew/librepatron:0.6.10
         expose:
             - "8006"
         volumes:
             - data-volume:/var/lib/db
+        environment:
+            - DATABASE_URL=sqlite:////var/lib/db/app.db
         env_file:
             - librepatron.env
+        restart: on-failure
 
 volumes:
     data-volume:
