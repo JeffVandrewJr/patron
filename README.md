@@ -1,6 +1,6 @@
 <h1>LibrePatron: A Self-Hosted Patreon Alternative Backed by BTCPay</h1>
 
-Copyright (C) 2018 Jeff Vandrew Jr
+Copyright (C) 2018-2019 Jeff Vandrew Jr
 
 Latest Stable Release: 0.6.8
 
@@ -14,8 +14,6 @@ Unfortunately most Patreon alternatives to date do not implement all of Patreon'
 * Automatic bulk emailing of updates to subscribers
 * Managing billing and subscription expiration
 * Automatic monthly billing via email
-
-While still in alpha status, LibrePatron implements all of these features. 
 
 Portions of this package rely on a fork of the Flask-Blogging package by Gouthaman Balaraman.
 
