@@ -11,6 +11,7 @@ services:
             - '/usr/share/nginx/html'
             - '/etc/nginx/certs:/etc/nginx/certs:ro' 
             - '/var/run/docker.sock:/tmp/docker.sock:ro'
+        restart: on-failure
 
     letsencrypt-nginx-proxy:
         container_name: letsencrypt-nginx-proxy
