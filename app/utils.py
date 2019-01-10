@@ -1,5 +1,5 @@
 from app import db
-from app.models import BTCPayClientStore
+from app.models import BTCPayClientStore, ThirdPartyServices
 from btcpay import BTCPayClient
 from btcpay.crypto import generate_privkey
 from flask import request

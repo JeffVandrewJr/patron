@@ -1,10 +1,11 @@
 from app import admin, db
-from app.admin_views.forms import BTCCodeForm, SquareSetupForm
-from app.models import User, Square, PriceLevel
+from app.admin_views.forms import BTCCodeForm, SquareSetupForm, \
+        GAForm
+from app.models import User, Square, PriceLevel, ThirdPartyServices
 from app.utils import pairing
 from flask_admin import BaseView, expose
 from flask_admin.contrib.sqla import ModelView
-from flask import flash, redirect, url_for
+from flask import flash, redirect, url_for, current_app
 from flask_login import current_user
 
 
@@ -29,6 +30,31 @@ class BTCPayView(LibrePatronBaseView):
 
 
 admin.add_view(BTCPayView(name='BTCPay Setup', endpoint='btcpay'))
+
+
+class GAView(LibrePatronBaseView):
+    @expose('/', methods=['GET', 'POST'])
+    def ga(self):
+        form = GAForm()
+        if form.validate_on_submit():
+            ga = ThirdPartyServices.query.filter_by(name='ga').first()
+            if ga is None:
+                ga = ThirdPartyServices(
+                    name='ga',
+                    code=form.code.data,
+                )
+                db.session.add(ga)
+            else:
+                ga.code = form.code.data
+            db.session.commit()
+            current_app.config['BLOGGING_GOOGLE_ANALYTICS'] = \
+                ga.code
+            flash('Google Analytics data saved.')
+            return redirect(url_for('admin.index'))
+        return self.render('admin/ga.html', form=form)
+
+
+admin.add_view(GAView(name='Google Analytics', endpoint='ga'))
 
 
 class SquareView(LibrePatronBaseView):
@@ -58,9 +84,9 @@ admin.add_view(SquareView(name='Square Setup', endpoint='square'))
 
 
 class LibrePatronModelView(ModelView):
-    can_export = True;
-    create_modal=True
-    edit_modal=True
+    can_export = True
+    create_modal = True
+    edit_modal = True
 
     def is_accessible(self):
         return current_user.is_authenticated and \
@@ -76,4 +102,8 @@ class UserView(LibrePatronModelView):
 
 
 admin.add_view(UserView(User, db.session, name='Manage Users'))
-admin.add_view(LibrePatronModelView(PriceLevel, db.session, name='Price Levels'))
+admin.add_view(LibrePatronModelView(
+    PriceLevel,
+    db.session,
+    name='Price Levels'
+))

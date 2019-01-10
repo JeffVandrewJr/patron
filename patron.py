@@ -2,7 +2,8 @@
 
 from app import create_app, db, blog_engine
 from app.email import send_reminder_emails
-from app.models import User, BTCPayClientStore, PriceLevel
+from app.models import User, BTCPayClientStore, PriceLevel, \
+        ThirdPartyServices
 from datetime import datetime, timedelta
 from flask_blogging_patron.signals import editor_post_saved
 

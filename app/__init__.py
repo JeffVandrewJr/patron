@@ -1,11 +1,11 @@
 from config import Config
 from copy import deepcopy
 from flask import Flask
-from flask_admin import Admin
+from flask_admin import Admin, AdminIndexView
 from flask_apscheduler import APScheduler
 from flask_blogging_patron import BloggingEngine, SQLAStorage
 from flask_bootstrap import Bootstrap
-from flask_login import LoginManager
+from flask_login import LoginManager, current_user
 from flask_mail import Mail
 from flask_migrate import Migrate
 from flask_principal import Permission, RoleNeed
@@ -23,7 +23,23 @@ login.login_view = 'auth.login'
 login.login_message_category = 'info'
 mail = Mail()
 scheduler = APScheduler()
-admin = Admin(name='LibrePatron Admin', template_mode='bootstrap3')
+
+#admin setup
+class AdminHomeView(AdminIndexView):
+    def is_accessible(self):
+        return current_user.is_authenticated and \
+                current_user.role == 'admin'
+
+    def inaccessible_callback(self, name, **kwargs):
+        return redirect(url_for('auth.login'))
+
+
+admin = Admin(
+    name='LibrePatron Admin',
+    template_mode='bootstrap3',
+    index_view=AdminHomeView(),
+)
+
 
 # global
 global temp_bp
@@ -68,6 +84,14 @@ def create_app(config_class=Config):
         url_prefix=app.config.get('BLOGGING_URL_PREFIX')
     )
     app.register_blueprint(main_bp)
+
+    # pre-first request loads
+    @app.before_first_request
+    def load_ga():
+        from app.models import ThirdPartyServices
+        ga = ThirdPartyServices.query.filter_by(name='ga').first()
+        if ga is not None:
+            app.config['BLOGGING_GOOGLE_ANALYTICS'] = ga.code
 
     # tasks
     from app import tasks

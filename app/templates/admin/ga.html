@@ -1,0 +1,15 @@
+{% extends 'admin/master.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block body %}
+    <h2>Enter your Google Analytics Info</h2>
+    <br>
+    <div class="row">
+        <div class="col-md-4">
+            {{ wtf.quick_form(form) }}
+        </div>
+    </div>
+    <br>
+    <p>To deactivate Google Analytics, click below</p>
+    <p><a href="{{ url_for('admin_utils.delete_ga') }}" class="btn btn-default">Deactivate Google Analytics</a></p>
+{% endblock %}

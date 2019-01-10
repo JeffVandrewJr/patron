@@ -12,6 +12,14 @@ class BTCCodeForm(FlaskForm):
     submit = SubmitField('Submit')
 
 
+class GAForm(FlaskForm):
+    code = StringField(
+        'Enter Tracking Code (begins with "UA")',
+        validators=[DataRequired()]
+    )
+    submit = SubmitField('Submit')
+
+
 class SquareSetupForm(FlaskForm):
     application_id = StringField(
         'Square Application ID',

@@ -38,13 +38,17 @@ class BTCPayClientStore(db.Model):
         return f'Pickled BTCPay Client, Id {self.id}'
 
 
-class SecretKey(db.Model):
+class ThirdPartyServices(db.Model):
     __table_args__ = {'extend_existing': True}
     id = db.Column(db.Integer, primary_key=True)
-    key = db.Column(db.String(64))
+    name = db.Column(db.String(64))
+    code = db.Column(db.String(128))
 
     def __repr__(self):
-        return f'Secret Key #{self.id}: {self.key}'
+        return f'''
+                Third Party Service {self.id}: {self.name}
+                 {self.code}
+                '''
 
 
 class User(UserMixin, db.Model):
