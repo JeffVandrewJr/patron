@@ -22,8 +22,9 @@ source venv/bin/activate
 pip install gunicorn
 pip install -r requirements.txt
 
-# open librepatron.env, which shows all environmental variables which you need to set
-# then make sure you set each of those variables
+# a variety of environmental variables need to be set
+# to see which, read all of the env variables set in lirepatron.env, docker-compose.yml, and Dockerfile
+# since you're not using Docker, you'll need to set all those variables manually
 # you'll probably want to commit the exported variables to a shell config file so they stay set
 nano librepatron.env
 export SITEURL=https://example.com
