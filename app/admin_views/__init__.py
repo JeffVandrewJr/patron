@@ -1,12 +1,14 @@
 from app import admin, db
 from app.admin_views.forms import BTCCodeForm, SquareSetupForm, \
-        GAForm
-from app.models import User, Square, PriceLevel, ThirdPartyServices
+        GAForm, EmailSetupForm
+from app.models import User, Square, PriceLevel, ThirdPartyServices, \
+        Email
 from app.utils import pairing
 from flask_admin import BaseView, expose
 from flask_admin.contrib.sqla import ModelView
 from flask import flash, redirect, url_for, current_app
 from flask_login import current_user
+from flask_mail import Mail
 
 
 class LibrePatronBaseView(BaseView):
@@ -81,6 +83,43 @@ class SquareView(LibrePatronBaseView):
 
 
 admin.add_view(SquareView(name='Square Setup', endpoint='square'))
+
+
+class EmailView(LibrePatronBaseView):
+    @expose('/', methods=['GET', 'POST'])
+    def email(self):
+        form = EmailSetupForm()
+        if form.validate_on_submit():
+            email = Email.query.first()
+            if email is None:
+                email = Email(
+                    server=form.server.data,
+                    port=form.port.data,
+                    username=form.username.data,
+                    password=form.password.data,
+                    outgoing_email=form.outgoing_email.data,
+                )
+                db.session.add(email)
+            else:
+                email.server = form.server.data
+                email.port = form.port.data
+                email.username = form.username.data
+                email.password = form.password.data
+                email.outgoing_email = form.outgoing_email.data
+            db.session.commit()
+            current_app.config['ADMIN'] = email.outgoing_email
+            current_app.config['MAIL_SERVER'] = email.server
+            current_app.config['MAIL_PORT'] = email.port
+            current_app.config['MAIL_USERNAME'] = email.username
+            current_app.config['MAIL_PASSWORD'] = email.password
+            mail = Mail()
+            mail.init_app(current_app)
+            flash('Email server info saved.')
+            return redirect(url_for('admin.index'))
+        return self.render('admin/email.html', form=form)
+
+
+admin.add_view(EmailView(name='Email Setup', endpoint='email'))
 
 
 class LibrePatronModelView(ModelView):

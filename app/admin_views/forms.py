@@ -1,5 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
+from wtforms import StringField, SubmitField, IntegerField, \
+        PasswordField
 from wtforms.validators import DataRequired
 
 
@@ -31,6 +32,30 @@ class SquareSetupForm(FlaskForm):
     )
     access_token = StringField(
         'Square Access Token',
+        validators=[DataRequired()]
+    )
+    submit = SubmitField('Submit')
+
+
+class EmailSetupForm(FlaskForm):
+    outgoing_email = StringField(
+        'Enter the email to show on outbound emails:',
+        validators=[DataRequired()]
+    )
+    server = StringField(
+        'Enter Email Host Name',
+        validators=[DataRequired()]
+    )
+    port = IntegerField(
+        'Enter Server Port (normally 587)',
+        validators=[DataRequired()]
+    )
+    username = StringField(
+        'Enter email username',
+        validators=[DataRequired()]
+    )
+    password = PasswordField(
+        'Enter email password',
         validators=[DataRequired()]
     )
     submit = SubmitField('Submit')

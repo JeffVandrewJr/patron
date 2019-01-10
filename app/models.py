@@ -7,6 +7,21 @@ from time import time
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
+class Email(db.Model):
+    __table_args__ = {'extend_existing': True}
+    id = db.Column(db.Integer, primary_key=True)
+    server = db.Column(db.String(128))
+    port = db.Column(db.Integer)
+    username = db.Column(db.String(128))
+    password = db.Column(db.String(128))
+    outgoing_email = db.Column(db.String(128))
+
+    def __repr__(self):
+        return f'''
+                Email Object. Server: {self.server}
+                '''
+
+
 class Square(db.Model):
     __table_args__ = {'extend_existing': True}
     id = db.Column(db.Integer, primary_key=True)

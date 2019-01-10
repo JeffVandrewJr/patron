@@ -59,7 +59,6 @@ def create_app(config_class=Config):
         sql_storage = SQLAStorage(db=db)
     migrate.init_app(app, db)
     login.init_app(app)
-    mail.init_app(app)
     admin.init_app(app)
     blog_engine.init_app(app, sql_storage)
     scheduler.init_app(app)
@@ -92,6 +91,20 @@ def create_app(config_class=Config):
         ga = ThirdPartyServices.query.filter_by(name='ga').first()
         if ga is not None:
             app.config['BLOGGING_GOOGLE_ANALYTICS'] = ga.code
+
+
+    @app.before_first_request
+    def load_mail():
+        from app.models import Email
+        email = Email.query.first()
+        if email is not None:
+            app.config['ADMIN'] = email.outgoing_email
+            app.config['MAIL_SERVER'] = email.server
+            app.config['MAIL_PORT'] = email.port
+            app.config['MAIL_USERNAME'] = email.username
+            app.config['MAIL_PASSWORD'] = email.password
+            mail.init_app(app)
+
 
     # tasks
     from app import tasks
