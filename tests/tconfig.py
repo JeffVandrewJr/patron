@@ -1,3 +1,4 @@
+from datetime import datetime, timedelta
 import os
 from os.path import normpath, abspath, join
 
@@ -24,8 +25,9 @@ class Config(object):
     MAIL_USERNAME = 'example@example.com'
     MAIL_PASSWORD = 'password'
     PREFERRED_URL_SCHEME = 'https'
-    SCHEDULER_HOUR = 9
-    SCHEDULER_MINUTE= None
+    SCHEDULER_BASE = datetime.now() + timedelta(minutes=1)
+    SCHEDULER_HOUR = SCHEDULER_BASE.hour
+    SCHEDULER_MINUTE= SCHEDULER_BASE.minute
     SECRET_KEY = 'a-very-secret-key'
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + join(basedir, 'app.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False

@@ -9,7 +9,7 @@ jobs:
           command: |
             apk add git
             git clone https://github.com/JeffVandrewJr/patron.git
-            pip install pytest
+            pip install pytest pytest-flask-sqlalchemy pytest-mock
             cd patron
             python3 -m pytest
 
