@@ -23,20 +23,18 @@ pip install gunicorn
 pip install -r requirements.txt
 
 # a variety of environmental variables need to be set
-# to see which, read all of the env variables set in lirepatron.env, docker-compose.yml, and Dockerfile
-# since you're not using Docker, you'll need to set all those variables manually
 # you'll probably want to commit the exported variables to a shell config file so they stay set
-nano librepatron.env
+export FLASK_APP=patron.py
 export SITEURL=https://example.com
 export VIRTUAL_HOST=example.com
-# <keep setting the rest of the variables mentioned in librepatron.env>
+export DATABASE_URL=sqlite:////var/lib/db/app.db
+export SITEURL=https://example.com
+export GUNICORN_CMD_ARGS="--bind=0.0.0.0:8006 --workers=3 --access-logfile=<insert-file> --error-logfile=<insert-file>"
 
 # set up the database
 flask db upgrade
 
 # run gunicorn
-# fill in the log files of your choice below
-export GUNICORN_CMD_ARGS="--bind=0.0.0.0:8006 --workers=3 --access-logfile=- --error-logfile=-"
 gunicorn patron:app
 ```
 You'll of course then need to set a proxy server to direct traffic to port 8006.
