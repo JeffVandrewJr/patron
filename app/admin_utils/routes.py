@@ -1,6 +1,6 @@
 from app import db
 from app.admin_utils import bp
-from app.models import Square, ThirdPartyServices
+from app.models import Square, ThirdPartyServices, User
 from flask import redirect, url_for, flash, current_app
 
 
@@ -9,7 +9,11 @@ def delete_square():
     square = Square.query.first()
     if square is not None:
         db.session.delete(square)
-        db.session.commit()
+    cc_users = User.query.filter(User.square_id != None).all()
+    for cc_user in cc_users:
+        cc_user.square_id = None
+        cc_user.square_card = None
+    db.session.commit()
     flash('Square deactivated.')
     return redirect(url_for('admin.index'))
 
