@@ -59,8 +59,6 @@ Before letting people know about your site, be sure to click "Admin Panel" to pa
 
 <h3>Notes</h3>
 
-If you don't use the official Docker image and instead choose to install from source, LibrePatron will fail in sending email reminders if your server doesn't have a validly set timezone. This is because LibrePatron depends on the APScheduler library, which needs a set timezone at all times. The Docker image takes care of this for you by setting a timezone in the container.
-
 You'll note that during setup, you must provide a "secret code" of random digits. This is necessary for a variety of reasons. If you don't know how to get one, here is one method:
 
 ```python
