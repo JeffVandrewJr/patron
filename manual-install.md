@@ -16,7 +16,7 @@ tzselect
 # install dependencies
 sudo apt-get install build-essential libffi-dev python3-dev libssl-dev
 
-# venv and pip dependencies
+# start a virtual environment and install pip dependencies
 python3 -m venv venv
 source venv/bin/activate
 pip install gunicorn
