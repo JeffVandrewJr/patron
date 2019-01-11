@@ -9,8 +9,9 @@ body {
 }
 
 .comments {
-  width: 500px;
-  min-width: 300px;
+  transform: scale(0.75);
+  min-width: 350px;
+  margin: 0 auto;
 }
 
 .navbar {
