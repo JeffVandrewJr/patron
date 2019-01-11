@@ -1,5 +1,14 @@
 body {
-  padding: 80px;
+  padding-top: 80px;
+  padding-left: 25px;
+  max-width: 900px;
+  min-width: 300px;
+  box-sizing: border-box;
+}
+
+.comments {
+  width: 500px;
+  min-width: 300px;
 }
 
 .navbar {
