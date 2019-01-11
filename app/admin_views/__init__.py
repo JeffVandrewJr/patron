@@ -140,8 +140,12 @@ class UserView(LibrePatronModelView):
     column_searchable_list = ['username', 'email']
 
 
+class PriceView(LibrePatronModelView):
+    list_template = 'admin/custom_list.html'
+
+
 admin.add_view(UserView(User, db.session, name='Manage Users'))
-admin.add_view(LibrePatronModelView(
+admin.add_view(PriceView(
     PriceLevel,
     db.session,
     name='Price Levels'
