@@ -10,8 +10,8 @@ cd patron
 git checkout v0.6.10
 
 # one of LibrePatron's dependencies will crash without a valid timezone setting
-# different distros set timezone differently; below is an Ubuntu example
-export TZ=Universal
+# different distros set timezone differently; if your distro ships with tzselect use the command below
+tzselect
 
 # install dependencies
 sudo apt-get install build-essential libffi-dev python3-dev libssl-dev
