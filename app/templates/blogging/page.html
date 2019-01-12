@@ -50,10 +50,12 @@
    <br>
   <br>
   <hr>
+{% if config.COMMENTS %}
 <div class="comments">
 <h4>Comments</h4>
 <section id="isso-thread"></section>
 </div>
+{% endif %}
 {% endblock main %}
 {% block extrajs %}
 <script data-isso="//localhost:8080/" src="//localhost:8080/js/embed.min.js"></script>
