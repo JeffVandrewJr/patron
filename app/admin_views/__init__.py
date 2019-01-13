@@ -4,7 +4,7 @@ from app.admin_views.forms import BTCCodeForm, SquareSetupForm, \
 from app.models import User, Square, PriceLevel, ThirdPartyServices, \
         Email
 from app.utils import pairing
-from app.admin_utils import isso_config
+from app.admin_utils.utils import isso_config
 from flask_admin import BaseView, expose
 from flask_admin.contrib.sqla import ModelView
 from flask import flash, redirect, url_for, current_app
