@@ -14,6 +14,7 @@ def isso_config():
     isso_config['general'] = {}
     isso_config['general']['dbpath'] = '/var/lib/db/comments.db'
     isso_config['general']['host'] = current_app.config['BLOGGING_SITEURL']
+    isso_config['admin'] = {}
     isso_config['admin']['enabled'] = 'true'
     isso_config['admin']['password'] = isso_pass
     with open(file, 'w') as configfile:
