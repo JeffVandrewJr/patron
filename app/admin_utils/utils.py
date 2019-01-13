@@ -6,7 +6,8 @@ import os
 
 def isso_config():
     file = '/var/lib/config/isso.cfg'
-    os.remove(file)
+    if os.path.isfile(file):
+        os.remove(file)
     email = Email.query.first()
     isso_pass = ThirdPartyServices.query.filter_by(
         name='isso').first().code

@@ -1,4 +1,5 @@
 from config import Config
+from configparser import ConfigParser
 from copy import deepcopy
 from flask import Flask
 from flask_admin import Admin, AdminIndexView
@@ -10,6 +11,7 @@ from flask_mail import Mail
 from flask_migrate import Migrate
 from flask_principal import Permission, RoleNeed
 from flask_sqlalchemy import SQLAlchemy
+import os
 
 
 # extensions
@@ -99,6 +101,17 @@ def create_app(config_class=Config):
         isso = ThirdPartyServices.query.filter_by(name='isso').first()
         if isso is not None:
             app.config['COMMENTS'] = True
+        else:
+            file = '/var/lib/config/isso.cfg'
+            if not os.path.isfile(file):
+                isso_config = ConfigParser()
+                isso_config['default'] = {}
+                isso_config['default']['dbpath'] = \
+                        'var/lib/db/comments.db'
+                isso_config['default']['host'] = \
+                        'http://localhost:5000/'
+                with open(file, 'w') as configfile:
+                    isso_config.write(configfile)
 
 
     @app.before_first_request
