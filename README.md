@@ -58,7 +58,7 @@ Users get a 5 hour subscription as soon as they pay the BTCPay invoice. That is 
 
 <h3>Notes</h3>
 
-You'll note that during setup, you must provide a "secret code" of random digits. This is necessary for a variety of reasons. If you don't know how to get one, here is one method:
+You'll note that in the `librepatron.env` file, you must provide a "secret key" of random digits. This is necessary for a variety of reasons. If you don't know how to get one, here is one method:
 
 ```python
 python3
