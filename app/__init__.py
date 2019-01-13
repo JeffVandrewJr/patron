@@ -94,6 +94,14 @@ def create_app(config_class=Config):
 
 
     @app.before_first_request
+    def load_isso():
+        from app.models import ThirdPartyServices
+        isso = ThirdPartyServices.query.filter_by(name='isso').first()
+        if isso is not None:
+            app.config['COMMENTS'] = True
+
+
+    @app.before_first_request
     def load_mail():
         from app.models import Email
         email = Email.query.first()

@@ -21,6 +21,14 @@ class GAForm(FlaskForm):
     submit = SubmitField('Submit')
 
 
+class IssoForm(FlaskForm):
+    code = PasswordField(
+        'Enter a comment moderation password:',
+        validators=[DataRequired()]
+    )
+    submit = SubmitField('Submit')
+
+
 class SquareSetupForm(FlaskForm):
     application_id = StringField(
         'Square Application ID',

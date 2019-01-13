@@ -1,6 +1,6 @@
 from app import admin, db
 from app.admin_views.forms import BTCCodeForm, SquareSetupForm, \
-        GAForm, EmailSetupForm
+        GAForm, EmailSetupForm, IssoForm
 from app.models import User, Square, PriceLevel, ThirdPartyServices, \
         Email
 from app.utils import pairing
@@ -57,6 +57,30 @@ class GAView(LibrePatronBaseView):
 
 
 admin.add_view(GAView(name='Google Analytics', endpoint='ga'))
+
+
+class IssoView(LibrePatronBaseView):
+    @expose('/', methods=['GET', 'POST'])
+    def isso(self):
+        form = IssoForm()
+        if form.validate_on_submit():
+            isso = ThirdPartyServices.query.filter_by(name='isso').first()
+            if isso is None:
+                isso = ThirdPartyServices(
+                    name='isso',
+                    code=form.code.data,
+                )
+                db.session.add(isso)
+            else:
+                isso.code = form.code.data
+            db.session.commit()
+            current_app.config['COMMENTS'] = True
+            flash('User comments active.')
+            return redirect(url_for('admin.index'))
+        return self.render('admin/isso.html', form=form)
+
+
+admin.add_view(IssoView(name='Isso Comments', endpoint='isso'))
 
 
 class SquareView(LibrePatronBaseView):

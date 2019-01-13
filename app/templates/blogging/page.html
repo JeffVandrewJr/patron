@@ -58,5 +58,7 @@
 {% endif %}
 {% endblock main %}
 {% block extrajs %}
-<script data-isso="//localhost:8080/" src="//localhost:8080/js/embed.min.js"></script>
+{% if config.COMMENTS %}
+<script data-isso="//comments.{{ config.SERVER_NAME }}" src="//comments.{{ config.SERVER_NAME }}/js/embed.min.js"></script>
+{% endif %}
 {% endblock extrajs %}

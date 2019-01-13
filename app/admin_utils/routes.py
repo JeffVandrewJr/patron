@@ -28,3 +28,15 @@ def delete_ga():
     current_app.config['BLOGGING_GOOGLE_ANALYTICS'] = None
     flash('Google Analytics deactivated.')
     return redirect(url_for('admin.index'))
+
+
+@bp.route('/deactivateisso')
+def deactivate_isso():
+    isso = ThirdPartyServices.query.filter_by(
+        name='isso').first()
+    if isso is not None:
+        db.session.delete(isso)
+        db.session.commit()
+    current_app.config['COMMENTS'] = False
+    flash('Comments deactivated.')
+    return redirect(url_for('admin.index'))
