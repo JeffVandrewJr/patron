@@ -2,7 +2,7 @@
 
 Copyright (C) 2018-2019 Jeff Vandrew Jr
 
-Latest Stable Release: 0.6.13
+Latest Stable Release: 0.6.26
 
 Patreon is a popular service that allows content creators to receive contributions from supporters on a recurring basis. Unfortunately, Patreon is also a dedicated enemy of the concept of free speech as an important civic virtue. Patreon is known to arbitarily ban its creators for "thought crime."
 
@@ -14,6 +14,7 @@ Unfortunately most Patreon alternatives to date do not implement all of Patreon'
 * Automatic bulk emailing of updates to subscribers
 * Managing billing and subscription expiration
 * Automatic monthly billing via email
+* User commenting on updates
 
 Portions of this package rely on a fork of the Flask-Blogging package by Gouthaman Balaraman.
 
@@ -26,12 +27,9 @@ Slack Group: https://slack.librepatron.com
 <h2>Improvements Roadmap</h2>
 
 1. Fiat integration. We're not in a 100% Bitcoin world yet (unfortunately). Square has been integrated for fiat payments, but is not yet fully tested and should not yet be activated in production.
-2. Allowing subsribers to comment on updates is turned off by default, but is permitted by entering Disqus information in the configuration file. If turning this feature on is popular, factoring out Disqus could be a long term improvement.
-3. More granular control over subscription levels.
+2. More granular control over subscription levels.
 
-Easy install is below, or if you prefer you can do it the [hard way](https://github.com/JeffVandrewJr/patron/blob/master/manual-install.md).
-
-<h2>Easy Install Method</h2>
+<h2>Install Method</h2>
 
 A docker-compose is provided that automatically installs LibrePatron along with nginx and obtains SSL certificates, all in a few easy steps (to be executed from `$HOME` directory):
 
@@ -41,21 +39,22 @@ wget https://raw.githubusercontent.com/JeffVandrewJr/patron/master/librepatron.e
 # open librepatron.env and fill in the necessary info as mentioned in the file comments, and then save
 nano librepatron.env
 
+wget https://raw.githubusercontent.com/JeffVandrewJr/patron/master/isso.env
+
+# open isso.env and fill in the necessary info as mentioned in the file comments, and then save
+nano isso.env
+
 sudo docker network create nginx-net
 wget https://raw.githubusercontent.com/JeffVandrewJr/patron/master/docker-compose.yml
 sudo docker-compose up -d
 ```
-Your site will then be launched and operational!
+Your site will then be launched and operational! 
 
-You can upgrade from a prior version by executing the same steps above. Just make sure you delete your old `docker-compose.yml` first. if you're upgrading from a version prior, you'll need to reset your price levels and email settings from the web interface admin panel, as price levels and emails settings are now set from the web interface rather than a config file.
+The first visitor to the site will be prompted to register as administrator. The administrator is the user that posts updates, gets paid, etc. The administrator is the content creator. Setting up everything in the admin panel should be your first step, as the site will not function properly until email and other settings are filled in.
+
+You can upgrade from a prior version by executing the same steps above. Just make sure you delete your old `docker-compose.yml` first. if you're upgrading from a version prior to 0.6.26, you'll need to reset your price levels and email settings from the web interface admin panel, as price levels and emails settings are now set from the web interface rather than a config file. You'll also need the new isso.env file if you're upgrading from a version prior to 0.6.26.
 
 Users get a 5 hour subscription as soon as they pay the BTCPay invoice. That is bumped to 30 days as soon as BTCPay recognizes the payment as "confirmed". BTCPay settings determine how many confirmations are required to make a payment "confirmed."
-
-The first visitor to the site will be prompted to register as administrator. The administrator is the user that posts updates, gets paid, etc. The administrator is the content creator.
-
-After registering as administrator, be sure to first make a "homepage" post. A "homepage" post does not appear on your updates, but sets the text for the main page that all visitors (subscribed or not) can view. Then you can add some updates.
-
-Before letting people know about your site, be sure to click "Admin Panel" to pair your site to your BTCPay server and set your price levels!
 
 <h3>Notes</h3>
 
