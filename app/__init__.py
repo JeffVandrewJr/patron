@@ -86,6 +86,13 @@ def create_app(config_class=Config):
     )
     app.register_blueprint(main_bp)
 
+    import logging
+    from logging import StreamHandler
+    stream_handler = StreamHandler()
+    stream_handler.setLevel(logging.INFO)
+    app.logger.addHandler(stream_handler)
+    app.logger.setLevel(logging.INFO)
+
     # pre-first request loads
     @app.before_first_request
     def load_ga():

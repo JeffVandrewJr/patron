@@ -1,7 +1,7 @@
 from app import scheduler, db
 from app.email import send_reminder_emails, send_failed_emails
 from app.models import User, Square, PriceLevel
-from datetime import datetime, timedelta, date
+from datetime import datetime, timedelta
 from squareconnect.api_client import ApiClient
 from squareconnect.apis.transactions_api import TransactionsApi
 import uuid
@@ -43,12 +43,17 @@ def renewals():
     minute=scheduler.app.config.get('SCHEDULER_MINUTE'),
 )
 def renewals_square():
+    scheduler.app.logger.info('Starting Square renewals')
+    yesterday = datetime.today() - timedelta(hours=24)
+    tomorrow = datetime.today() + timedelta(hours=24)
     failed_list = []
     declined_list = []
     with scheduler.app.app_context():
         list = User.query.filter(
-            User.expiration.date() == date.today(),
+            User.expiration < tomorrow,
+            User.expiration > yesterday,
             User.square_id != None,
+            User.role != None,
         ).all()
         if list != []:
             square = Square.query.first()
@@ -105,3 +110,4 @@ def renewals_square():
         failed_list=failed_list,
         declined_list=declined_list,
     )
+    scheduler.app.logger.info('Square renewals complete')
