@@ -102,6 +102,6 @@ def renewals_square():
                     db.session.commit()
     send_failed_emails(
         scheduler.app,
-        failed_list=declined_list,
+        failed_list=failed_list,
         declined_list=declined_list,
     )
