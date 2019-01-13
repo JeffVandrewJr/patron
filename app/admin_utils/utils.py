@@ -26,7 +26,7 @@ def isso_config():
     isso_config['smtp']['username'] = email.username
     isso_config['smtp']['password'] = email.password
     isso_config['smtp']['host'] = email.server
-    isso_config['smtp']['port'] = email.port
+    isso_config['smtp']['port'] = str(email.port)
     isso_config['smtp']['security'] = 'starttls'
     isso_config['smtp']['to'] = User.query.filter_by(
         role='admin').first().email
