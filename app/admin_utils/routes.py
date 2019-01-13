@@ -38,5 +38,8 @@ def deactivate_isso():
         db.session.delete(isso)
         db.session.commit()
     current_app.config['COMMENTS'] = False
-    flash('Comments deactivated.')
+    flash('''
+          Comments deactivated. Due to browser caching,
+           there can be a delay before comments disappear.
+          ''')
     return redirect(url_for('admin.index'))

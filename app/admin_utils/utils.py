@@ -15,7 +15,7 @@ def isso_config():
     isso_config['admin']['enabled'] = 'true'
     isso_config['admin']['password'] = isso_pass
     isso_config['guard'] = {}
-    isso_config['guard']['ratelimit'] = '100'
+    isso_config['guard']['ratelimit'] = '50'
     isso_config['guard']['direct-reply'] = '100'
     with open(file, 'w') as configfile:
         isso_config.write(configfile)

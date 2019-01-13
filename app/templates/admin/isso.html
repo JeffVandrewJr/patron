@@ -5,10 +5,15 @@
     <h2>Comment Setup</h2>
     <br>
     {% if isso %}
+    <p>To moderate comments, click below</p>
+    <p><a href="https://comments.{{ config.SERVER_NAME }}/admin" target="_blank" class="btn btn-default">Moderate Comments</a></p>
+    <br>
     <p>To deactivate comments, click below</p>
     <p> This will not delete your comment database; you can reactivate later.</p>
+    <p>Note that when deactivating and reactivating, there is a delay due to browser cache and comments server reset.</p>
     <p><a href="{{ url_for('admin_utils.deactivate_isso') }}" class="btn btn-default">Deactivate Comments</a></p>
     {% else %}
+    <p>Note that when deactivating and reactivating, there is a delay due to browser cache and comments server reset.</p>
     <div class="row">
         <div class="col-md-4">
             {{ wtf.quick_form(form) }}
