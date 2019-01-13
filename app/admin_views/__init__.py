@@ -3,7 +3,7 @@ from app.admin_views.forms import BTCCodeForm, SquareSetupForm, \
         GAForm, EmailSetupForm, IssoForm
 from app.models import User, Square, PriceLevel, ThirdPartyServices, \
         Email
-from app.utils import pairing
+from app.utils import pairing, isso_config
 from flask_admin import BaseView, expose
 from flask_admin.contrib.sqla import ModelView
 from flask import flash, redirect, url_for, current_app
@@ -78,6 +78,7 @@ class IssoView(LibrePatronBaseView):
                 isso.code = form.code.data
             db.session.commit()
             current_app.config['COMMENTS'] = True
+            isso_config()
             flash('User comments active.')
             return redirect(url_for('admin.index'))
         return self.render('admin/isso.html', form=form)

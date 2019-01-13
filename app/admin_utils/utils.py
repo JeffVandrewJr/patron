@@ -1,9 +1,12 @@
 from app.models import Email, User, ThirdPartyServices
 from configparser import ConfigParser
 from flask import current_app
+import os
 
 
 def isso_config():
+    file = '/var/lib/config/isso.cfg'
+    os.remove(file)
     email = Email.query.first()
     isso_pass = ThirdPartyServices.query.filter_by(
         name='isso').first().code
@@ -24,5 +27,5 @@ def isso_config():
         role='admin').first().email
     isso_config['smtp']['from'] = email.outgoing_email
     isso_config['guard']['enabled'] = 'true'
-    with open('/var/lib/config/isso.cfg', 'w') as configfile:
+    with open(file, 'w') as configfile:
         isso_config.write(configfile)
