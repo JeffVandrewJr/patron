@@ -4,7 +4,7 @@
 {% block body %}
     <h2>Comment Setup</h2>
     <br>
-    {% if config.COMMENTS %}
+    {% if isso %}
     <p>To deactivate comments, click below</p>
     <p> This will not delete your comment database; you can reactivate later.</p>
     <p><a href="{{ url_for('admin_utils.deactivate_isso') }}" class="btn btn-default">Deactivate Comments</a></p>

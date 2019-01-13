@@ -67,8 +67,8 @@ class IssoView(LibrePatronBaseView):
             flash('You must set up email first.')
             return redirect(url_for('admin.email'))
         form = IssoForm()
+        isso = ThirdPartyServices.query.filter_by(name='isso').first()
         if form.validate_on_submit():
-            isso = ThirdPartyServices.query.filter_by(name='isso').first()
             if isso is None:
                 isso = ThirdPartyServices(
                     name='isso',
@@ -78,11 +78,11 @@ class IssoView(LibrePatronBaseView):
             else:
                 isso.code = form.code.data
             db.session.commit()
-            current_app.config['COMMENTS'] = True
             isso_config()
+            current_app.config['COMMENTS'] = True
             flash('User comments active.')
             return redirect(url_for('admin.index'))
-        return self.render('admin/isso.html', form=form)
+        return self.render('admin/isso.html', form=form, isso=isso)
 
 
 admin.add_view(IssoView(name='Isso Comments', endpoint='isso'))

@@ -14,6 +14,10 @@ body {
   margin: 0 auto;
 }
 
+#isso-thread h4 {
+  visibility: hidden;
+}
+
 .navbar {
   background-color: #245fd6;
 }
