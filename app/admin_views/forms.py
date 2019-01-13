@@ -22,7 +22,7 @@ class GAForm(FlaskForm):
 
 
 class IssoForm(FlaskForm):
-    code = PasswordField(
+    code = StringField(
         'Enter a comment moderation password:',
         validators=[DataRequired()]
     )

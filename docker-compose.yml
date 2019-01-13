@@ -30,14 +30,27 @@ services:
             - "8006"
         volumes:
             - data-volume:/var/lib/db
+            - config-volume:/var/lib/config
         environment:
             - DATABASE_URL=sqlite:////var/lib/db/app.db
         env_file:
             - librepatron.env
         restart: on-failure
 
+    isso:
+        container_name: isso
+        image: jvandrew/isso:atron.8
+        expose:
+            - "8080"
+        volumes:
+            - data-volume:/var/lib/db
+            - config-volume:/var/lib/config
+        restart: on-failure
+
 volumes:
     data-volume:
+        driver: local
+    config-volume:
         driver: local
 
 networks:  

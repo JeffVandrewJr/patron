@@ -62,6 +62,9 @@ admin.add_view(GAView(name='Google Analytics', endpoint='ga'))
 class IssoView(LibrePatronBaseView):
     @expose('/', methods=['GET', 'POST'])
     def isso(self):
+        if Email.query.first() is None:
+            flash('You must set up email first.')
+            return redirect(url_for('admin.email'))
         form = IssoForm()
         if form.validate_on_submit():
             isso = ThirdPartyServices.query.filter_by(name='isso').first()
