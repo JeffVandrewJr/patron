@@ -37,16 +37,6 @@ services:
             - librepatron.env
         restart: on-failure
 
-    isso:
-        container_name: isso
-        image: jvandrew/isso:atron.8
-        expose:
-            - "8080"
-        volumes:
-            - data-volume:/var/lib/db
-            - config-volume:/var/lib/config
-        restart: on-failure
-
 volumes:
     data-volume:
         driver: local
