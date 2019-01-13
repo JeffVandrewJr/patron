@@ -4,6 +4,10 @@
 {% block body %}
     <h2>Enter your BTCPay Pairing Info</h2>
     <br>
+    {% if btcpay %}
+    <p>BTCPay is currently paired. Repair below.</p>
+    <br>
+    {% endif %}
     <div class="row">
         <div class="col-md-4">
             {{ wtf.quick_form(form) }}

@@ -3,6 +3,10 @@
 
 {% block body %}
     <h2>Enter your Square Account Info</h2>
+    {% if square %}
+    <p>Square is currently paired. Re-pair below.</p>
+    <br>
+    {% endif %}
     <p>Square integration is untested and it is not suggested that you activate it yet.</p>
     <br>
     <div class="row">

@@ -4,6 +4,10 @@
 {% block body %}
     <h2>Enter your Google Analytics Info</h2>
     <br>
+    {% if ga %}
+    <p>Google Analytics is currently paired. Re-pair below.</p>
+    <br>
+    {% endif %}
     <div class="row">
         <div class="col-md-4">
             {{ wtf.quick_form(form) }}

@@ -2,7 +2,7 @@ from app import admin, db
 from app.admin_views.forms import BTCCodeForm, SquareSetupForm, \
         GAForm, EmailSetupForm, IssoForm
 from app.models import User, Square, PriceLevel, ThirdPartyServices, \
-        Email
+        Email, BTCPayClientStore
 from app.utils import pairing
 from app.admin_utils.utils import isso_config
 from flask_admin import BaseView, expose
@@ -25,11 +25,12 @@ class BTCPayView(LibrePatronBaseView):
     @expose('/', methods=['GET', 'POST'])
     def btcpay(self):
         form = BTCCodeForm()
+        btcpay = BTCPayClientStore.query.first()
         if form.validate_on_submit():
             pairing(code=form.code.data, host=form.host.data)
             flash('Pairing to BTCPay is complete.')
             return redirect(url_for('admin.index'))
-        return self.render('admin/btcpay.html', form=form)
+        return self.render('admin/btcpay.html', form=form, btcpay=btcpay)
 
 
 admin.add_view(BTCPayView(name='BTCPay Setup', endpoint='btcpay'))
@@ -39,8 +40,8 @@ class GAView(LibrePatronBaseView):
     @expose('/', methods=['GET', 'POST'])
     def ga(self):
         form = GAForm()
+        ga = ThirdPartyServices.query.filter_by(name='ga').first()
         if form.validate_on_submit():
-            ga = ThirdPartyServices.query.filter_by(name='ga').first()
             if ga is None:
                 ga = ThirdPartyServices(
                     name='ga',
@@ -54,7 +55,7 @@ class GAView(LibrePatronBaseView):
                 ga.code
             flash('Google Analytics data saved.')
             return redirect(url_for('admin.index'))
-        return self.render('admin/ga.html', form=form)
+        return self.render('admin/ga.html', form=form, ga=ga)
 
 
 admin.add_view(GAView(name='Google Analytics', endpoint='ga'))
@@ -92,8 +93,8 @@ class SquareView(LibrePatronBaseView):
     @expose('/', methods=['GET', 'POST'])
     def square(self):
         form = SquareSetupForm()
+        square = Square.query.first()
         if form.validate_on_submit():
-            square = Square.query.first()
             if square is None:
                 square = Square(
                     application_id=form.application_id.data,
@@ -108,7 +109,7 @@ class SquareView(LibrePatronBaseView):
             db.session.commit()
             flash('Square data saved.')
             return redirect(url_for('admin.index'))
-        return self.render('admin/square.html', form=form)
+        return self.render('admin/square.html', form=form, square=square)
 
 
 admin.add_view(SquareView(name='Square Setup', endpoint='square'))
@@ -118,8 +119,8 @@ class EmailView(LibrePatronBaseView):
     @expose('/', methods=['GET', 'POST'])
     def email(self):
         form = EmailSetupForm()
+        email = Email.query.first()
         if form.validate_on_submit():
-            email = Email.query.first()
             if email is None:
                 email = Email(
                     server=form.server.data,
@@ -145,7 +146,7 @@ class EmailView(LibrePatronBaseView):
             mail.init_app(current_app)
             flash('Email server info saved.')
             return redirect(url_for('admin.index'))
-        return self.render('admin/email.html', form=form)
+        return self.render('admin/email.html', form=form, email=email)
 
 
 admin.add_view(EmailView(name='Email Setup', endpoint='email'))
