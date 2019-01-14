@@ -2,7 +2,7 @@
 
 Copyright (C) 2018-2019 Jeff Vandrew Jr
 
-Latest Stable Release: 0.6.31
+Latest Stable Release: 0.6.37
 
 Patreon is a popular service that allows content creators to receive contributions from supporters on a recurring basis. Unfortunately, Patreon is also a dedicated enemy of the concept of free speech as an important civic virtue. Patreon is known to arbitarily ban its creators for "thought crime."
 
@@ -53,8 +53,6 @@ Your site will then be launched and operational!
 The first visitor to the site will be prompted to register as administrator. The administrator is the user that posts updates, gets paid, etc. The administrator is the content creator. Setting up everything in the admin panel should be your first step, as the site will not function properly until email and other settings are filled in.
 
 You can upgrade from a prior version by executing the same steps above. Just make sure you delete your old `docker-compose.yml` first. if you're upgrading from a version prior to 0.6.26, you'll need to reset your price levels and email settings from the web interface admin panel, as price levels and emails settings are now set from the web interface rather than a config file. You'll also need the new isso.env file if you're upgrading from a version prior to 0.6.26.
-
-IMPORTANT: after upgrading an installation using the steps above (or any other time you take your site down and put it back up), visit your site at least once from a browser That first get request will register many of the necessary configuration variables saved in your database.
 
 Users get a 5 hour subscription as soon as they pay the BTCPay invoice. That is bumped to 30 days as soon as BTCPay recognizes the payment as "confirmed". BTCPay settings determine how many confirmations are required to make a payment "confirmed."
 
