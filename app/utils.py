@@ -1,8 +1,11 @@
 from app import db
-from app.models import BTCPayClientStore, ThirdPartyServices
+from app.models import BTCPayClientStore
 from btcpay import BTCPayClient
 from btcpay.crypto import generate_privkey
 from flask import request
+import requests
+import time
+import threading
 from urllib.parse import urlparse, urljoin
 
 
@@ -25,3 +28,21 @@ def pairing(code, host):
     else:
         client_store.client = btc_client
     db.session.commit()
+
+
+def load_config(url, app):
+    with app.app_context():
+        def start_loop():
+            while True:
+                app.logger.info('Starting configuration load.')
+                try:
+                    r = requests.get(url)
+                    if r.status_code == 200:
+                        app.logger.info('Config loaded.')
+                        break
+                except Exception:
+                    app.logger.info('Not yet ready to load config.')
+                    pass
+                time.sleep(2)
+        thread = threading.Thread(target=start_loop)
+        thread.start()
