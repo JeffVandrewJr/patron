@@ -14,7 +14,7 @@ Unfortunately most Patreon alternatives to date do not implement all of Patreon'
 * Automatic bulk emailing of updates to subscribers
 * Managing billing and subscription expiration
 * Automatic monthly billing via email
-* Support for both Bitcoin (BTCPay Server) and fiat (Square)
+* Support for both Bitcoin (BTCPay Server) and optionally fiat (Square)
 * User commenting on updates
 
 Portions of this package rely on a fork of the Flask-Blogging package by Gouthaman Balaraman.
