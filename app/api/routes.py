@@ -69,52 +69,51 @@ def process_square(price):
     nonce = request.form['nonce']
     api_client = ApiClient()
     api_client.configuration.access_token = square.access_token
-    if current_user.square_id is None:
-        customers_api = CustomersApi(api_client)
-        customer_request = CreateCustomerRequest(
-            email_address=current_user.email)
+    customers_api = CustomersApi(api_client)
+    customer_request = CreateCustomerRequest(
+        email_address=current_user.email)
+    try:
+        customer_res = customers_api.create_customer(customer_request)
+    except Exception as e:
+        flash('Card could not be processed.')
+        current_app.logger.error(e, exc_info=True)
+        return redirect(url_for('main.support'))
+    customer = customer_res.customer
+    if customer is None:
+        flash('Card could not be processed.')
+        current_app.logger.info(
+            f'''
+            {current_user.username} card declined:
+            {customer_res.errors}
+            '''
+        )
+        return redirect(url_for('main.support'))
+    else:
+        customer_card_request = CreateCustomerCardRequest(
+            card_nonce=nonce,
+        )
         try:
-            customer_res = customers_api.create_customer(customer_request)
+            card_res = customers_api.create_customer_card(
+                customer.id,
+                customer_card_request,
+            )
         except Exception as e:
             flash('Card could not be processed.')
             current_app.logger.error(e, exc_info=True)
             return redirect(url_for('main.support'))
-        customer = customer_res.customer
-        if customer is None:
+        card = card_res.card
+        if card is None:
             flash('Card could not be processed.')
             current_app.logger.info(
                 f'''
                 {current_user.username} card declined:
-                {customer_res.errors}
+                {card_res.errors}
                 '''
             )
             return redirect(url_for('main.support'))
         else:
-            customer_card_request = CreateCustomerCardRequest(
-                card_nonce=nonce,
-            )
-            try:
-                card_res = customers_api.create_customer_card(
-                    customer.id,
-                    customer_card_request,
-                )
-            except Exception as e:
-                flash('Card could not be processed.')
-                current_app.logger.error(e, exc_info=True)
-                return redirect(url_for('main.support'))
-            card = card_res.card
-            if card is None:
-                flash('Card could not be processed.')
-                current_app.logger.info(
-                    f'''
-                    {current_user.username} card declined:
-                    {card_res.errors}
-                    '''
-                )
-                return redirect(url_for('main.support'))
-            else:
-                current_user.square_id = customer.id
-                current_user.square_card = card.id
+            current_user.square_id = customer.id
+            current_user.square_card = card.id
     transactions_api = TransactionsApi(api_client)
     idempotency_key = str(uuid.uuid1())
     cents = price * 100
