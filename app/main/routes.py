@@ -95,10 +95,14 @@ def support():
         db.session.add(level_2)
         db.session.add(level_3)
         db.session.commit()
+    square = Square.query.first()
     price_levels = PriceLevel.query.all()
     price_levels.sort(key=lambda x: x.price, reverse=False)
-    return render_template('main/support.html',
-                           levels=price_levels)
+    return render_template(
+        'main/support.html',
+        levels=price_levels,
+        square=square,
+    )
 
 
 @bp.route('/creditcard')

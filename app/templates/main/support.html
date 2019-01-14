@@ -14,7 +14,10 @@
       <div class="card-body">
         <h1 class="card-title pricing-card-title">${{ level.price }} <small class="text-muted">/ mo</small></h1>
         <p>{{ level.description }}</p>
-        <p><a class="btn btn-primary" href="{{ url_for('main.create_invoice', name=level.name, price=level.price) }}">Select</a></p>
+        <p><a class="btn btn-primary" href="{{ url_for('main.create_invoice', name=level.name, price=level.price) }}">Subscribe (Bitcoin)</a></p>
+        {%if square %}
+        <p><a class="btn btn-primary" href="{{ url_for('main.credit_card', name=level.name, price=level.price) }}">Subscribe (Fiat)</a></p>
+        {% endif %}
       </div>
       </div>
 {% endfor %}
