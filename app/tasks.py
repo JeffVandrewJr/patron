@@ -63,7 +63,7 @@ def renewals_square():
             for user in list:
                 idempotency_key = str(uuid.uuid1())
                 price_level = PriceLevel.query.filter_by(
-                    PriceLevel.name == user.role).first()
+                    name=user.role).first()
                 if price_level is None:
                     failed_list.append(user)
                     continue
