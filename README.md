@@ -54,7 +54,7 @@ The first visitor to the site will be prompted to register as administrator. The
 
 You can upgrade from a prior version by executing the same steps above. Just make sure you delete your old `docker-compose.yml` first. if you're upgrading from a version prior to 0.6.26, you'll need to reset your price levels and email settings from the web interface admin panel, as price levels and emails settings are now set from the web interface rather than a config file. You'll also need the new isso.env file if you're upgrading from a version prior to 0.6.26.
 
-IMPORTANT: after upgrading an installation using the steps above (or any other time you take your site down and put it back up), visit your site at least once. from a browser That first get request will register many of the necessary configuration variables saved in your database.
+IMPORTANT: after upgrading an installation using the steps above (or any other time you take your site down and put it back up), visit your site at least once from a browser That first get request will register many of the necessary configuration variables saved in your database.
 
 Users get a 5 hour subscription as soon as they pay the BTCPay invoice. That is bumped to 30 days as soon as BTCPay recognizes the payment as "confirmed". BTCPay settings determine how many confirmations are required to make a payment "confirmed."
 
