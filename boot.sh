@@ -1,5 +1,5 @@
 #!/bin/sh
 flask db upgrade
-python3 docker_boot.py
 wait
+python3 docker_boot.py &
 exec gunicorn patron:app
