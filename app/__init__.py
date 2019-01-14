@@ -136,9 +136,17 @@ def create_app(config_class=Config):
 
     # tasks
     from app import tasks
+    
+    # load before first request fns
+    from app.utils import load_config
+    load_config(
+        url='http://' + app.config['SERVER_NAME'],
+        app=app,
+    )
 
     return app
 
 
 from app import admin_views
 from app import models, subscriptions
+

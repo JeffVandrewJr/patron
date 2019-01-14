@@ -4,15 +4,10 @@ from app import create_app, db, blog_engine
 from app.email import send_reminder_emails
 from app.models import User, BTCPayClientStore, PriceLevel, \
         ThirdPartyServices, Email
-from app.utils import load_config
 from datetime import datetime, timedelta
 from flask_blogging_patron.signals import editor_post_saved
 
 app = create_app()
-load_config(
-    url='http://' + app.config['SERVER_NAME'],
-    app=app,
-)
 
 
 if __name__ == '__main__':
