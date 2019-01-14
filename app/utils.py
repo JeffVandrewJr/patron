@@ -46,3 +46,4 @@ def load_config(url, app):
                 time.sleep(2)
         thread = threading.Thread(target=start_loop)
         thread.start()
+        return None
