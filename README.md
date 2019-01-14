@@ -14,6 +14,7 @@ Unfortunately most Patreon alternatives to date do not implement all of Patreon'
 * Automatic bulk emailing of updates to subscribers
 * Managing billing and subscription expiration
 * Automatic monthly billing via email
+* Support for both Bitcoin (BTCPay Server) and fiat (Square)
 * User commenting on updates
 
 Portions of this package rely on a fork of the Flask-Blogging package by Gouthaman Balaraman.
@@ -26,8 +27,7 @@ Slack Group: https://slack.librepatron.com
 
 <h2>Improvements Roadmap</h2>
 
-1. Fiat integration. We're not in a 100% Bitcoin world yet (unfortunately). Square has been integrated for fiat payments, but is not yet fully tested and should not yet be activated in production.
-2. More granular control over subscription levels.
+1. More granular control over subscription levels.
 
 <h2>Install Method</h2>
 
