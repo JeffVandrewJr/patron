@@ -58,6 +58,8 @@ IMPORTANT: after upgrading an installation using the steps above (or any other t
 
 Users get a 5 hour subscription as soon as they pay the BTCPay invoice. That is bumped to 30 days as soon as BTCPay recognizes the payment as "confirmed". BTCPay settings determine how many confirmations are required to make a payment "confirmed."
 
+If you decide to allow fiat payments, after setting up square, it is suggested that you run a [test charge by follwing these instructions](https://github.com/JeffVandrewJr/patron/blob/master/test-charge.md).
+
 <h3>Notes</h3>
 
 You'll note that in the `librepatron.env` file, you must provide a "secret key" of random digits. This is necessary for a variety of reasons. If you don't know how to get one, here is one method:
