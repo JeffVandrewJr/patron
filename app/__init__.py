@@ -1,7 +1,7 @@
 from config import Config
 from configparser import ConfigParser
 from copy import deepcopy
-from flask import Flask
+from flask import Flask, redirect, url_for
 from flask_admin import Admin, AdminIndexView
 from flask_apscheduler import APScheduler
 from flask_blogging_patron import BloggingEngine, SQLAStorage
@@ -100,6 +100,7 @@ def create_app(config_class=Config):
         ga = ThirdPartyServices.query.filter_by(name='ga').first()
         if ga is not None:
             app.config['BLOGGING_GOOGLE_ANALYTICS'] = ga.code
+        app.logger.info('GA configuration success.')
 
 
     @app.before_first_request
@@ -119,6 +120,7 @@ def create_app(config_class=Config):
                         'http://localhost:5000/'
                 with open(file, 'w') as configfile:
                     isso_config.write(configfile)
+        app.logger.info('Isso configuration success.')
 
 
     @app.before_first_request
@@ -132,21 +134,14 @@ def create_app(config_class=Config):
             app.config['MAIL_USERNAME'] = email.username
             app.config['MAIL_PASSWORD'] = email.password
             mail.init_app(app)
+        app.logger.info('Mail configuration success.')
 
 
     # tasks
     from app import tasks
     
-    # load before first request fns
-    from app.utils import load_config
-    load_config(
-        url='http://' + app.config['SERVER_NAME'],
-        app=app,
-    )
-
     return app
 
 
 from app import admin_views
 from app import models, subscriptions
-
