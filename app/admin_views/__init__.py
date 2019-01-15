@@ -66,7 +66,7 @@ class IssoView(LibrePatronBaseView):
     def isso(self):
         if Email.query.first() is None:
             flash('You must set up email first.')
-            return redirect(url_for('admin.email'))
+            return redirect(url_for('email.email'))
         form = IssoForm()
         isso = ThirdPartyServices.query.filter_by(name='isso').first()
         if form.validate_on_submit():
