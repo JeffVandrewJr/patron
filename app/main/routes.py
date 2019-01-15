@@ -158,30 +158,49 @@ def create_invoice():
             return redirect(url_for('main.support'))
     btc_client_store = BTCPayClientStore.query.first()
     if btc_client_store is None:
-        return 'BTCPay has not been paired!', 501
+        current_app.logger.critical(
+            'Attempted to create invoice without pairing BTCPay.'
+        )
+        flash('Payment attempt failed. Contact the administrator.')
+        return redirect(url_for('main.index'))
     elif btc_client_store.client is None:
-        return 'BTCPay has not been paired!', 501
+        current_app.logger.critical(
+            'Attempted to create invoice without pairing BTCPay.'
+        )
+        flash('Payment attempt failed. Contact the administrator.')
+        return redirect(url_for('main.index'))
     else:
         btc_client = btc_client_store.client
-        inv_data = btc_client.create_invoice({
-            "price": price,
-            "currency": "USD",
-            "buyer": {
-                "name": current_user.username,
-                "email": current_user.email,
-            },
-            "orderId": plan,
-            "extendedNotifications": True,
-            "fullNotifications": True,
-            "notificationURL": url_for(
-                'api.update_sub',
-                _external=True,
-                _scheme='https'
-            ),
-            "redirectURL": url_for(
-                'main.index',
-                _external=True,
-                _scheme='https'
+        try:
+            inv_data = btc_client.create_invoice({
+                "price": price,
+                "currency": "USD",
+                "buyer": {
+                    "name": current_user.username,
+                    "email": current_user.email,
+                },
+                "orderId": plan,
+                "extendedNotifications": True,
+                "fullNotifications": True,
+                "notificationURL": url_for(
+                    'api.update_sub',
+                    _external=True,
+                    _scheme='https'
+                ),
+                "redirectURL": url_for(
+                    'main.index',
+                    _external=True,
+                    _scheme='https'
+                )
+            })
+            return redirect(inv_data['url'])
+        except Exception:
+            current_app.logger.exception(
+                '''
+                BTCPay could not create invoice. Usually this
+                 means that you have not set a derivation scheme
+                 or that your nodes are still syncing.
+                '''
             )
-        })
-        return redirect(inv_data['url'])
+            flash('Payment failed. Contact the administrator.')
+            return redirect(url_for('main.index'))
