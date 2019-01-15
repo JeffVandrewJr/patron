@@ -1,7 +1,9 @@
 from app import db
 from app.admin_utils import bp
-from app.models import Square, ThirdPartyServices, User
+from app.email import send_email
+from app.models import Square, ThirdPartyServices, User, Email
 from flask import redirect, url_for, flash, current_app
+from flask_login import current_user
 
 
 @bp.route('/deletesquare')
@@ -42,4 +44,18 @@ def deactivate_isso():
           Comments deactivated. Due to browser caching,
            there can be a delay before comments disappear.
           ''')
+    return redirect(url_for('admin.index'))
+
+
+@bp.route('/testemail')
+def test_email():
+    email = Email.query.first()
+    send_email(
+        subject='Test Email',
+        sender=email.outgoing_email,
+        recipients=[current_user.email],
+        text_body='Test Email.',
+        html_body=None,
+    )
+    flash('Test email sent to administrator.')
     return redirect(url_for('admin.index'))

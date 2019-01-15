@@ -2,13 +2,14 @@
 {% import 'bootstrap/wtf.html' as wtf %}
 
 {% block body %}
-    <h2>Enter your Email Server Info</h2>
-    <p>Your server must support TLS.</p>
-    <br>
+    <h2>Email Setup</h2>
     {% if email %}
-    <p>Email is currently paired. Re-pair below.</p>
+    <p>Email is currently paired.</p>
+    <p><a href="{{ url_for('admin_utils.test_email') }}" class="btn btn-default">Send Test Email</a></p>
     <br>
     {% endif %}
+    <p>Your server must support TLS.</p>
+    <br>
     <div class="row">
         <div class="col-md-4">
             {{ wtf.quick_form(form) }}
