@@ -1,4 +1,4 @@
-from app import admin, db
+from app import admin, db, mail
 from app.admin_views.forms import BTCCodeForm, SquareSetupForm, \
         GAForm, EmailSetupForm, IssoForm
 from app.models import User, Square, PriceLevel, ThirdPartyServices, \
@@ -9,7 +9,6 @@ from flask_admin import BaseView, expose
 from flask_admin.contrib.sqla import ModelView
 from flask import flash, redirect, url_for, current_app
 from flask_login import current_user
-from flask_mail import Mail
 
 
 class LibrePatronBaseView(BaseView):
@@ -142,7 +141,6 @@ class EmailView(LibrePatronBaseView):
             current_app.config['MAIL_PORT'] = email.port
             current_app.config['MAIL_USERNAME'] = email.username
             current_app.config['MAIL_PASSWORD'] = email.password
-            mail = Mail()
             mail.init_app(current_app)
             flash('Email server info saved.')
             return redirect(url_for('admin.index'))
