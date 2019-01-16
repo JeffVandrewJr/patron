@@ -50,8 +50,7 @@ class GAView(LibrePatronBaseView):
             else:
                 ga.code = form.code.data
             db.session.commit()
-            application - current_app._get_current_object()
-            application.config['BLOGGING_GOOGLE_ANALYTICS'] = \
+            current_app.config['BLOGGING_GOOGLE_ANALYTICS'] = \
                 ga.code
             flash('Google Analytics data saved.')
             return redirect(url_for('admin.index'))
@@ -80,8 +79,7 @@ class IssoView(LibrePatronBaseView):
                 isso.code = form.code.data
             db.session.commit()
             isso_config()
-            application = current_app._get_current_object()
-            application.config['COMMENTS'] = True
+            current_app.config['COMMENTS'] = True
             flash('User comments active.')
             return redirect(url_for('admin.index'))
         return self.render('admin/isso.html', form=form, isso=isso)
@@ -138,25 +136,24 @@ class EmailView(LibrePatronBaseView):
                 email.password = form.password.data
                 email.outgoing_email = form.outgoing_email.data
             db.session.commit()
-            application = current_app._get_current_object()
-            application.config['ADMIN'] = email.outgoing_email
-            application.config['MAIL_SERVER'] = email.server
-            application.config['MAIL_PORT'] = email.port
-            application.config['MAIL_USERNAME'] = email.username
-            application.config['MAIL_PASSWORD'] = email.password
+            current_app.config['ADMIN'] = email.outgoing_email
+            current_app.config['MAIL_SERVER'] = email.server
+            current_app.config['MAIL_PORT'] = email.port
+            current_app.config['MAIL_USERNAME'] = email.username
+            current_app.config['MAIL_PASSWORD'] = email.password
             mail.server = email.server
             mail.username = email.username
             mail.password = email.password
             mail.port = int(email.port)
-            mail.debug = int(application.debug)
+            mail.debug = int(current_app.debug)
             mail.use_tls = True
             mail.use_ssl = False
             mail.max_emails = None
             mail.suppress = False
             mail.fail_silently = True
-            mail.app = application
-            application.extensions = getattr(application, 'extensions', {})
-            application.extensions['mail'] = mail
+            mail.app = current_app._get_current_object()
+            current_app.extensions = getattr(current_app, 'extensions', {})
+            current_app.extensions['mail'] = mail
             flash('Email server info saved.')
             return redirect(url_for('email.email'))
         return self.render('admin/email.html', form=form, email=email)
