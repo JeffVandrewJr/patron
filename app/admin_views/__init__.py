@@ -146,6 +146,8 @@ class EmailView(LibrePatronBaseView):
             current_app.config['MAIL_USERNAME'] = email.username
             current_app.config['MAIL_PASSWORD'] = email.password
             mail.init_app(current_app._get_current_object())
+            from app import subscriptions
+            from app import tasks
             flash('Email server info saved.')
             return redirect(url_for('email.email'))
         return self.render('admin/email.html', form=form, email=email)

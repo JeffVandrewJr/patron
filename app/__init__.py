@@ -135,19 +135,13 @@ def create_app(config_class=Config):
             app.config['MAIL_USERNAME'] = email.username
             app.config['MAIL_PASSWORD'] = email.password
             mail.init_app(app)
+            from app import subscriptions
+            from app import tasks
             app.logger.info('Mail configuration success.')
-        else:
-            email = Email()
-            db.session.add(email)
-            db.session.commit()
-            app.logger.info('No mail configuration set.')
 
 
-    # tasks
-    from app import tasks
-    
     return app
 
 
 from app import admin_views
-from app import models, subscriptions
+from app import models
