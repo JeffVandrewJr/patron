@@ -137,6 +137,7 @@ class EmailView(LibrePatronBaseView):
                 email.outgoing_email = form.outgoing_email.data
             db.session.commit()
             current_app.config['ADMIN'] = email.outgoing_email
+            current_app.config['MAIL_DEFAULT_SENDER'] = email.outgoing_email
             current_app.config['MAIL_SERVER'] = email.server
             current_app.config['MAIL_PORT'] = email.port
             current_app.config['MAIL_USERNAME'] = email.username
@@ -148,6 +149,7 @@ class EmailView(LibrePatronBaseView):
             mail.debug = int(current_app.debug)
             mail.use_tls = True
             mail.use_ssl = False
+            mail.default_sender = email.outgoing_email
             mail.max_emails = None
             mail.suppress = False
             mail.fail_silently = True

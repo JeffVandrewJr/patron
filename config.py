@@ -19,6 +19,7 @@ class Config(object):
     BLOGGING_ALLOW_FILE_UPLOAD = True
     BLOGGING_ESCAPE_MARKDOWN = False
     COMMENTS = False
+    MAIL_DEFAULT_SENDER = None
     MAIL_SERVER = None
     MAIL_PORT = None
     MAIL_USE_TLS = True

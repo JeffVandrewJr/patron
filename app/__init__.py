@@ -129,6 +129,7 @@ def create_app(config_class=Config):
         email = Email.query.first()
         if email is not None:
             app.config['ADMIN'] = email.outgoing_email
+            app.config['MAIL_DEFAULT_SENDER'] = email.outgoing_email
             app.config['MAIL_SERVER'] = email.server
             app.config['MAIL_PORT'] = email.port
             app.config['MAIL_USERNAME'] = email.username
