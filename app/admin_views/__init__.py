@@ -145,20 +145,7 @@ class EmailView(LibrePatronBaseView):
             current_app.config['MAIL_PORT'] = email.port
             current_app.config['MAIL_USERNAME'] = email.username
             current_app.config['MAIL_PASSWORD'] = email.password
-            mail.server = email.server
-            mail.username = email.username
-            mail.password = email.password
-            mail.port = int(email.port)
-            mail.debug = int(current_app.debug)
-            mail.use_tls = True
-            mail.use_ssl = False
-            mail.default_sender = email.outgoing_email
-            mail.max_emails = None
-            mail.suppress = False
-            mail.fail_silently = True
-            mail.app = current_app._get_current_object()
-            current_app.extensions = getattr(current_app, 'extensions', {})
-            current_app.extensions['mail'] = mail
+            mail.init_app(current_app._get_current_object())
             flash('Email server info saved.')
             return redirect(url_for('email.email'))
         return self.render('admin/email.html', form=form, email=email)
