@@ -138,8 +138,10 @@ def create_app(config_class=Config):
             mail.server = email.server
             mail.username = email.username
             mail.password = email.password
-            mail.port = int(email.port)
-            mail.debug = int(app.debug)
+            if email.port is not None:
+                mail.port = int(email.port)
+            if app.debut is not None:
+                mail.debug = int(app.debug)
             mail.use_tls = True
             mail.use_ssl = False
             mail.default_sender = email.outgoing_email
