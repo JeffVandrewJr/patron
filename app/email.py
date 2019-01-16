@@ -118,9 +118,10 @@ def send_bulkmail(subject, sender, users, text_body, html_body):
 
 def send_password_reset_email(user):
     token = user.get_reset_password_token()
+    email = Email.query.first()
     send_email(
         'Password Reset',
-        sender=current_app.config['ADMIN'],
+        sender=email.outgoing_email
         recipients=[user.email],
         text_body=render_template('email/reset_password.txt',
                                   user=user, token=token),
@@ -129,6 +130,7 @@ def send_password_reset_email(user):
 
 
 def email_post(post):
+    email = Email.query.first()
     try:
         markdown = Markdown()
         post['rendered_text'] = markdown.convert(post['text'])
@@ -144,7 +146,7 @@ def email_post(post):
         users = User.query.filter_by(mail_opt_out=False).all()
         send_bulkmail(
             f'New Update from {site}',
-            sender=current_app.config.get('ADMIN'),
+            sender=email.outgoing_email
             users=users,
             html_body=html_body,
             text_body=text_body
