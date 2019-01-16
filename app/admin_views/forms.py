@@ -26,7 +26,7 @@ class IssoForm(FlaskForm):
         'Enter a comment moderation password:',
         validators=[DataRequired()]
     )
-    submit = SubmitField('Submit')
+    submit = SubmitField('Activate User Comments')
 
 
 class SquareSetupForm(FlaskForm):
