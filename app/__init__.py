@@ -134,6 +134,10 @@ def create_app(config_class=Config):
             app.config['MAIL_PORT'] = email.port
             app.config['MAIL_USERNAME'] = email.username
             app.config['MAIL_PASSWORD'] = email.password
+        else:
+            email = Email()
+            db.session.add(email)
+            db.session.commit()
         mail.init_app(app)
         app.logger.info('Mail configuration success.')
 

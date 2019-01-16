@@ -66,6 +66,9 @@ class IssoView(LibrePatronBaseView):
         if Email.query.first() is None:
             flash('You must set up email first.')
             return redirect(url_for('email.email'))
+        elif Email.query.first().server is None:
+            flash('You must set up email first.')
+            return redirect(url_for('email.email'))
         form = IssoForm()
         isso = ThirdPartyServices.query.filter_by(name='isso').first()
         if form.validate_on_submit():
@@ -157,7 +160,7 @@ class EmailView(LibrePatronBaseView):
             current_app.extensions = getattr(current_app, 'extensions', {})
             current_app.extensions['mail'] = mail
             flash('Email server info saved.')
-            return redirect(url_for('admin.index'))
+            return redirect(url_for('email.email'))
         return self.render('admin/email.html', form=form, email=email)
 
 
