@@ -140,7 +140,7 @@ def create_app(config_class=Config):
             mail.password = email.password
             if email.port is not None:
                 mail.port = int(email.port)
-            if app.debut is not None:
+            if app.debug is not None:
                 mail.debug = int(app.debug)
             mail.use_tls = True
             mail.use_ssl = False
