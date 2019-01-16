@@ -39,6 +39,7 @@ def update_sub():
                         base = user.expiration
                     user.expiration = base + timedelta(days=30)
                     user.role = invoice['orderId']
+                    user.renew = True
                     db.session.commit()
                     return "Payment Accepted", 201
                 elif invoice['status'] == "paid":
@@ -48,6 +49,7 @@ def update_sub():
                         user.expiration = datetime.today()\
                                 + timedelta(hours=6)
                         user.role = invoice['orderId']
+                        user.renew = False
                         db.session.commit()
                     return "Payment Accepted", 201
                 else:

@@ -14,12 +14,14 @@ import uuid
     minute=scheduler.app.config.get('SCHEDULER_MINUTE'),
 )
 def renewals():
+    scheduler.app.logger.info('Starting BTCPay renewals')
     yesterday = datetime.today() - timedelta(hours=24)
     tomorrow = datetime.today() + timedelta(hours=24)
     with scheduler.app.app_context():
         last_reminder = User.query.filter(
             User.expiration < tomorrow,
             User.expiration > yesterday,
+            User.renew != False,
             User.square_id == None,
             User.role != None,
         ).all()
@@ -29,11 +31,13 @@ def renewals():
         first_reminder = User.query.filter(
             User.expiration < six,
             User.expiration > four,
+            User.renew != False,
             User.square_id == None,
             User.role != None,
         ).all()
     reminder_list = first_reminder + last_reminder
     send_reminder_emails(scheduler.app, reminder_list)
+    scheduler.app.logger.info('Finished BTCPay renewals')
 
 
 @scheduler.task(

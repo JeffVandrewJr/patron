@@ -176,7 +176,7 @@ class LibrePatronModelView(ModelView):
 
 
 class UserView(LibrePatronModelView):
-    column_exclude_list = ['password_hash']
+    column_exclude_list = ['password_hash', 'renew']
     column_searchable_list = ['username', 'email']
 
 

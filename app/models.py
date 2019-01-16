@@ -73,6 +73,7 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(120), index=True, unique=True)
     password_hash = db.Column(db.String(128))
     expiration = db.Column(db.DateTime, index=True)
+    renew = db.Column(db.Boolean, index=True)
     mail_opt_out = db.Column(db.Boolean, index=True)
     role = db.Column(db.String(64))
     square_id = db.Column(db.String(120), index=True)
