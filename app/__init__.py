@@ -63,6 +63,7 @@ def create_app(config_class=Config):
     login.init_app(app)
     admin.init_app(app)
     blog_engine.init_app(app, sql_storage)
+    mail.init_app(app)
     scheduler.init_app(app)
     scheduler.start()
 
@@ -134,11 +135,24 @@ def create_app(config_class=Config):
             app.config['MAIL_PORT'] = email.port
             app.config['MAIL_USERNAME'] = email.username
             app.config['MAIL_PASSWORD'] = email.password
+            mail.server = email.server
+            mail.username = email.username
+            mail.password = email.password
+            mail.port = int(email.port)
+            mail.debug = int(app.debug)
+            mail.use_tls = True
+            mail.use_ssl = False
+            mail.default_sender = email.outgoing_email
+            mail.max_emails = None
+            mail.suppress = False
+            mail.fail_silently = True
+            mail.app = app
+            app.extensions = getattr(app, 'extensions', {})
+            app.extensions['mail'] = mail
         else:
             email = Email()
             db.session.add(email)
             db.session.commit()
-        mail.init_app(app)
         app.logger.info('Mail configuration success.')
 
 
