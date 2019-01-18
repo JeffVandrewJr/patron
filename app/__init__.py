@@ -7,12 +7,16 @@ from flask_apscheduler import APScheduler
 from flask_blogging_patron import BloggingEngine, SQLAStorage
 from flask_bootstrap import Bootstrap
 from flask_login import LoginManager, current_user
-from flask_mail import Mail
 from flask_migrate import Migrate
 from flask_principal import Permission, RoleNeed
 from flask_sqlalchemy import SQLAlchemy
 import os
 
+# constants
+global SCHEDULER_HOUR 
+global SCHEDULER_MINUTE
+SCHEDULER_HOUR = 9
+SCHEDULER_MINUTE = None
 
 # extensions
 bootstrap = Bootstrap()
@@ -23,7 +27,6 @@ blog_engine = BloggingEngine()
 login = LoginManager()
 login.login_view = 'auth.login'
 login.login_message_category = 'info'
-mail = Mail()
 scheduler = APScheduler()
 
 #admin setup
@@ -63,6 +66,10 @@ def create_app(config_class=Config):
     login.init_app(app)
     admin.init_app(app)
     blog_engine.init_app(app, sql_storage)
+    global SCHEDULER_HOUR
+    global SCHEDULER_MINUTE
+    SCHEDULER_HOUR = app.config.get('SCHEDULER_HOUR')
+    SCHEDULER_MINUTE = app.config.get('SCHEDULER_MINUTE')
     scheduler.init_app(app)
     scheduler.start()
 
@@ -122,26 +129,8 @@ def create_app(config_class=Config):
                     isso_config.write(configfile)
         app.logger.info('Isso configuration success.')
 
-
-    @app.before_first_request
-    def load_mail():
-        from app.models import Email
-        email = Email.query.first()
-        if email is not None:
-            app.config['ADMIN'] = email.outgoing_email
-            app.config['MAIL_DEFAULT_SENDER'] = email.outgoing_email
-            app.config['MAIL_SERVER'] = email.server
-            app.config['MAIL_PORT'] = email.port
-            app.config['MAIL_USERNAME'] = email.username
-            app.config['MAIL_PASSWORD'] = email.password
-            mail.init_app(app)
-            from app import subscriptions
-            from app import tasks
-            app.logger.info('Mail configuration success.')
-
-
     return app
 
 
 from app import admin_views
-from app import models
+from app import models, subscriptions, tasks

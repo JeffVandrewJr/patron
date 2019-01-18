@@ -1,5 +1,6 @@
 from app import db, login, blog_engine
 from flask import current_app
+from flask_ezmail.mail import Mail
 from flask_login import UserMixin, current_user
 from flask_principal import identity_loaded, RoleNeed
 import jwt
@@ -7,14 +8,20 @@ from time import time
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
-class Email(db.Model):
+class Email(Mail, db.Model):
     __table_args__ = {'extend_existing': True}
     id = db.Column(db.Integer, primary_key=True)
     server = db.Column(db.String(128))
     port = db.Column(db.Integer)
     username = db.Column(db.String(128))
     password = db.Column(db.String(128))
+    default_sender = db.Column(db.String(128))
     outgoing_email = db.Column(db.String(128))
+    use_tls = db.Column(db.Boolean)
+    use_ssl = db.Column(db.Boolean)
+    debug = db.Column(db.Boolean, default=False)
+    max_emails = db.Column(db.Integer)
+    suppress = db.Column(db.Boolean)
 
     def __repr__(self):
         return f'''

@@ -1,7 +1,8 @@
-from app import scheduler, db
+from app import scheduler, db, SCHEDULER_HOUR, SCHEDULER_MINUTE
 from app.email import send_reminder_emails, send_failed_emails
 from app.models import User, Square, PriceLevel
 from datetime import datetime, timedelta
+from flask import current_app
 from squareconnect.api_client import ApiClient
 from squareconnect.apis.transactions_api import TransactionsApi
 import uuid
@@ -10,8 +11,8 @@ import uuid
 @scheduler.task(
     'cron',
     id='do_renewals',
-    hour=scheduler.app.config.get('SCHEDULER_HOUR'),
-    minute=scheduler.app.config.get('SCHEDULER_MINUTE'),
+    hour=SCHEDULER_HOUR,
+    minute=SCHEDULER_MINUTE,
 )
 def renewals():
     scheduler.app.logger.info('Starting BTCPay renewals')
@@ -43,8 +44,8 @@ def renewals():
 @scheduler.task(
     'cron',
     id='do_renewals_square',
-    hour=scheduler.app.config.get('SCHEDULER_HOUR'),
-    minute=scheduler.app.config.get('SCHEDULER_MINUTE'),
+    hour=SCHEDULER_HOUR,
+    minute=SCHEDULER_MINUTE,
 )
 def renewals_square():
     scheduler.app.logger.info('Starting Square renewals')

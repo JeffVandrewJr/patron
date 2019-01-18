@@ -5,7 +5,6 @@ basedir = abspath(os.path.dirname(__file__))
 
 
 class Config(object):
-    ADMIN = None
     BLOGGING_SITENAME = os.environ.get('SITENAME') or 'LibrePatron'
     BLOGGING_SITEURL = os.environ.get('SITEURL') or 'https://example.com'
     BLOGGING_URL_PREFIX = '/updates'
@@ -19,12 +18,6 @@ class Config(object):
     BLOGGING_ALLOW_FILE_UPLOAD = True
     BLOGGING_ESCAPE_MARKDOWN = False
     COMMENTS = False
-    MAIL_DEFAULT_SENDER = None
-    MAIL_SERVER = None
-    MAIL_PORT = None
-    MAIL_USE_TLS = True
-    MAIL_USERNAME = None
-    MAIL_PASSWORD = None
     PREFERRED_URL_SCHEME = 'https'
     if os.environ.get('SCHEDULER_HOUR') is not None:
         SCHEDULER_HOUR = int(os.environ.get('SCHEDULER_HOUR'))

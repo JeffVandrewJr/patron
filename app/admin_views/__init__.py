@@ -1,4 +1,4 @@
-from app import admin, db, mail
+from app import admin, db
 from app.admin_views.forms import BTCCodeForm, SquareSetupForm, \
         GAForm, EmailSetupForm, IssoForm
 from app.models import User, Square, PriceLevel, ThirdPartyServices, \
@@ -129,25 +129,17 @@ class EmailView(LibrePatronBaseView):
                     port=form.port.data,
                     username=form.username.data,
                     password=form.password.data,
-                    outgoing_email=form.outgoing_email.data,
+                    default_sender=form.default_sender.data,
+                    use_tls=True,
                 )
                 db.session.add(email)
             else:
                 email.server = form.server.data
                 email.port = form.port.data
                 email.username = form.username.data
-                email.password = form.password.data
-                email.outgoing_email = form.outgoing_email.data
+                email.default_sender = form.default_sender.data
+                email.use_tls = True
             db.session.commit()
-            current_app.config['ADMIN'] = email.outgoing_email
-            current_app.config['MAIL_DEFAULT_SENDER'] = email.outgoing_email
-            current_app.config['MAIL_SERVER'] = email.server
-            current_app.config['MAIL_PORT'] = email.port
-            current_app.config['MAIL_USERNAME'] = email.username
-            current_app.config['MAIL_PASSWORD'] = email.password
-            mail.init_app(current_app._get_current_object())
-            from app import subscriptions
-            from app import tasks
             flash('Email server info saved.')
             return redirect(url_for('email.email'))
         return self.render('admin/email.html', form=form, email=email)

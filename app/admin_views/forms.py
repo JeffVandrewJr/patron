@@ -46,7 +46,7 @@ class SquareSetupForm(FlaskForm):
 
 
 class EmailSetupForm(FlaskForm):
-    outgoing_email = StringField(
+    default_sender = StringField(
         'Enter the email to show on outbound emails:',
         validators=[DataRequired()]
     )
