@@ -52,7 +52,7 @@ def test_email():
     email = Email.query.first()
     send_email(
         subject='Test Email',
-        sender=email.outgoing_email,
+        sender=email.default_sender,
         recipients=[current_user.email],
         text_body='Test Email.',
         html_body=None,

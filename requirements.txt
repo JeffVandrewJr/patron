@@ -15,7 +15,7 @@ Flask-APScheduler==1.11.0
 Flask-Admin==1.5.3
 Flask-Bootstrap==3.3.7.1
 Flask-Caching==1.4.0
-flask-ezmail==0.6.2
+flask-ezmail==0.6.3
 Flask-FileUpload==0.5.0
 Flask-Login==0.4.1
 Flask-Migrate==2.3.1

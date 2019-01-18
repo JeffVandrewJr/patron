@@ -124,7 +124,7 @@ def send_password_reset_email(user):
     mail = Email.query.first()
     send_email(
         'Password Reset',
-        sender=mail.outgoing_email,
+        sender=mail.default_sender,
         recipients=[user.email],
         text_body=render_template('email/reset_password.txt',
                                   user=user, token=token),
