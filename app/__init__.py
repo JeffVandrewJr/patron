@@ -12,12 +12,6 @@ from flask_principal import Permission, RoleNeed
 from flask_sqlalchemy import SQLAlchemy
 import os
 
-# constants
-global SCHEDULER_HOUR 
-global SCHEDULER_MINUTE
-SCHEDULER_HOUR = 9
-SCHEDULER_MINUTE = None
-
 # extensions
 bootstrap = Bootstrap()
 db = SQLAlchemy()
@@ -72,6 +66,7 @@ def create_app(config_class=Config):
     SCHEDULER_MINUTE = app.config.get('SCHEDULER_MINUTE')
     scheduler.init_app(app)
     scheduler.start()
+    from app import tasks
 
     # deepcopy auto-generated flask_blogging bp, then delete it
     global temp_bp
@@ -133,4 +128,4 @@ def create_app(config_class=Config):
 
 
 from app import admin_views
-from app import models, subscriptions, tasks
+from app import models, subscriptions
