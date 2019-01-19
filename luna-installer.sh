@@ -6,6 +6,16 @@ if [ "$(id -u)" != "0" ]; then
     exit 1
 fi
 
+if [ -z ${1+x} ]; then
+    echo "You forgot to add domain and email!"
+    echo "Try again, in this format: ./luna-installer.sh example.com email@email.com"
+    exit 1
+elif [ -z ${1+x} ]; then
+    echo "You forgot to add domain and email!"
+    echo "Try again, in this format: ./luna-installer.sh example.com email@email.com"
+    exit 1
+fi
+
 host=$1
 email=$2
 key=$(hexdump -n 24 -e '4/4 "%08X"' /dev/urandom)
