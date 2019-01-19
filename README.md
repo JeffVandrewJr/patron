@@ -35,7 +35,9 @@ If you installed BTCPay via LunaNode one-click installer, you can also install L
 
 Before installing, don't forget to point your domain to your LunaNode's IP address. (You perform this step with your domain registrar: GoDaddy, NameCheap, etc.) You must point both the main domain and the `comments` subdomain. So if you're hosting LibrePatron at `example.com`, both `example.com` and `comments.example.com` must point to your LunaNode's IP address.
 
-You would simply SSH into your LunaNode [(click here if you forgot how to do that)](https://github.com/JeffVandrewJr/patron/blob/master/ssh.md), and then:
+Also before installing, run an update to your BTCPay. This is under Server Settings > Maintenance. Wait for the update to finish. You'll know it's done when you are able to log back into BTCPay.
+
+To install, you would simply SSH into your LunaNode [(click here if you forgot how to do that)](https://github.com/JeffVandrewJr/patron/blob/master/ssh.md), and then:
 ```bash
 # change to root; do not forget the trailing hyphen
 sudo su -
