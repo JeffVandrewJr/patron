@@ -48,9 +48,11 @@ chmod +x luna-installer.sh
 
 That's it! On the final line, you would replace `example.com` with the domain where you wish to host LibrePatron, and you would replace `email@email.com` with a valid email address.
 
+In the future, you can upgrade by simply re-running the installer. The installer automatically installs the latest stable version.
+
 IMPORTANT: Before advertising your site, see the section on post-install setup below.
 
-<h2>Install via Docker-Compose</h2>
+<h2>Alternate Install via Docker-Compose</h2>
 
 If you're not using the installer script above, a docker-compose is provided that automatically installs LibrePatron along with nginx and obtains SSL certificates. You do not need to do anything in this section if you used the LunaNode installer above. here are the steps (to be executed from `$HOME` directory):
 
