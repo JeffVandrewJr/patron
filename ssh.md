@@ -15,7 +15,7 @@ ssh ubuntu@xxx.xx.x.x
 ```
 You'll then be prompted for your password. This is NOT the password you used to log into the LunaNode website. It is the password shown on the screen above (yours will obviously be different from the password on the above screenshot).
 
-If you are on windows, download and install Putty [Direct Link](https://the.earth.li/~sgtatham/putty/latest/w64/putty-64bit-0.70-installer.msi) and copy/paste your IP in Host Name (or IP Address) textbox:
+If you are on windows, download and install Putty [(click here to download)](https://the.earth.li/~sgtatham/putty/latest/w64/putty-64bit-0.70-installer.msi) and copy/paste your LunaNode IP Address in the "Host Name (Or IP Address)" box:
 
 ![Putty](https://cdn-images-1.medium.com/max/800/1*ldCagOzckSKupFlR9tUR8A.png)
 
