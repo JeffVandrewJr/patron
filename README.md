@@ -29,11 +29,11 @@ Slack Group: https://slack.librepatron.com
 
 1. More granular control over subscription levels.
 
-<h2>Easy Install with a Single Command</h2>
+<h2>Easy LunaNode Installer</h2>
 
-If you installed BTCPay via LunaNode one-click installer, you can also install LibrePatron with a one-command installer! This method will also work on any BTCPay-Docker install so long as the source files are at `/root/btcpayserver-docker/`.
+If you installed BTCPay via LunaNode one-click installer, you can also install LibrePatron with a single extra command! This method will also work on any non-LunaNode BTCPay-Docker install so long as the source files are at `/root/btcpayserver-docker/`.
 
-Before installing, don't forget to point your domain's DNS to your LunaNode's IP address. (You perform this step with your domain registrar: GoDaddy, NameCheap, etc.) You must point both the main domain and the `comments` subdomain. So if you're hosting LibrePatron at `example.com`, both `example.com` and `comments.example.com` must point to your LunaNode's IP address.
+Before installing, don't forget to point your domain to your LunaNode's IP address. (You perform this step with your domain registrar: GoDaddy, NameCheap, etc.) You must point both the main domain and the `comments` subdomain. So if you're hosting LibrePatron at `example.com`, both `example.com` and `comments.example.com` must point to your LunaNode's IP address.
 
 You would simply SSH into your LunaNode [(click here if you forgot how to do that)](https://github.com/JeffVandrewJr/patron/blob/master/ssh.md), and then:
 ```bash
@@ -81,7 +81,7 @@ Your site will then be launched and operational! You can upgrade from a prior ve
 
 The first visitor to the site will be prompted to register as administrator. The administrator is the user that posts updates, gets paid, etc. The administrator is the content creator. Heading to the admin panel should be your first step after registering as the admin, as the site will not function properly until email and BTCPay Server settings are filled in. Square settings for accepting fiat are optional, as are the settings for Google Analytics and user comments. BTCPay pairing and email setup are mandatory, and your site will malfunction without them.
 
-You'll need SMTP server info for the email section. Gmail, Yahoo, etc are not good servers to use for this purpose, as they block bulk emails. If you need one, here's an example of an easy to use service that would work: https://www.easy-smtp.com/
+You'll need SMTP server info for the email section. Gmail, Yahoo, etc are not good servers to use for this purpose, as they block bulk emails. If you don't have SMTP settings to use, here's an example of an easy to use service that would work: https://www.easy-smtp.com/
 
 Your users will get a 5 hour subscription as soon as they pay their BTCPay invoice. That is bumped to 30 days as soon as BTCPay recognizes the payment as "confirmed". BTCPay settings determine how many confirmations are required to make a payment "confirmed."
 
