@@ -18,3 +18,5 @@ You'll then be prompted for your password. This is NOT the password you used to 
 If you are on windows, download and install Putty [Direct Link](https://the.earth.li/~sgtatham/putty/latest/w64/putty-64bit-0.70-installer.msi) and copy/paste your IP in Host Name (or IP Address) textbox:
 
 ![Putty](https://cdn-images-1.medium.com/max/800/1*ldCagOzckSKupFlR9tUR8A.png)
+
+When you connect, you will be prompted to input a password, you can find it in the General tab of your Virtual Machine.
