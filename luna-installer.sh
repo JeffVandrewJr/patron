@@ -11,7 +11,9 @@ email=$2
 key=$(hexdump -n 24 -e '4/4 "%08X"' /dev/urandom)
 file="opt-librepatron.custom.yml"
 
+wget https://raw.githubusercontent.com/JeffVandrewJr/patron/master/opt-librepatron.template.yml
 cat opt-librepatron.template.yml > $file
+rm opt-librepatron.template.yml
 
 sed -i "s/<host>/$host/g" $file
 sed -i "s/<email>/$email/g" $file
