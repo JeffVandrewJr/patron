@@ -9,10 +9,10 @@ services:
             - data-volume:/var/lib/db
             - config-volume:/var/lib/config
         environment:
-            - SITEURL=https://<host>.com
-            - VIRTUAL_HOST=<host>.com
-            - LETSENCRYPT_HOST=<host>.com
-            - SECRET_KEY=<insert random key>
+            - SITEURL=https://<host>
+            - VIRTUAL_HOST=<host>
+            - LETSENCRYPT_HOST=<host>
+            - SECRET_KEY=<key>
             - LETSENCRYPT_EMAIL=<email>
             - DATABASE_URL=sqlite:////var/lib/db/app.db
         restart: on-failure
@@ -23,8 +23,8 @@ services:
         expose:
             - "8080"
         environment:
-            - VIRTUAL_HOST=comments.<host>.com
-            - LETSENCRYPT_HOST=comments.<host>.com
+            - VIRTUAL_HOST=comments.<host>
+            - LETSENCRYPT_HOST=comments.<host>
             - LETSENCRYPT_EMAIL=<email>
         volumes:
             - data-volume:/var/lib/db
