@@ -21,7 +21,13 @@ sed -i "s/<key>/$key/g" $file
 
 mv $file /root/btcpayserver-docker/docker-compose-generator/docker-fragments
 
-export BTCPAYGEN_ADDITIONAL_FRAGMENTS="opt-librepatron.custom.yml"
+if [ echo $BTCPAYGEN_ADDITIONAL_FRAGMENTS | grep -q "optlibrepatron.custom.yml" ]; then
+    echo "BTCPAYGEN_ADDITIONAL_FRAGMENTS is already properly set."
+elif [ -z ${BTCPAYGEN_ADDITIONAL_FRAGMENTS+x} ]; then
+    export BTCPAYGEN_ADDITIONAL_FRAGMENTS="opt-librepatron.custom.yml"
+else
+    export BTCPAYGEN_ADDITIONAL_FRAGMENTS=${BTCPAYGEN_ADDITIONAL_FRAGMENTS};opt-librepatron.custom.yml
+fi
 
 cd /root/btcpayserver-docker
 
