@@ -29,7 +29,7 @@ Slack Group: https://slack.librepatron.com
 
 1. More granular control over subscription levels.
 
-<h2>Install with One-Command Installer</h2>
+<h2>Easy Install with a Single Command/h2>
 
 If you installed BTCPay via LunaNode one-click installer, you can also install LibrePatron with a one-command installer! This method will also work on any BTCPay-Docker install so long as the source files are at `/root/btcpayserver-docker/`.
 
