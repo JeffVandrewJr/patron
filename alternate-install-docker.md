@@ -1,6 +1,6 @@
 <h2>Alternate Install via Docker-Compose</h2>
 
-If you're not using the installer script above, a docker-compose is provided that automatically installs LibrePatron along with nginx and obtains SSL certificates. You do not need to do anything in this section if you used the LunaNode installer above. 
+If you're not using the installer script mentioned in the README, a docker-compose is provided that automatically installs LibrePatron along with nginx and obtains SSL certificates. You do not need to do anything in this section if you used the LunaNode installer. 
 
 Before installing, don't forget to point your domain's DNS to your LunaNode's IP address. (You perform this step with your domain registrar: GoDaddy, NameCheap, etc.) You must point both the main domain and the `comments` subdomain. So if you're hosting LibrePatron at `example.com`, both `example.com` and `comments.example.com` must point to your LunaNode's IP address. Here are the steps (to be executed from `$HOME` directory):
 
