@@ -33,6 +33,8 @@ Slack Group: https://slack.librepatron.com
 
 If you installed BTCPay via LunaNode one-click installer, you can also install LibrePatron with a one-command installer! This method will also work on any BTCPay-Docker install so long as the source files are at `/root/btcpayserver-docker/`.
 
+Before installing, don't forget to point your domain's DNS to your LunaNode's IP address. (You perform this step with your domain registrar: GoDaddy, NameCheap, etc.) You must point both the main domain and the `comments` subdomain. So if you're hosting LibrePatron at `example.com`, both `example.com` and `comments.example.com` must point to your LunaNode's IP address.
+
 You would simply SSH into your LunaNode, and then:
 ```bash
 # change to root; do not forget the trailing hyphen
@@ -54,7 +56,9 @@ IMPORTANT: Before advertising your site, see the section on post-install setup b
 
 <h2>Alternate Install via Docker-Compose</h2>
 
-If you're not using the installer script above, a docker-compose is provided that automatically installs LibrePatron along with nginx and obtains SSL certificates. You do not need to do anything in this section if you used the LunaNode installer above. here are the steps (to be executed from `$HOME` directory):
+If you're not using the installer script above, a docker-compose is provided that automatically installs LibrePatron along with nginx and obtains SSL certificates. You do not need to do anything in this section if you used the LunaNode installer above. 
+
+Before installing, don't forget to point your domain's DNS to your LunaNode's IP address. (You perform this step with your domain registrar: GoDaddy, NameCheap, etc.) You must point both the main domain and the `comments` subdomain. So if you're hosting LibrePatron at `example.com`, both `example.com` and `comments.example.com` must point to your LunaNode's IP address. Here are the steps (to be executed from `$HOME` directory):
 
 ```bash
 wget https://raw.githubusercontent.com/JeffVandrewJr/patron/master/librepatron.env
