@@ -47,7 +47,7 @@ wget https://raw.githubusercontent.com/JeffVandrewJr/patron/master/luna-installe
 chmod +x luna-installer.sh
 
 # run the installer, replace example.com and email@mail.com with your domain name and email
-./luna-installer.sh example.com email@mail.com
+. ./luna-installer.sh example.com email@mail.com
 ```
 
 That's it! On the final line, you would replace `example.com` with the domain where you wish to host LibrePatron, and you would replace `email@email.com` with a valid email address.
