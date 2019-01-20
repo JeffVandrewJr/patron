@@ -6,6 +6,14 @@ if [ "$(id -u)" != "0" ]; then
     exit 1
 fi
 
+(return 2>/dev/null) && sourced=1 || sourced=0
+
+if [ $sourced != 1 ]; then
+    echo "You forgot the leading '.' followed by a space!"
+    echo "Try this format: . ./luna-installer.sh example.com email@email.com"
+    exit 1
+fi
+
 if [ -z ${1+x} ]; then
     echo "You forgot to add domain and email!"
     echo "Try again, in this format: ./luna-installer.sh example.com email@email.com"
