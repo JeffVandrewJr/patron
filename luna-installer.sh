@@ -44,7 +44,7 @@ if [[ $BTCPAYGEN_ADDITIONAL_FRAGMENTS ==  *"opt-librepatron.custom.yml"* ]]; the
 elif [ -z ${BTCPAYGEN_ADDITIONAL_FRAGMENTS+x} ]; then
     export BTCPAYGEN_ADDITIONAL_FRAGMENTS="opt-librepatron.custom.yml"
 else
-    export BTCPAYGEN_ADDITIONAL_FRAGMENTS=${BTCPAYGEN_ADDITIONAL_FRAGMENTS};opt-librepatron.custom.yml
+    export BTCPAYGEN_ADDITIONAL_FRAGMENTS="${BTCPAYGEN_ADDITIONAL_FRAGMENTS};opt-librepatron.custom.yml"
 fi
 
 cd /root/btcpayserver-docker
