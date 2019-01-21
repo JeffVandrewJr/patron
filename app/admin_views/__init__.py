@@ -30,6 +30,7 @@ class BTCPayView(LibrePatronBaseView):
                 pairing(code=form.code.data, host=form.host.data)
             except Exception as e:
                 flash(f'Pairing failed. Error msg: {e}')
+                current_app.logger.exception(e)
                 return redirect(url_for('admin.index'))
             flash('Pairing to BTCPay is complete.')
             return redirect(url_for('admin.index'))
