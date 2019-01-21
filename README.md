@@ -8,7 +8,7 @@ Patreon is a popular service that allows content creators to receive contributio
 
 Unfortunately most Patreon alternatives to date do not implement all of Patreon's main features, namely:
 
-* Support for both Bitcoin (BTCPay Server) and optionally fiat (Square)
+* Support for both Bitcoin (BTCPay Server) and optionally credit cards (Square)
 * Main page to entice new subscribers
 * Google Analytics
 * Protected page to post updates (viewable by subscribers only)
