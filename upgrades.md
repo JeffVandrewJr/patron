@@ -1,5 +1,7 @@
 <h1>Current Version of LibrePatron: 0.6.64</h1>
 
+If your version is less than 0.6.64, follow the instructions below to upgrade.
+
 <h2>Upgrading to Current Version if You Originally Installed LibrePatron with luna-installer.sh</h2>
 
 If you originally installed using the LunaNode one-click installer, upgrading is just as easy. You would simply SSH into your LunaNode [(click here if you forgot how to do that)](https://github.com/JeffVandrewJr/patron/blob/master/ssh.md), and then:
