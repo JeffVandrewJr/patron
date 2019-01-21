@@ -47,6 +47,7 @@ services:
             - config-volume:/var/lib/config
         env_file:
             - isso.env
+        stop_signal: SIGKILL
         restart: on-failure
 
 volumes:

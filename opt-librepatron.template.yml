@@ -29,6 +29,7 @@ services:
         volumes:
             - data-volume:/var/lib/db
             - config-volume:/var/lib/config
+        stop_signal: SIGKILL
         restart: on-failure
 
 volumes:
