@@ -1,4 +1,4 @@
-<h1>Current Version of LibprePatron: 0.6.64</h1>
+<h1>Current Version of LibrePatron: 0.6.64</h1>
 
 <h2>Upgrading to Current Version if You Originally Installed LibrePatron with luna-installer.sh</h2>
 
