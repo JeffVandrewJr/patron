@@ -64,7 +64,7 @@ If you're not using the installer script above, a docker-compose is provided tha
 
 The first visitor to the site will be prompted to register as administrator. The administrator is the user that posts updates, gets paid, etc. The administrator is the content creator. Heading to the admin panel should be your first step after registering as the admin, as the site will not function properly until email and BTCPay Server settings are filled in. Square settings for accepting fiat are optional, as are the settings for Google Analytics and user comments. BTCPay pairing and email setup are mandatory, and your site will malfunction without them.
 
-You'll need SMTP server info for the email section. Gmail, Yahoo, etc are not good servers to use for this purpose, as they block bulk emails. If you don't have SMTP settings to use, here's an example of an easy to use service that would work: https://www.easy-smtp.com/
+You'll need SMTP server info for the email section. Gmail, Yahoo, etc are not good servers to use for this purpose, as they block bulk emails. If you don't have SMTP settings to use, here's an example of an easy to use service that would work: https://www.easy-smtp.com/ (free for 10,000 emails per month).
 
 Your users will get a 5 hour subscription as soon as they pay their BTCPay invoice. That is bumped to 30 days as soon as BTCPay recognizes the payment as "confirmed". BTCPay settings determine how many confirmations are required to make a payment "confirmed."
 
