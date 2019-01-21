@@ -6,7 +6,7 @@ from wtforms.validators import DataRequired
 
 class BTCCodeForm(FlaskForm):
     host = StringField(
-        'URL of BTCPay Instance (include the "https://")',
+        'URL of BTCPay Instance',
         validators=[DataRequired()]
     )
     code = StringField('Pairing Code', validators=[DataRequired()])

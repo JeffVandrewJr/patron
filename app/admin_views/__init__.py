@@ -26,7 +26,11 @@ class BTCPayView(LibrePatronBaseView):
         form = BTCCodeForm()
         btcpay = BTCPayClientStore.query.first()
         if form.validate_on_submit():
-            pairing(code=form.code.data, host=form.host.data)
+            try:
+                pairing(code=form.code.data, host=form.host.data)
+            except Exception as e:
+                flash(f'Pairing failed. Error msg: {e}')
+                return redirect(url_for('admin.index'))
             flash('Pairing to BTCPay is complete.')
             return redirect(url_for('admin.index'))
         return self.render('admin/btcpay.html', form=form, btcpay=btcpay)
