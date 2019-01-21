@@ -38,4 +38,4 @@ sudo docker network create nginx-net
 wget https://raw.githubusercontent.com/JeffVandrewJr/patron/master/docker-compose.yml
 sudo docker-compose up -d
 ```
-Your site will then be launched and operational! if you're upgrading from a version prior to 0.6.26, you'll need to reset your price levels and email settings from the web interface admin panel, as price levels and emails settings are now set from the web interface rather than a config file. You'll also need the new isso.env file if you're upgrading from a version prior to 0.6.26.
+Your site will then be launched and operational! if you're upgrading from a version prior to 0.6.26, you'll need to reset your price levels and email settings from the web interface admin panel, as price levels and emails settings are now set from the web interface rather than a config file.
