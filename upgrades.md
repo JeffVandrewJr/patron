@@ -1,6 +1,6 @@
-<h1>Current Version of LibrePatron: 0.6.64</h1>
+<h1>Current Version of LibrePatron: 0.6.65</h1>
 
-If your admin panel shows a version less than 0.6.64, follow one of the two sets of instructions below to upgrade. Which set you choose will be determined by the method you used to originally install LibrePatron.
+If your admin panel shows a version less than the version above, follow one of the two sets of instructions below to upgrade. Which set of instructions you choose will be determined by the method you used to originally install LibrePatron.
 
 <h3>Upgrading to Current Version if You Originally Installed LibrePatron with luna-installer.sh</h3>
 

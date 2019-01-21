@@ -2,7 +2,7 @@ from config import Config
 from configparser import ConfigParser
 from copy import deepcopy
 from flask import Flask, redirect, url_for
-from flask_admin import Admin, AdminIndexView
+from flask_admin import Admin, AdminIndexView, expose
 from flask_apscheduler import APScheduler
 from flask_blogging_patron import BloggingEngine, SQLAStorage
 from flask_bootstrap import Bootstrap
@@ -11,6 +11,8 @@ from flask_migrate import Migrate
 from flask_principal import Permission, RoleNeed
 from flask_sqlalchemy import SQLAlchemy
 import os
+
+VERSION = '0.6.64'
 
 # extensions
 bootstrap = Bootstrap()
@@ -23,8 +25,13 @@ login.login_view = 'auth.login'
 login.login_message_category = 'info'
 scheduler = APScheduler()
 
-#admin setup
+
+# admin
 class AdminHomeView(AdminIndexView):
+    @expose('/')
+    def index(self):
+        return self.render('admin/index.html', version=VERSION)
+
     def is_accessible(self):
         return current_user.is_authenticated and \
                 current_user.role == 'admin'
@@ -103,7 +110,6 @@ def create_app(config_class=Config):
         if ga is not None:
             app.config['BLOGGING_GOOGLE_ANALYTICS'] = ga.code
         app.logger.info('GA configuration success.')
-
 
     @app.before_first_request
     def load_isso():

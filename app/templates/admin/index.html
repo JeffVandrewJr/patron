@@ -1,9 +1,13 @@
 {% extends 'admin/master.html' %}
 
 {% block body %}
-    <h1>Admin Panel</h1>
     {% if current_user.is_authenticated and current_user.role =='admin'%}
-    <p>Choose from the menu options above.</p>
+    <br>
+    <h1>LibrePatron Version: {{ version }}</h1>
+    <p><a href="https://github.com/JeffVandrewJr/patron/blob/master/upgrades.md" class="btn btn-default">Click Here to Check for Upgrades</a></p>
+    <br>
+    <p>Choose from the menu options above, or click below to return.</p>
+    <br>
     <p><a href="{{ url_for('main.index') }}" class="btn btn-default">Return to Main Site</a></p>
     {% else %}
     <p>You do not have permission to view this page.</p>
