@@ -12,7 +12,7 @@ from flask_principal import Permission, RoleNeed
 from flask_sqlalchemy import SQLAlchemy
 import os
 
-VERSION = '0.6.66'
+VERSION = '0.6.69'
 
 # extensions
 bootstrap = Bootstrap()

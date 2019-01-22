@@ -25,13 +25,14 @@ services:
 
     librepatron:
         container_name: librepatron
-        image: jvandrew/librepatron:0.6.66
+        image: jvandrew/librepatron:0.6.69
         expose:
             - "8006"
         volumes:
             - data-volume:/var/lib/db
             - config-volume:/var/lib/config
         environment:
+            - SECRET_KEY_LOCATION=/var/lib/db/key
             - DATABASE_URL=sqlite:////var/lib/db/app.db
         env_file:
             - librepatron.env
@@ -39,7 +40,7 @@ services:
 
     isso:
         container_name: isso
-        image: jvandrew/isso:atron.13
+        image: jvandrew/isso:atron.21
         expose:
             - "8080"
         volumes:
@@ -47,7 +48,6 @@ services:
             - config-volume:/var/lib/config
         env_file:
             - isso.env
-        stop_signal: SIGKILL
         restart: on-failure
 
 volumes:

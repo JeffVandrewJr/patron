@@ -6,7 +6,7 @@
     <br>
     {% if isso %}
     <p>To moderate comments, click below</p>
-    <p><a href="https://comments.{{ config.SERVER_NAME }}/admin" target="_blank" class="btn btn-default">Moderate Comments</a></p>
+    <p><a href="{{ config.COMMENTS_URL }}/admin" target="_blank" class="btn btn-default">Moderate Comments</a></p>
     <br>
     <p>To deactivate comments, click below</p>
     <p> This will not delete your comment database; you can reactivate later.</p>

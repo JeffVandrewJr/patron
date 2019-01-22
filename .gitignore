@@ -2,6 +2,7 @@
 *.db
 data
 dump.rdb
+key
 
 # config
 *.conf
