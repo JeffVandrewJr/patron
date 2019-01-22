@@ -2,11 +2,7 @@ version: '3'
 services:
     librepatron:
         container_name: librepatron
-<<<<<<< HEAD
-        image: jvandrew/librepatron:0.6.67
-=======
         image: jvandrew/librepatron:0.6.69
->>>>>>> secretkey
         expose:
             - "8006"
         volumes:
@@ -16,10 +12,7 @@ services:
             - SITEURL=https://<host>
             - VIRTUAL_HOST=<host>
             - LETSENCRYPT_HOST=<host>
-<<<<<<< HEAD
-=======
             - SECRET_KEY_LOCATION=/var/lib/db/key
->>>>>>> secretkey
             - LETSENCRYPT_EMAIL=<email>
             - DATABASE_URL=sqlite:////var/lib/db/app.db
         restart: on-failure
@@ -36,7 +29,6 @@ services:
         volumes:
             - data-volume:/var/lib/db
             - config-volume:/var/lib/config
-        stop_signal: SIGKILL
         restart: on-failure
 
 volumes:
