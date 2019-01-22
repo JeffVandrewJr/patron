@@ -32,6 +32,7 @@ services:
             - data-volume:/var/lib/db
             - config-volume:/var/lib/config
         environment:
+            - SECRET_KEY_LOCATION=/var/lib/db/key
             - DATABASE_URL=sqlite:////var/lib/db/app.db
         env_file:
             - librepatron.env

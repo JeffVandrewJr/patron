@@ -12,7 +12,7 @@ services:
             - SITEURL=https://<host>
             - VIRTUAL_HOST=<host>
             - LETSENCRYPT_HOST=<host>
-            - SECRET_KEY=<key>
+            - SECRET_KEY_LOCATION=/var/lib/db/key
             - LETSENCRYPT_EMAIL=<email>
             - DATABASE_URL=sqlite:////var/lib/db/app.db
         restart: on-failure
