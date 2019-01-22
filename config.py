@@ -8,6 +8,7 @@ basedir = abspath(os.path.dirname(__file__))
 class Config(object):
     BLOGGING_SITENAME = os.environ.get('SITENAME') or 'LibrePatron'
     BLOGGING_SITEURL = os.environ.get('SITEURL') or 'https://example.com'
+    SERVER_NAME = os.environ.get('VIRTUAL_HOST')
     BLOGGING_URL_PREFIX = '/updates'
     BLOGGING_BRANDURL = os.environ.get('BRANDURL')
     BLOGGING_TWITTER_USERNAME = os.environ.get('TWITTER')
@@ -18,6 +19,11 @@ class Config(object):
     BLOGGING_ALLOW_FILE_UPLOAD = True
     BLOGGING_ESCAPE_MARKDOWN = False
     COMMENTS = False
+    COMMENTS_SUBURI = os.environ.get('COMMENTS_SUBURI') is not None
+    if COMMENTS_SUBURI:
+        COMMENTS_URL = BLOGGING_SITEURL + '/isso'
+    else:
+        COMMENTS_URL = 'https://comments.' + SERVER_NAME
     PREFERRED_URL_SCHEME = 'https'
     if os.environ.get('SCHEDULER_HOUR') is not None:
         SCHEDULER_HOUR = int(os.environ.get('SCHEDULER_HOUR'))
@@ -28,14 +34,13 @@ class Config(object):
     else:
         SCHEDULER_MINUTE = None
     SECRET_KEY_LOCATION = os.environ.get('SECRET_KEY_LOCATION') or \
-            join(basedir, 'key')
+        join(basedir, 'key')
     with shelve.open(SECRET_KEY_LOCATION) as key:
         if key.get('key') is None:
             SECRET_KEY = os.urandom(24).hex()
             key['key'] = SECRET_KEY
         else:
             SECRET_KEY = key['key']
-    SERVER_NAME = os.environ.get('VIRTUAL_HOST')
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
         'sqlite:///' + join(basedir, 'app.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
