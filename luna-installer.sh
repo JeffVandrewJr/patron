@@ -34,7 +34,6 @@ rm opt-librepatron.template.yml
 
 sed -i "s/<host>/$host/g" $file
 sed -i "s/<email>/$email/g" $file
-sed -i "s/<key>/$key/g" $file
 
 mv $file /root/btcpayserver-docker/docker-compose-generator/docker-fragments
 
