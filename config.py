@@ -1,5 +1,6 @@
 import os
 from os.path import abspath, join
+import shelve
 
 basedir = abspath(os.path.dirname(__file__))
 
@@ -10,7 +11,6 @@ class Config(object):
     BLOGGING_URL_PREFIX = '/updates'
     BLOGGING_BRANDURL = os.environ.get('BRANDURL')
     BLOGGING_TWITTER_USERNAME = os.environ.get('TWITTER')
-    BLOGGING_DISQUS_SITENAME = os.environ.get('DISQUS')
     BLOGGING_GOOGLE_ANALYTICS = None
     BLOGGING_PERMISSIONS = True
     BLOGGING_PERMISSIONNAME = 'admin'
@@ -27,7 +27,14 @@ class Config(object):
         SCHEDULER_MINUTE = int(os.environ.get('SCHEDULER_MINUTE'))
     else:
         SCHEDULER_MINUTE = None
-    SECRET_KEY = os.environ.get('SECRET_KEY') or 'placeholder'
+    SECRET_KEY_LOCATION = os.environ.get('SECRET_KEY_LOCATION') or \
+            join(basedir, 'key')
+    with shelve.open(SECRET_KEY_LOCATION) as key:
+        if key.get('key') is None:
+            SECRET_KEY = os.urandom(24).hex()
+            key['key'] = SECRET_KEY
+        else:
+            SECRET_KEY = key['key']
     SERVER_NAME = os.environ.get('VIRTUAL_HOST')
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
         'sqlite:///' + join(basedir, 'app.db')
