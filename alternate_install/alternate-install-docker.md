@@ -5,12 +5,12 @@ If you're not using the installer script mentioned in the README, a docker-compo
 Before installing, don't forget to point your domain's DNS to your server's address. (You perform this step with your domain registrar: GoDaddy, NameCheap, etc.) You must point both the main domain and the `comments` subdomain. So if you're hosting LibrePatron at `example.com`, both `example.com` and `comments.example.com` must point to your server address. Here are the steps (to be executed from `$HOME` directory):
 
 ```bash
-wget https://raw.githubusercontent.com/JeffVandrewJr/patron/master/librepatron.env
+wget https://github.com/JeffVandrewJr/patron/blob/master/alternate_install_instructions/isso.env
 
 # open librepatron.env and fill in the necessary info as mentioned in the file comments, and then save
 nano librepatron.env
 
-wget https://raw.githubusercontent.com/JeffVandrewJr/patron/master/isso.env
+wget https://github.com/JeffVandrewJr/patron/blob/master/alternate_install_instructions/isso.env
 
 # open isso.env and fill in the necessary info as mentioned in the file comments, and then save
 nano isso.env
