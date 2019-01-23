@@ -13,6 +13,12 @@ from flask_login import current_user, login_required
 @bp.route('/')
 @bp.route('/index')
 def index():
+    '''
+    Displays the main homepage. The homepage text is stored in the db
+    as a 'post' (just like an update for paid subscribers), but it has a
+    special "PUBLIC" tag to designate that it's the homepage. This page
+    is viewable by all visitiors.
+    '''
     try:
         posts = blog_engine.storage.get_posts(
             count=1,
@@ -74,7 +80,8 @@ def index():
 
 @bp.route('/support')
 def support():
-    # set default pricing if none exists
+    # displays priving page
+    # also sets default pricing if none exists
     if PriceLevel.query.all() == []:
         level_1 = PriceLevel(
             name='Patron',
@@ -108,6 +115,7 @@ def support():
 @bp.route('/creditcard')
 @login_required
 def credit_card():
+    # directs user to sqpaymentform.js
     price = request.args.get('price')
     if price is None:
         flash('There was an error. Try again.')
@@ -127,6 +135,7 @@ def credit_card():
 @bp.route('/createinvoice')
 @login_required
 def create_invoice():
+    # creates a BTCPay invoice when a user chooses a price level
     user_arg = request.args.get('username')
     if user_arg is not None:
         if user_arg != current_user.username:

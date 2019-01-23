@@ -9,12 +9,14 @@ from urllib.parse import urlencode
 
 
 def send_async_email(app, msg):
+    # sends a single email asyncronously
     with app.app_context():
         mail = Email.query.first()
         mail.send(msg)
 
 
 def send_async_bulkmail(app, msg, users):
+    # accepts user list and message, sending msg to all paid users
     with app.app_context():
         mail = Email.query.first()
         try:
@@ -30,6 +32,7 @@ def send_async_bulkmail(app, msg, users):
 
 
 def send_email(subject, sender, recipients, text_body, html_body):
+    # composes a single email and passes it to send_async_email fn
     msg = Message(subject, sender=sender, recipients=recipients)
     msg.body = text_body
     msg.html = html_body
@@ -39,6 +42,10 @@ def send_email(subject, sender, recipients, text_body, html_body):
 
 
 def send_reminder_emails(app, reminder_list):
+    '''
+    Takes a list of users about to expire, and emails them fresh
+    payment links that direct to BTCPay.
+    '''
     with app.app_context():
         mail = Email.query.first()
         try:
@@ -71,6 +78,10 @@ def send_reminder_emails(app, reminder_list):
 
 
 def send_failed_emails(app, failed_list, declined_list):
+    '''
+    Takes a list of users whose credit card renewals failed via
+    Square, and emails them asking to update their credit card.
+    '''
     with app.app_context():
         mail = Email.query.first()
         site = app.config['BLOGGING_SITENAME']
@@ -111,6 +122,7 @@ def send_failed_emails(app, failed_list, declined_list):
 
 
 def send_bulkmail(subject, sender, users, text_body, html_body):
+    # composes an email message and sends ti to send_async_bulkmail
     msg = Message(subject, sender=sender)
     msg.body = text_body
     msg.html = html_body
@@ -120,6 +132,7 @@ def send_bulkmail(subject, sender, users, text_body, html_body):
 
 
 def send_password_reset_email(user):
+    # emails user a token to reset password
     token = user.get_reset_password_token()
     mail = Email.query.first()
     send_email(
@@ -133,6 +146,11 @@ def send_password_reset_email(user):
 
 
 def email_post(post):
+    '''
+    Takes a blog post, uses the Markdown engine to render it to HTML,
+    then creates an email message from the HTML. The msg is then passed
+    to send_bulkmail function.
+    '''
     mail = Email.query.first()
     try:
         markdown = Markdown()

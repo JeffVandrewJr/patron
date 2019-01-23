@@ -12,9 +12,15 @@ from flask_principal import Permission, RoleNeed
 from flask_sqlalchemy import SQLAlchemy
 import os
 
+'''
+Unfortunately Flask App factories cant's conform to PEP
+Codex beauty standards!
+'''
+
+
 VERSION = '0.6.69'
 
-# extensions
+# register extensions
 bootstrap = Bootstrap()
 db = SQLAlchemy()
 migrate = Migrate()
@@ -26,7 +32,7 @@ login.login_message_category = 'info'
 scheduler = APScheduler()
 
 
-# admin
+# register Flask-Admin
 class AdminHomeView(AdminIndexView):
     @expose('/')
     def index(self):
@@ -47,7 +53,7 @@ admin = Admin(
 )
 
 
-# global
+# this will be needed in the create_app fn later
 global temp_bp
 
 # permissions - flask_principal objects created by BloggingEngine

@@ -8,6 +8,7 @@ from flask_login import current_user
 
 @bp.route('/deletesquare')
 def delete_square():
+    # deactivates square and converts all subs to Bitcoin billing
     square = Square.query.first()
     if square is not None:
         db.session.delete(square)
@@ -22,6 +23,7 @@ def delete_square():
 
 @bp.route('/deletega')
 def delete_ga():
+    # deactivates Google Analytics
     ga = ThirdPartyServices.query.filter_by(
         name='ga').first()
     if ga is not None:
@@ -34,6 +36,9 @@ def delete_ga():
 
 @bp.route('/deactivateisso')
 def deactivate_isso():
+    # deactivates isso comments
+    # does not delete the comments.db, so can be reactivated later
+    # comment moderation password can be rest by deactivate/reactivate
     isso = ThirdPartyServices.query.filter_by(
         name='isso').first()
     if isso is not None:
@@ -49,6 +54,7 @@ def deactivate_isso():
 
 @bp.route('/testemail')
 def test_email():
+    # sends a test email to ensure SMTP settings are correct
     email = Email.query.first()
     send_email(
         subject='Test Email',

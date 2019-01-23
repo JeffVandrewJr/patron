@@ -6,6 +6,10 @@ from flask_login import current_user
 
 @bp.before_request
 def protect():
+    '''
+    Registers new function to Flask-Blogging Blueprint that protects
+    updates to make them only viewable by paid subscribers.
+    '''
     if current_user.is_authenticated:
         if datetime.today() <= current_user.expiration:
             return None

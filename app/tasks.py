@@ -7,6 +7,11 @@ from squareconnect.api_client import ApiClient
 from squareconnect.apis.transactions_api import TransactionsApi
 import uuid
 
+'''
+Registers all BTCPay and Square renewal tasks to run daily.
+Uses Flask-APScheduler.
+'''
+
 
 @scheduler.task(
     'cron',

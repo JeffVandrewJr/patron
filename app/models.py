@@ -9,6 +9,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 
 class Email(Mail, db.Model):
+    # SMTP object
     __table_args__ = {'extend_existing': True}
     id = db.Column(db.Integer, primary_key=True)
     server = db.Column(db.String(128))
@@ -30,6 +31,7 @@ class Email(Mail, db.Model):
 
 
 class Square(db.Model):
+    # object with Square attributes
     __table_args__ = {'extend_existing': True}
     id = db.Column(db.Integer, primary_key=True)
     application_id = db.Column(db.String(128))
@@ -44,6 +46,7 @@ class Square(db.Model):
 
 
 class PriceLevel(db.Model):
+    # price level object
     __table_args__ = {'extend_existing': True}
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), index=True, unique=True)
@@ -52,6 +55,7 @@ class PriceLevel(db.Model):
 
 
 class BTCPayClientStore(db.Model):
+    # object for storing pickled BTCPay API client
     __table_args__ = {'extend_existing': True}
     id = db.Column(db.Integer, primary_key=True)
     client = db.Column(db.PickleType)
@@ -61,6 +65,7 @@ class BTCPayClientStore(db.Model):
 
 
 class ThirdPartyServices(db.Model):
+    # model for storing codes for random third party svcs
     __table_args__ = {'extend_existing': True}
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64))
@@ -74,6 +79,7 @@ class ThirdPartyServices(db.Model):
 
 
 class User(UserMixin, db.Model):
+    # user object
     __table_args__ = {'extend_existing': True}
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)

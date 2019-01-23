@@ -7,6 +7,7 @@ from urllib.parse import urlparse, urljoin
 
 
 def is_safe_url(target):
+    # prevents malicious redirects
     ref_url = urlparse(request.host_url)
     test_url = urlparse(urljoin(request.host_url, target))
     return test_url.scheme in ('http', 'https') and \
@@ -14,6 +15,7 @@ def is_safe_url(target):
 
 
 def pairing(code, host):
+    # pairs BTCPay
     privkey = generate_privkey()
     btc_client = BTCPayClient(host=host, pem=privkey)
     btc_token = btc_client.pair_client(code)

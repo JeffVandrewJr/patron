@@ -65,6 +65,12 @@ def update_sub():
 @bp.route('/v1/square/<int:price>', methods=['GET', 'POST'])
 @login_required
 def process_square(price):
+    '''
+    Receives a nonce from Square, and uses the nonce to
+    charge the card. Upon successful charge, it updates the
+    user's subscription and stores the Square Customer ID and
+    Card ID for future charges.
+    '''
     if not request.form or 'nonce' not in request.form:
         return "Bad Request", 422
     square = Square.query.first()

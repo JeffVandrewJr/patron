@@ -2,6 +2,12 @@ from app import blog_engine
 from app.email import email_post
 from flask_blogging_patron.signals import editor_post_saved
 
+'''
+Subscribes to editor_post_saved signal from Flask-Blogging.
+Upon receiving the signal, it emails the post to all paid
+subscribers unless the post is marked 'noemail.'
+'''
+
 
 @editor_post_saved.connect
 def email_trigger(sender, engine, post_id, user, post):

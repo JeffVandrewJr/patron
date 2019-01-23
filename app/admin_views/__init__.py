@@ -10,8 +10,16 @@ from flask_admin.contrib.sqla import ModelView
 from flask import flash, redirect, url_for, current_app
 from flask_login import current_user
 
+'''
+Flask-Admin creates views in the admin panel using classes.
+These classes are loaded using the load_admin function.
+This __init__ file is loaded in the app factory to register
+the necessary classes to Flask-Admin.
+'''
+
 
 class LibrePatronBaseView(BaseView):
+    # protects admin panel from regular users
     def is_accessible(self):
         return current_user.is_authenticated and \
                 current_user.role == 'admin'
@@ -23,6 +31,7 @@ class LibrePatronBaseView(BaseView):
 class BTCPayView(LibrePatronBaseView):
     @expose('/', methods=['GET', 'POST'])
     def btcpay(self):
+        # custom view to pair BTCPay
         form = BTCCodeForm()
         btcpay = BTCPayClientStore.query.first()
         if form.validate_on_submit():
@@ -43,6 +52,7 @@ admin.add_view(BTCPayView(name='BTCPay Setup', endpoint='btcpay'))
 class GAView(LibrePatronBaseView):
     @expose('/', methods=['GET', 'POST'])
     def ga(self):
+        # custom view to input Google Analytics UA code
         form = GAForm()
         ga = ThirdPartyServices.query.filter_by(name='ga').first()
         if form.validate_on_submit():
@@ -68,6 +78,7 @@ admin.add_view(GAView(name='Google Analytics', endpoint='ga'))
 class IssoView(LibrePatronBaseView):
     @expose('/', methods=['GET', 'POST'])
     def isso(self):
+        # custom view to activate isso comments
         if Email.query.first() is None:
             flash('You must set up email first.')
             return redirect(url_for('email.email'))
@@ -99,6 +110,7 @@ admin.add_view(IssoView(name='Isso Comments', endpoint='isso'))
 class SquareView(LibrePatronBaseView):
     @expose('/', methods=['GET', 'POST'])
     def square(self):
+        # custom view to activate Square credit card pmts
         form = SquareSetupForm()
         square = Square.query.first()
         if form.validate_on_submit():
@@ -125,6 +137,7 @@ admin.add_view(SquareView(name='Square Setup', endpoint='square'))
 class EmailView(LibrePatronBaseView):
     @expose('/', methods=['GET', 'POST'])
     def email(self):
+        # custom view to set SMTP settings
         form = EmailSetupForm()
         email = Email.query.first()
         if form.validate_on_submit():
@@ -154,6 +167,11 @@ admin.add_view(EmailView(name='Email Setup', endpoint='email'))
 
 
 class LibrePatronModelView(ModelView):
+    '''
+    Inherits from the Flask-Admin ModelView, which is used for
+    manually editing info in the database. This customizes the look
+    for LibrePatron and also protects it from non-admins.
+    '''
     can_export = True
     create_modal = True
     edit_modal = True
@@ -167,11 +185,21 @@ class LibrePatronModelView(ModelView):
 
 
 class UserView(LibrePatronModelView):
+    '''
+    Allows admins to search for users by username or email. Also
+    excludes password hashes from the table of users for aesthetic
+    reasons.
+    '''
     column_exclude_list = ['password_hash', 'renew']
     column_searchable_list = ['username', 'email']
 
 
 class PriceView(LibrePatronModelView):
+    '''
+    This is a special version of ModelView for editing price levels
+    stored in the database. The custom template warns the admin about
+    the consequences of changing price levels.
+    '''
     list_template = 'admin/custom_list.html'
 
 

@@ -14,6 +14,7 @@ from datetime import date, timedelta
 
 @bp.route('/login', methods=['GET', 'POST'])
 def login():
+    # login page
     if current_user.is_authenticated:
         return redirect(url_for('auth.account'))
     form = LoginForm()
@@ -39,6 +40,7 @@ def login():
 @bp.route('/logout')
 @login_required
 def logout():
+    # logs user out
     logout_user()
     flash('You are logged out.', 'info')
     return redirect(url_for('main.index'))
@@ -46,6 +48,7 @@ def logout():
 
 @bp.route('/register', methods=['GET', 'POST'])
 def register():
+    # registers a new user
     if current_user.is_authenticated:
         flash('You are already registered.')
         return redirect(url_for('main.index'))
@@ -70,6 +73,7 @@ def register():
 
 @bp.route('/adminsetup', methods=['GET', 'POST'])
 def adminsetup():
+    # registers an admin user
     if User.query.filter_by(role='admin').first() is not None:
         flash('Administrator is already set.')
         return redirect(url_for('main.index'))
@@ -97,6 +101,7 @@ def adminsetup():
 @bp.route('/account')
 @login_required
 def account():
+    # displays user's account expiration and status
     if hasattr(current_user, 'role'):
         if current_user.role == 'admin':
             return redirect(url_for('admin.index'))
@@ -123,6 +128,7 @@ def account():
 @bp.route('/cancelcc')
 @login_required
 def cancel_square():
+    # allows user to cancel credit card auto-billing
     if hasattr(current_user, 'role'):
         if current_user.role == 'admin':
             return redirect(url_for('admin.index'))
@@ -137,6 +143,7 @@ def cancel_square():
 @bp.route('/mailopt')
 @login_required
 def mail_opt():
+    # opts the user out of email notifications for new updates
     if hasattr(current_user, 'role'):
         if current_user.role == 'admin':
             return redirect(url_for('admin.index'))
@@ -152,6 +159,7 @@ def mail_opt():
 
 @bp.route('/resetrequest', methods=['GET', 'POST'])
 def reset_password_request():
+    # request a password reset
     form = ResetPasswordRequestForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
@@ -172,6 +180,7 @@ def reset_password_request():
 
 @bp.route('/reset_password/<token>', methods=['GET', 'POST'])
 def reset_password(token):
+    # accepts incoming password reset request from emailed link
     if current_user.is_authenticated:
         flash(
             'You must log out before resetting your password.',

@@ -4,6 +4,9 @@ from flask import current_app
 
 
 def isso_config():
+    # isso requires a config file
+    # this function writes a config file in isso format
+    # file is saved in a Docker volume shared between lp and isso
     file = '/var/lib/config/isso.cfg'
     isso_pass = ThirdPartyServices.query.filter_by(
         name='isso').first().code
