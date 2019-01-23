@@ -2,23 +2,17 @@
 
 If your admin panel shows a version less than the version above, follow one of the two sets of instructions below to upgrade. Which set of instructions you choose will be determined by the method you used to originally install LibrePatron.
 
-<h3>Upgrading to Current Version if You Originally Installed LibrePatron with luna-installer.sh</h3>
+<h3>Upgrading to Current Version if You Installed through BTCPay</h3>
 
-If you originally installed using the LunaNode one-click installer, upgrading is just as easy. You would simply SSH into your LunaNode [(click here if you forgot how to do that)](https://github.com/JeffVandrewJr/patron/blob/master/ssh.md), and then:
-```bash
-# change to root; do not forget the trailing hyphen
-sudo su -
+If you originally installed using the official BTCPay installer, you would simply update your BTCPay server and your LibrePatron should update right alongside it. 
 
-# the installer should already be in your $HOME directory from the original install; if not, see the README to redownload
-# re-run the existing installer; replace example.com and email@mail.com with your domain name and email
-. ./luna-installer.sh example.com email@mail.com
-```
+To do that, you simply log into BTCPay, then hit Server Settings, Maintenance, then Update.
 
-That's it! On the final line, you would replace `example.com` with the domain where you wish to host LibrePatron, and you would replace `email@email.com` with a valid email address.
+Note that there can be a short delay before the latest upgrade is available through the BTCPay update system.
 
-<h3>Upgrading to Current Version if you Did Not Use luna-installer.sh</h3>
+<h3>Upgrading to Current Version if you Did Not Install Through BTCPay</h3>
 
-If you didn't originally install LibrePatron using luna-installer.sh, you'd instead use docker-compose.
+If you didn't originally install through BTCPay and your LibrePatron instance lives on a server separate from your BTCPay instance, you'd instead use docker-compose.
 
 ```bash
 # if you have an old docker-compose.yml file, first delete it
