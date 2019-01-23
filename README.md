@@ -31,7 +31,7 @@ Slack Group: https://slack.librepatron.com
 
 <h2>Easy Install</h2>
 
-If you set up BTCPay using the one-click LunaNode install, you would simply SSH into your LunaNode [(click here if you forgot how to do that)](https://github.com/JeffVandrewJr/patron/blob/master/ssh.md), and then:
+If you set up BTCPay using the one-click LunaNode install (or any dockerized install of BTCPay), you would simply SSH into your LunaNode [(click here if you forgot how to do that)](https://github.com/JeffVandrewJr/patron/blob/master/ssh.md), and then:
 ```bash
 # change to root; do not forget the trailing hyphen
 sudo su -
