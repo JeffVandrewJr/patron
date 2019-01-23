@@ -20,3 +20,15 @@ wget https://raw.githubusercontent.com/JeffVandrewJr/patron/master/docker-compos
 sudo docker-compose up -d
 ```
 Your site will then be launched and operational! You can upgrade from a prior version by executing the same steps above. Just make sure you delete your old `docker-compose.yml` first. if you're upgrading from a version prior to 0.6.26, you'll need to reset your price levels and email settings from the web interface admin panel, as price levels and emails settings are now set from the web interface rather than a config file. You'll also need the new isso.env file if you're upgrading from a version prior to 0.6.26.
+
+<h2>Post-Install Setup</h2>
+
+The first visitor to the site will be prompted to register as administrator. The administrator is the user that posts updates, gets paid, etc. The administrator is the content creator. 
+
+Heading to the admin panel should be your first step after registering as the admin, as the site will not function properly until email and BTCPay Server settings are filled in. Square settings for accepting fiat are optional, as are the settings for Google Analytics and user comments. BTCPay pairing and email setup are mandatory, and your site will malfunction without them.
+
+You'll need SMTP server info for the email section. Gmail, Yahoo, etc are not good servers to use for this purpose, as they block bulk emails. If you don't have SMTP settings to use, here's an example of an easy to use service that would work: https://www.easy-smtp.com/ (free for 10,000 emails per month).
+
+Your users will get a 5 hour subscription as soon as they pay their BTCPay invoice. That is bumped to 30 days as soon as BTCPay recognizes the payment as "confirmed". BTCPay settings determine how many confirmations are required to make a payment "confirmed."
+
+If you decide to allow fiat payments, after setting up square, it is suggested that you run a [test charge by follwing these instructions](https://github.com/JeffVandrewJr/patron/blob/master/test-charge.md).
