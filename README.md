@@ -36,6 +36,8 @@ If you set up BTCPay using the one-click LunaNode install, you would simply SSH 
 # change to root; do not forget the trailing hyphen
 sudo su -
 
+cd btcpayserver-docker
+
 export BTCPAYGEN_ADDITIONAL_FRAGMENTS="$BTCPAYGEN_ADDITIONAL_FRAGMENTS;opt-add-librepatron"
 
 # replace example.com with the domain where you want to host LibrePatron
