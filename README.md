@@ -31,7 +31,7 @@ Slack Group: https://slack.librepatron.com
 
 <h2>Easy Install</h2>
 
-If you set up BTCPay using the one-click LunaNode install, you would simply SSH into your LunaNode [(click here if you forgot how to do that)](https://github.com/JeffVandrewJr/patron/blob/master/ssh.md), and then:
+If you set up BTCPay using the one-click LunaNode install (or any dockerized install of BTCPay), you would simply SSH into your LunaNode [(click here if you forgot how to do that)](https://github.com/JeffVandrewJr/patron/blob/master/ssh.md), and then:
 ```bash
 # change to root; do not forget the trailing hyphen
 sudo su -
@@ -48,7 +48,11 @@ export LIBREPATRON_HOST="example.com"
 
 That's it! You would replace `example.com` with the domain where you wish to host LibrePatron. Also make sure that domain points to the same IP address as the domain you use for BTCPay. (This would be set with your domain host: GoDaddy, NameCheap, etc).
 
-If you didn't use the LunaNode one-click install, the same instructions apply so long as you're using the dockerized version of BTCPay. If you wish to install separately from BTCPay for whatever reason, see the alternate instructions in the 'alternate_install' directory.
+You only ever need to do that setup once, as from then on LibrePatron will update alongside BTCPay.
+
+If you didn't use the LunaNode one-click install, the same instructions above apply so long as you're using the dockerized version of BTCPay. 
+
+If you wish to install separately from BTCPay for whatever reason, see the alternate instructions in the 'alternate_install' directory.
 
 In the future, you can upgrade by simply upgrading BTCPay; LibrePatron will upgrade right alongside it. Just log into BTCPay, then go to Server Settings, Maintenance, Update.
 
