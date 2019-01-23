@@ -13,7 +13,7 @@ from flask_sqlalchemy import SQLAlchemy
 import os
 
 '''
-Unfortunately Flask App factories cant's conform to PEP
+Unfortunately Flask App factories can't conform to PEP
 Codex beauty standards!
 '''
 
