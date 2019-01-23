@@ -19,7 +19,7 @@ services:
 
     isso:
         container_name: isso
-        image: jvandrew/isso:atron.21
+        image: jvandrew/isso:atron.22
         expose:
             - "8080"
         environment:
