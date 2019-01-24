@@ -23,7 +23,7 @@ You'll then be prompted for your password. This is NOT the password you used to 
 
 <h4>SSH Instructions for Windows</h4>
 
-If you are on Windows, instead of the commands above, download and install Putty [(click here to download)](https://the.earth.li/~sgtatham/putty/latest/w64/putty-64bit-0.70-installer.msi) and copy/paste your LunaNode External IP Address in the "Host Name (Or IP Address)" box:
+If you are on Windows, instead of the commands above, download and install Putty [(click here to download)](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html) and copy/paste your LunaNode External IP Address in the "Host Name (Or IP Address)" box:
 
 ![Putty](https://cdn-images-1.medium.com/max/800/1*ldCagOzckSKupFlR9tUR8A.png)
 
