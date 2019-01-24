@@ -8,6 +8,8 @@ Log into LunaNode to grab your IP address and password. To do this, go to https:
 
 You're now ready to log into your VPS via SSH. 
 
+
+
 <h4>SSH Instructions for Mac, Linux, and other Unix-Like Systems</h4>
 
 If you are on Max, Linux, or another Unix-Like system, the first step is to open a terminal. Thenn simply enter the following command:
@@ -16,6 +18,8 @@ If you are on Max, Linux, or another Unix-Like system, the first step is to open
 ssh ubuntu@xxx.xx.x.x
 ```
 You'll then be prompted for your password. This is NOT the password you used to log into the LunaNode website. It is the password shown on the screen above (yours will obviously be different from the password on the above screenshot).
+
+
 
 <h4>SSH Instructions for Windows</h4>
 
