@@ -23,4 +23,4 @@ If you are on Windows, instead of the commands above, download and install Putty
 
 ![Putty](https://cdn-images-1.medium.com/max/800/1*ldCagOzckSKupFlR9tUR8A.png)
 
-Reminder: Your LunaNode external IP address will be a series of numbers with dots in between, as shown in the General Tab top photo. When you connect you will be prompted to input a password, which you can find it in the General tab of your Virtual Machine (as shown in the top photo). This is not the password that you used to log into lunanode.com.
+Reminder: Your LunaNode external IP address will be a series of numbers with dots in between, as shown in the General Tab in the very top photo. When you connect you will be prompted to input a password, which you can find it in the General tab of your Virtual Machine (as shown in the very top photo). This is not the password that you used to log into lunanode.com.
