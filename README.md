@@ -28,6 +28,7 @@ Slack Group: https://slack.librepatron.com
 <h2>Improvements Roadmap</h2>
 
 1. More granular control over subscription levels.
+2. Right now, user comments only show when you click on an inidividual creator update in the "Updates" list. This should be improves so there is an indicator that a post has user comments even before it is clicked.
 
 <h2>Easy Install</h2>
 
