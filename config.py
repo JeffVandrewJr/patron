@@ -32,7 +32,7 @@ class Config(object):
     if os.environ.get('SCHEDULER_MINUTE') is not None:
         SCHEDULER_MINUTE = int(os.environ.get('SCHEDULER_MINUTE'))
     else:
-        SCHEDULER_MINUTE = None
+        SCHEDULER_MINUTE = 0
     SECRET_KEY_LOCATION = os.environ.get('SECRET_KEY_LOCATION') or \
         join(basedir, 'key')
     with shelve.open(SECRET_KEY_LOCATION) as key:

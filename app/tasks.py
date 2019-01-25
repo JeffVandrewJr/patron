@@ -2,7 +2,6 @@ from app import scheduler, db, SCHEDULER_HOUR, SCHEDULER_MINUTE
 from app.email import send_reminder_emails, send_failed_emails
 from app.models import User, Square, PriceLevel
 from datetime import datetime, timedelta
-from flask import current_app
 from squareconnect.api_client import ApiClient
 from squareconnect.apis.transactions_api import TransactionsApi
 import uuid
@@ -50,7 +49,7 @@ def renewals():
     'cron',
     id='do_renewals_square',
     hour=SCHEDULER_HOUR,
-    minute=SCHEDULER_MINUTE,
+    minute=(SCHEDULER_MINUTE + 5)
 )
 def renewals_square():
     scheduler.app.logger.info('Starting Square renewals')

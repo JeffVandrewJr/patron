@@ -46,6 +46,8 @@ def send_reminder_emails(app, reminder_list):
     Takes a list of users about to expire, and emails them fresh
     payment links that direct to BTCPay.
     '''
+    if not reminder_list:
+        return None
     with app.app_context():
         mail = Email.query.first()
         try:
@@ -82,6 +84,8 @@ def send_failed_emails(app, failed_list, declined_list):
     Takes a list of users whose credit card renewals failed via
     Square, and emails them asking to update their credit card.
     '''
+    if not failed_list and not declined_list:
+        return None
     with app.app_context():
         mail = Email.query.first()
         site = app.config['BLOGGING_SITENAME']
