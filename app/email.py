@@ -41,19 +41,19 @@ def send_email(subject, sender, recipients, text_body, html_body):
         args=(current_app._get_current_object(), msg)).start()
 
 
-def send_reminder_emails(app, reminder_list):
+def send_reminder_emails(app, reminder_set):
     '''
     Takes a list of users about to expire, and emails them fresh
     payment links that direct to BTCPay.
     '''
-    if not reminder_list:
+    if not reminder_set:
         return None
     with app.app_context():
         mail = Email.query.first()
         try:
             site = app.config['BLOGGING_SITENAME']
             with mail.connect() as conn:
-                for user in reminder_list:
+                for user in reminder_set:
                     dict = {}
                     dict['username'] = user.username
                     params = urlencode(dict)

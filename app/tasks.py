@@ -2,6 +2,7 @@ from app import scheduler, db, SCHEDULER_HOUR, SCHEDULER_MINUTE
 from app.email import send_reminder_emails, send_failed_emails
 from app.models import User, Square, PriceLevel
 from datetime import datetime, timedelta
+import shelve
 from squareconnect.api_client import ApiClient
 from squareconnect.apis.transactions_api import TransactionsApi
 import uuid
@@ -19,13 +20,21 @@ Uses Flask-APScheduler.
     minute=SCHEDULER_MINUTE,
 )
 def renewals():
-    scheduler.app.logger.info('Starting BTCPay renewals')
-    yesterday = datetime.today() - timedelta(hours=24)
+    with shelve.open(scheduler.app.config['SECRET_KEY_LOCATION']) as storage:
+        begin = storage['last_renewal']
+    renewals_btcpay(begin)
+    renewals_square(begin)
+    with shelve.open(scheduler.app.config['SECRET_KEY_LOCATION']) as storage:
+        storage['last_renewal'] = datetime.today()
+
+
+def renewals_btcpay(begin):
     tomorrow = datetime.today() + timedelta(hours=24)
+    scheduler.app.logger.info('Starting BTCPay renewals')
     with scheduler.app.app_context():
         last_reminder = User.query.filter(
             User.expiration < tomorrow,
-            User.expiration > yesterday,
+            User.expiration > begin,
             User.renew != False,
             User.square_id == None,
             User.role != None,
@@ -40,36 +49,29 @@ def renewals():
             User.square_id == None,
             User.role != None,
         ).all()
-    reminder_list = first_reminder + last_reminder
-    send_reminder_emails(scheduler.app, reminder_list)
+    reminder_set = set(last_reminder).union(set(first_reminder))
+    send_reminder_emails(scheduler.app, reminder_set)
     scheduler.app.logger.info('Finished BTCPay renewals')
 
 
-@scheduler.task(
-    'cron',
-    id='do_renewals_square',
-    hour=SCHEDULER_HOUR,
-    minute=SCHEDULER_MINUTE,
-)
-def renewals_square():
+def renewals_square(begin):
     scheduler.app.logger.info('Starting Square renewals')
-    yesterday = datetime.today() - timedelta(hours=24)
     tomorrow = datetime.today() + timedelta(hours=24)
     failed_list = []
     declined_list = []
     with scheduler.app.app_context():
-        list = User.query.filter(
+        charge_list = User.query.filter(
             User.expiration < tomorrow,
-            User.expiration > yesterday,
+            User.expiration > begin,
             User.square_id != None,
             User.role != None,
         ).all()
-        if list != []:
+        if charge_list:
             square = Square.query.first()
             api_client = ApiClient()
             api_client.configuration.access_token = square.access_token
             transactions_api = TransactionsApi(api_client)
-            for user in list:
+            for user in charge_list:
                 idempotency_key = str(uuid.uuid1())
                 price_level = PriceLevel.query.filter_by(
                     name=user.role).first()

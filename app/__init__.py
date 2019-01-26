@@ -1,6 +1,7 @@
 from config import Config
 from configparser import ConfigParser
 from copy import deepcopy
+from datetime import datetime
 from flask import Flask, redirect, url_for
 from flask_admin import Admin, AdminIndexView, expose
 from flask_apscheduler import APScheduler
@@ -11,6 +12,7 @@ from flask_migrate import Migrate
 from flask_principal import Permission, RoleNeed
 from flask_sqlalchemy import SQLAlchemy
 import os
+import shelve
 
 '''
 Unfortunately Flask App factories can't conform to PEP
@@ -107,6 +109,10 @@ def create_app(config_class=Config):
     stream_handler.setLevel(logging.INFO)
     app.logger.addHandler(stream_handler)
     app.logger.setLevel(logging.INFO)
+    with shelve.open(app.config['SECRET_KEY_LOCATION']) as storage:
+        if storage.get('last_renewal') is None:
+            storage['last_renewal'] = datetime.today()
+            app.logger.info('Dummy last renewal date created.')
 
     # pre-first request loads
     @app.before_first_request
@@ -135,6 +141,7 @@ def create_app(config_class=Config):
                 with open(file, 'w') as configfile:
                     isso_config.write(configfile)
         app.logger.info('Isso configuration success.')
+
 
     return app
 
