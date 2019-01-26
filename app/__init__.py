@@ -1,7 +1,7 @@
 from config import Config
 from configparser import ConfigParser
 from copy import deepcopy
-from datetime import datetime
+from datetime import datetime, timedelta
 from flask import Flask, redirect, url_for
 from flask_admin import Admin, AdminIndexView, expose
 from flask_apscheduler import APScheduler
@@ -20,7 +20,7 @@ Codex beauty standards!
 '''
 
 
-VERSION = '0.6.70'
+VERSION = '0.6.71'
 
 # register extensions
 bootstrap = Bootstrap()
@@ -111,7 +111,8 @@ def create_app(config_class=Config):
     app.logger.setLevel(logging.INFO)
     with shelve.open(app.config['SECRET_KEY_LOCATION']) as storage:
         if storage.get('last_renewal') is None:
-            storage['last_renewal'] = datetime.today()
+            delta = datetime.today().hour - SCHEDULER_HOUR + 24
+            storage['last_renewal'] = datetime.today() - timedelta(hours=delta)
             app.logger.info('Dummy last renewal date created.')
 
     # pre-first request loads
