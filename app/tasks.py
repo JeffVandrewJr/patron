@@ -49,7 +49,7 @@ def renewals():
     'cron',
     id='do_renewals_square',
     hour=SCHEDULER_HOUR,
-    minute=(SCHEDULER_MINUTE + 5)
+    minute=SCHEDULER_MINUTE,
 )
 def renewals_square():
     scheduler.app.logger.info('Starting Square renewals')
