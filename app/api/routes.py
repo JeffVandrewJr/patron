@@ -24,6 +24,7 @@ def update_sub():
     invoice = btc_client.get_invoice(request.json['id'])
     if isinstance(invoice, dict):
         if 'status' in invoice:
+            current_app.logger.info('IPN: ' + invoice['status'])
             if invoice['status'] == "paid" or \
                invoice['status'] == "confirmed":
                 user = User.query.filter_by(
