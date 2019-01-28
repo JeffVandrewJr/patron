@@ -26,6 +26,7 @@ def update_sub():
         if 'status' in invoice:
             current_app.logger.info('IPN: ' + invoice['status'])
             if invoice['status'] == "paid" or \
+               invoice['status'] == "complete" or \
                invoice['status'] == "confirmed":
                 user = User.query.filter_by(
                     username=invoice['buyer']['name']).first()
@@ -34,15 +35,19 @@ def update_sub():
                 if user.role == 'admin':
                     return "Administrator should not make payments.", 200
                 elif invoice['status'] == "confirmed":
-                    if user.expiration <= datetime.today():
-                        base = datetime.today()
+                    if user.last_payment != invoice['id']:
+                        user.last_payment = invoice['id']
+                        if user.expiration <= datetime.today():
+                            base = datetime.today()
+                        else:
+                            base = user.expiration
+                        user.expiration = base + timedelta(days=30)
+                        user.role = invoice['orderId']
+                        user.renew = True
+                        db.session.commit()
+                        return "Payment Accepted", 201
                     else:
-                        base = user.expiration
-                    user.expiration = base + timedelta(days=30)
-                    user.role = invoice['orderId']
-                    user.renew = True
-                    db.session.commit()
-                    return "Payment Accepted", 201
+                        return "Payment Already Processed", 200
                 elif invoice['status'] == "paid":
                     # add a few hours if expired or almost expired
                     measure = user.expiration - timedelta(hours=6)
@@ -52,7 +57,21 @@ def update_sub():
                         user.role = invoice['orderId']
                         user.renew = False
                         db.session.commit()
-                    return "Payment Accepted", 201
+                elif invoice['status'] == "complete":
+                    # handle lightning payments
+                    if user.last_payment != invoice['id']:
+                        user.last_payment = invoice['id']
+                        if user.expiration <= datetime.today():
+                            base = datetime.today()
+                        else:
+                            base = user.expiration
+                        user.expiration = base + timedelta(days=30)
+                        user.role = invoice['orderId']
+                        user.renew = True
+                        db.session.commit()
+                        return "Payment Accepted", 201
+                    else:
+                        return "Payment Already Processed", 200
                 else:
                     return "IPN Received", 200
             else:
