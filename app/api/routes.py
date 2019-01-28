@@ -58,7 +58,7 @@ def update_sub():
                         user.role = invoice['orderId']
                         user.renew = False
                         db.session.commit()
-                        return "Payment Accepted", 201
+                    return "Payment Accepted", 201
                 elif invoice['status'] == "complete":
                     # handle lightning payments
                     if user.last_payment != invoice['id']:
