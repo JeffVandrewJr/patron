@@ -189,7 +189,6 @@ def create_invoice():
                     "email": current_user.email,
                 },
                 "orderId": plan,
-                "extendedNotifications": True,
                 "fullNotifications": True,
                 "notificationURL": url_for(
                     'api.update_sub',

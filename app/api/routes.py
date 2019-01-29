@@ -19,7 +19,7 @@ def update_sub():
     # receives and processes pmt notifications from BTCPay
     if not request.json or 'id' not in request.json:
         return "Not a valid IPN.", 200
-    btc_client_store = BTCPayClientStore.query.all()[0]
+    btc_client_store = BTCPayClientStore.query.first()
     btc_client = btc_client_store.client
     invoice = btc_client.get_invoice(request.json['id'])
     if isinstance(invoice, dict):
