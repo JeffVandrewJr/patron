@@ -1,4 +1,4 @@
-<h1>Current Version of LibrePatron: 0.6.76</h1>
+<h1>Current Version of LibrePatron: 0.6.77</h1>
 
 If your admin panel shows a version less than the version above, follow one of the two sets of instructions below to upgrade. Which set of instructions you choose will be determined by the method you used to originally install LibrePatron.
 

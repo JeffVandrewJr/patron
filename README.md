@@ -2,7 +2,7 @@
 
 Copyright (C) 2018-2019 Jeff Vandrew Jr
 
-Latest Stable Release: 0.6.76
+Latest Stable Release: 0.6.77
 
 CHECK YOUR RELEASE VERSION. If you're running an old version prior to 0.6.76, you must deactivate lightning payments on your BTCPay store, as only on-chain payments could be processed by old versions of LibrePatron properly. As of v0.6.76, both on-chain and lightning payments are processed correctly.
 
