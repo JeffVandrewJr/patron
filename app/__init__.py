@@ -20,7 +20,7 @@ Codex beauty standards!
 '''
 
 
-VERSION = '0.6.76'
+VERSION = '0.6.78'
 
 # register extensions
 bootstrap = Bootstrap()
@@ -81,7 +81,6 @@ def create_app(config_class=Config):
     SCHEDULER_MINUTE = app.config.get('SCHEDULER_MINUTE')
     scheduler.init_app(app)
     scheduler.start()
-    from app import tasks
 
     # deepcopy auto-generated flask_blogging bp, then delete it
     global temp_bp
@@ -123,6 +122,12 @@ def create_app(config_class=Config):
         if ga is not None:
             app.config['BLOGGING_GOOGLE_ANALYTICS'] = ga.code
         app.logger.info('GA configuration success.')
+
+    @app.before_first_request
+    def load_tasks():
+        from app import tasks
+        app.logger.info(f'Next renewal time: \
+                {scheduler._scheduler.get_jobs()[0].next_run_time}')
 
     @app.before_first_request
     def load_isso():

@@ -1,3 +1,4 @@
+from apscheduler.jobstores.sqlalchemy import SQLAlchemyJobStore
 import os
 from os.path import abspath, join
 import shelve
@@ -43,4 +44,7 @@ class Config(object):
             SECRET_KEY = key['key']
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
         'sqlite:///' + join(basedir, 'app.db')
+    SCHEDULER_JOBSTORES = {
+            'default': SQLAlchemyJobStore(url=SQLALCHEMY_DATABASE_URI)
+        }
     SQLALCHEMY_TRACK_MODIFICATIONS = False

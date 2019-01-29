@@ -18,6 +18,7 @@ Uses Flask-APScheduler.
     id='do_renewals',
     hour=SCHEDULER_HOUR,
     minute=SCHEDULER_MINUTE,
+    misfire_grace_time=10800,
 )
 def renewals():
     with shelve.open(scheduler.app.config['SECRET_KEY_LOCATION']) as storage:
