@@ -1,6 +1,6 @@
 {% extends 'blogging/base.html' %}
 {% block extrastyle %}
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='simplemde.min.css') }}">
 {% endblock extrastyle %}
 {% block main %}
 <form class="form-horizontal" action="{{url_for('blogging.editor', post_id=post_id or None)}}" method="POST">
@@ -66,7 +66,7 @@
 {% endblock main %}
 
 {% block extrajs %}
-    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+    <script src="{{ url_for('static', filename='simplemde.min.js') }}"></script>
     <script>
         var simplemde = new SimpleMDE({ element: $("#MyID")[0] });
     </script>
