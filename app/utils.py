@@ -42,4 +42,4 @@ def hup_gunicorn():
                     processes.append(child.pid)
     for pid in processes:
         os.kill(pid, signal.SIGTERM)
-        time.sleep(5)
+        time.sleep(2)
