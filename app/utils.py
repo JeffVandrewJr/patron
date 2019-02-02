@@ -2,7 +2,10 @@ from app import db
 from app.models import BTCPayClientStore
 from btcpay import BTCPayClient
 from btcpay.crypto import generate_privkey
-from flask import request
+from flask import request, current_app
+import os
+import re
+import signal
 from urllib.parse import urlparse, urljoin
 
 
@@ -27,3 +30,20 @@ def pairing(code, host):
     else:
         client_store.client = btc_client
     db.session.commit()
+
+
+def hup_gunicorn():
+    # romuald/gunicorn-hup
+    mre = re.compile(r'^gunicorn:\s+master\s+\[(.*)\]')
+    pids = [ int(pid) for pid in os.listdir('/proc') if pid.isdigit() ]
+    for pid in pids:
+        path = os.path.join('/proc', str(pid), 'cmdline')
+        try:
+            data = open(path).read()
+        except Exception:
+            continue
+        found = mre.search(data)
+        if not found:
+            continue
+        current_app.logger.info("HUP: %d" % pid)
+        os.kill(pid, signal.SIGHUP)

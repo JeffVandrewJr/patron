@@ -3,7 +3,7 @@ from app.admin_views.forms import BTCCodeForm, SquareSetupForm, \
         GAForm, EmailSetupForm, IssoForm, ThemeForm
 from app.models import User, Square, PriceLevel, ThirdPartyServices, \
         Email, BTCPayClientStore
-from app.utils import pairing
+from app.utils import pairing, hup_gunicorn
 from app.admin_utils.utils import isso_config
 from flask_admin import BaseView, expose
 from flask_admin.contrib.sqla import ModelView
@@ -102,7 +102,9 @@ class ThemeView(LibrePatronBaseView):
             flash('Theme saved. Switch from the admin panel back to \
                     your site to see the changes. You may need to reload.')
             return redirect(url_for('theme.theme'))
-        return self.render('admin/theme.html', form=form, current_theme=temp_theme)
+        hup_gunicorn()
+        return self.render(
+                'admin/theme.html', form=form, current_theme=temp_theme)
 
 
 admin.add_view(ThemeView(name='Set Theme', endpoint='theme'))
