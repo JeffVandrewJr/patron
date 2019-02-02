@@ -1,10 +1,10 @@
-FROM alpine:3.9
+FROM python:3.7.2-alpine3.8
 
 WORKDIR /patron
 
 COPY . /patron
 
-RUN apk add --no-cache gcc musl-dev libffi libffi-dev python3-dev openssl-dev tzdata py3-psutil py3-setuptools
+RUN apk add --no-cache gcc musl-dev libffi libffi-dev python3-dev openssl-dev tzdata py3-psutil
 RUN ln -sf /usr/share/zoneinfo/Universal /etc/localtime
 RUN pip install gunicorn
 RUN pip install -r requirements-docker.txt
