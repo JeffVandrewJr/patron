@@ -101,8 +101,8 @@ class ThemeView(LibrePatronBaseView):
                 form.theme.data + '.min.css'
             flash('Theme saved. Switch from the admin panel back to \
                     your site to see the changes. You may need to reload.')
+            hup_gunicorn()
             return redirect(url_for('theme.theme'))
-        hup_gunicorn()
         return self.render(
                 'admin/theme.html', form=form, current_theme=temp_theme)
 
