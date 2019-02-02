@@ -40,4 +40,4 @@ def hup_gunicorn():
             processes.append(proc.info['pid'])
     for pid in processes:
         os.kill(pid, signal.SIGHUP)
-        time.sleep(20)
+        time.sleep(2)
