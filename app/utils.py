@@ -39,7 +39,7 @@ def hup_gunicorn():
         if 'gunicorn' in proc.info['name']:
             if proc.children():
                 for child in proc.children():
-                    processes.append(child.info['pid'])
+                    processes.append(child.pid)
     for pid in processes:
         os.kill(pid, signal.SIGTERM)
         time.sleep(5)
