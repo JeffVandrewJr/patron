@@ -20,7 +20,7 @@ Codex beauty standards!
 '''
 
 
-VERSION = '0.6.78'
+VERSION = '0.7.1'
 
 # register extensions
 bootstrap = Bootstrap()
@@ -121,7 +121,7 @@ def create_app(config_class=Config):
         ga = ThirdPartyServices.query.filter_by(name='ga').first()
         if ga is not None:
             app.config['BLOGGING_GOOGLE_ANALYTICS'] = ga.code
-        app.logger.info('GA configuration success.')
+            app.logger.info('GA configuration success.')
 
     @app.before_first_request
     def load_theme():
@@ -129,9 +129,9 @@ def create_app(config_class=Config):
         theme = ThirdPartyServices.query.filter_by(name='theme').first()
         if theme is not None:
             app.config['THEME'] = theme.code
-            app.config['THEME_FILE'] = 'themes/' + \
-                app.config['THEME'] + '.min.css'
-        app.logger.info('Theme configuration success.')
+            app.jinja_env.globals['THEME_FILE'] = 'themes/' + \
+                theme.code + '.min.css'
+            app.logger.info('Theme configuration success.')
 
     @app.before_first_request
     def load_tasks():

@@ -50,4 +50,3 @@ class Config(object):
         }
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     THEME = 'spacelab'
-    THEME_FILE = 'themes/' + THEME + '.min.css'

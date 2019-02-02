@@ -81,6 +81,10 @@ class ThemeView(LibrePatronBaseView):
         # custom view to set theme
         form = ThemeForm()
         theme = ThirdPartyServices.query.filter_by(name='theme').first()
+        if theme is None:
+            temp_theme = current_app.config['THEME']
+        else:
+            temp_theme = theme.code
         if form.validate_on_submit():
             if theme is None:
                 theme = ThirdPartyServices(
@@ -91,13 +95,13 @@ class ThemeView(LibrePatronBaseView):
             else:
                 theme.code = form.theme.data
             db.session.commit()
-            current_app.config['THEME'] = theme.code
-            current_app.config['THEME_FILE'] = 'themes/' + \
-                current_app.config['THEME'] + '.min.css'
+            current_app.config['THEME'] = form.theme.data
+            current_app.jinja_env.globals['THEME_FILE'] = 'themes/' + \
+                form.theme.data + '.min.css'
             flash('Theme saved. Switch from the admin panel back to \
                     your site to see the changes. You may need to reload.')
             return redirect(url_for('theme.theme'))
-        return self.render('admin/theme.html', form=form)
+        return self.render('admin/theme.html', form=form, current_theme=temp_theme)
 
 
 admin.add_view(ThemeView(name='Set Theme', endpoint='theme'))

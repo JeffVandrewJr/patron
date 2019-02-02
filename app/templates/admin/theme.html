@@ -4,6 +4,7 @@
 {% block body %}
     <h2>Choose Your Theme</h2>
     <br>
+    <p>Current theme: {{ current_theme.capitalize() }}
     <div class="row">
         <div class="col-md-4">
             {{ wtf.quick_form(form) }}
