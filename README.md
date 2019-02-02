@@ -4,7 +4,7 @@ Copyright (C) 2018-2019 Jeff Vandrew Jr
 
 Latest Stable Release: 0.6.78
 
-CHECK YOUR RELEASE VERSION. If you're running an old version prior to 0.6.76, you must deactivate lightning payments on your BTCPay store, as only on-chain payments could be processed by old versions of LibrePatron properly. As of v0.6.76, both on-chain and lightning payments are processed correctly.
+CHECK YOUR RELEASE VERSION. If you're running an outdated version prior to 0.6.76, you cannot process lightning payments correctly. As of v0.6.76, both on-chain and lightning payments are processed correctly.
 
 Patreon is a popular service that allows content creators to receive contributions from supporters on a recurring basis. Unfortunately, Patreon is also a dedicated enemy of the concept of free speech as an important civic virtue. Patreon is known to arbitrarily ban its creators for "thought crime."
 
