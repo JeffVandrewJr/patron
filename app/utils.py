@@ -6,6 +6,7 @@ from flask import request
 import os
 import psutil
 import signal
+import time
 from urllib.parse import urlparse, urljoin
 
 
@@ -39,3 +40,4 @@ def hup_gunicorn():
             processes.append(proc.info['pid'])
     for pid in processes:
         os.kill(pid, signal.SIGHUP)
+        time.sleep(20)
