@@ -2,7 +2,7 @@
 
 Copyright (C) 2018-2019 Jeff Vandrew Jr
 
-Latest Stable Release: 0.6.78
+Latest Stable Release: 0.7.27
 
 CHECK YOUR RELEASE VERSION. If you're running an outdated version prior to 0.6.76, you cannot process lightning payments correctly. As of v0.6.76, both on-chain and lightning payments are processed correctly.
 
