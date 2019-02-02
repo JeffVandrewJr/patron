@@ -20,7 +20,7 @@ Codex beauty standards!
 '''
 
 
-VERSION = '0.7.24'
+VERSION = '0.7.25'
 
 # register extensions
 bootstrap = Bootstrap()
@@ -66,6 +66,8 @@ admin_permission = Permission(RoleNeed('admin'))
 def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(config_class)
+    app.jinja_env.globals['THEME_FILE'] = 'themes/' + \
+        app.config['THEME'] + '.min.css'
     bootstrap.init_app(app)
     db.init_app(app)
     with app.app_context():
