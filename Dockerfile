@@ -12,7 +12,7 @@ RUN chmod +x boot.sh
 
 ENV FLASK_APP=patron.py
 ENV TZ=Universal
-ENV GUNICORN_CMD_ARGS="--bind=0.0.0.0:8006 --workers=3 --access-logfile=- --error-logfile=-"
+ENV GUNICORN_CMD_ARGS="--bind=0.0.0.0:8006 --workers=3 --graceful-timeout 15 --access-logfile=- --error-logfile=-"
 
 EXPOSE 8006
 
