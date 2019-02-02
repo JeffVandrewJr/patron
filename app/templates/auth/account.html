@@ -9,13 +9,13 @@
     {% else %}
     <p>Your card on file will be automatically charged on your expiration date.</p>
     {% endif %}
-    <a href="{{ url_for('main.support') }}" class="btn btn-default">Make a Payment or Change Plans</a>
+    <a href="{{ url_for('main.support') }}" class="btn btn-primary">Make a Payment or Change Plans</a>
     {% if square %}
-    <a href="{{ url_for('auth.cancel_square') }}" class="btn btn-default">Cancel Credit Card Billing</a>
+    <a href="{{ url_for('auth.cancel_square') }}" class="btn btn-primary">Cancel Credit Card Billing</a>
     {% endif %}
     {% if opt_out %}
-    <a href="{{ url_for('auth.mail_opt') }}" class="btn btn-default">Opt In to Emails</a>
+    <a href="{{ url_for('auth.mail_opt') }}" class="btn btn-primary">Opt In to Emails</a>
     {% else %}
-    <a href="{{ url_for('auth.mail_opt') }}" class="btn btn-default">Opt Out of Emails</a>
+    <a href="{{ url_for('auth.mail_opt') }}" class="btn btn-primary">Opt Out of Emails</a>
     {% endif %}
 {% endblock %}

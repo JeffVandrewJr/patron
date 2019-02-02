@@ -1,6 +1,6 @@
 from app import admin, db
 from app.admin_views.forms import BTCCodeForm, SquareSetupForm, \
-        GAForm, EmailSetupForm, IssoForm
+        GAForm, EmailSetupForm, IssoForm, ThemeForm
 from app.models import User, Square, PriceLevel, ThirdPartyServices, \
         Email, BTCPayClientStore
 from app.utils import pairing
@@ -73,6 +73,34 @@ class GAView(LibrePatronBaseView):
 
 
 admin.add_view(GAView(name='Google Analytics', endpoint='ga'))
+
+
+class ThemeView(LibrePatronBaseView):
+    @expose('/', methods=['GET', 'POST'])
+    def theme(self):
+        # custom view to set theme
+        form = ThemeForm()
+        theme = ThirdPartyServices.query.filter_by(name='theme').first()
+        if form.validate_on_submit():
+            if theme is None:
+                theme = ThirdPartyServices(
+                    name='theme',
+                    code=form.theme.data,
+                )
+                db.session.add(theme)
+            else:
+                theme.code = form.theme.data
+            db.session.commit()
+            current_app.config['THEME'] = theme.code
+            current_app.config['THEME_FILE'] = 'themes/' + \
+                current_app.config['THEME'] + '.min.css'
+            flash('Theme saved. Switch from the admin panel back to \
+                    your site to see the changes. You may need to reload.')
+            return redirect(url_for('theme.theme'))
+        return self.render('admin/theme.html', form=form)
+
+
+admin.add_view(ThemeView(name='Set Theme', endpoint='theme'))
 
 
 class IssoView(LibrePatronBaseView):

@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, IntegerField, \
-        PasswordField
+        PasswordField, SelectField
 from wtforms.validators import DataRequired
 
 
@@ -17,6 +17,31 @@ class GAForm(FlaskForm):
     code = StringField(
         'Enter Tracking Code (begins with "UA")',
         validators=[DataRequired()]
+    )
+    submit = SubmitField('Submit')
+
+
+class ThemeForm(FlaskForm):
+    theme = SelectField(
+        'Select a theme:',
+        choices=[
+            ('cerulean', 'Cerulean'),
+            ('cosmo', 'Cosmo'),
+            ('flatly', 'Flatly'),
+            ('journal', 'Journal'),
+            ('litera', 'Litera'),
+            ('lumen', 'Lumen'),
+            ('lux', 'Lux'),
+            ('materia', 'Materia'),
+            ('minty', 'Minty'),
+            ('pulse', 'Pulse'),
+            ('sandstone', 'Sandstone'),
+            ('simplex', 'Simplex'),
+            ('sketchy', 'Sketchy'),
+            ('spacelab', 'Spacelab'),
+            ('united', 'United'),
+            ('yeti', 'Yeti'),
+        ]
     )
     submit = SubmitField('Submit')
 

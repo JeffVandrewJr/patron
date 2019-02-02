@@ -19,7 +19,7 @@
                 </div>
                 <div class="modal-footer">
                     <form action="{{ url_for('blogging.delete', post_id=post.post_id) }}" method="POST">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
                         <input type="submit" value="Yes" class="btn btn-primary" id="confirmedDelete"/>
                     </form>
                 </div>

@@ -124,6 +124,16 @@ def create_app(config_class=Config):
         app.logger.info('GA configuration success.')
 
     @app.before_first_request
+    def load_theme():
+        from app.models import ThirdPartyServices
+        theme = ThirdPartyServices.query.filter_by(name='theme').first()
+        if theme is not None:
+            app.config['THEME'] = theme.code
+            app.config['THEME_FILE'] = 'themes/' + \
+                app.config['THEME'] + '.min.css'
+        app.logger.info('Theme configuration success.')
+
+    @app.before_first_request
     def load_tasks():
         from app import tasks
         app.logger.info(f'Next renewal time: \

@@ -9,6 +9,7 @@ basedir = abspath(os.path.dirname(__file__))
 class Config(object):
     BLOGGING_SITENAME = os.environ.get('SITENAME') or 'LibrePatron'
     BLOGGING_SITEURL = os.environ.get('SITEURL') or 'https://example.com'
+    BUTTON_MAP = {'submit': 'primary'}
     SERVER_NAME = os.environ.get('VIRTUAL_HOST')
     BLOGGING_URL_PREFIX = '/updates'
     BLOGGING_BRANDURL = os.environ.get('BRANDURL')
@@ -48,3 +49,5 @@ class Config(object):
             'default': SQLAlchemyJobStore(url=SQLALCHEMY_DATABASE_URI)
         }
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    THEME = 'spacelab'
+    THEME_FILE = 'themes/' + THEME + '.min.css'
