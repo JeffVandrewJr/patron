@@ -9,6 +9,7 @@ from flask_admin import BaseView, expose
 from flask_admin.contrib.sqla import ModelView
 from flask import flash, redirect, url_for, current_app
 from flask_login import current_user
+import os
 from threading import Thread
 
 '''
@@ -34,6 +35,9 @@ class BTCPayView(LibrePatronBaseView):
     def btcpay(self):
         # custom view to pair BTCPay
         form = BTCCodeForm()
+        btcpay_host = os.environ.get('BTCPAY_HOST')
+        if btcpay_host:
+            form.host.data = btcpay_host
         btcpay = BTCPayClientStore.query.first()
         if form.validate_on_submit():
             try:
@@ -44,7 +48,9 @@ class BTCPayView(LibrePatronBaseView):
                 return redirect(url_for('admin.index'))
             flash('Pairing to BTCPay is complete.')
             return redirect(url_for('admin.index'))
-        return self.render('admin/btcpay.html', form=form, btcpay=btcpay)
+        return self.render(
+                'admin/btcpay.html', form=form, btcpay=btcpay,
+                btcpay_host=btcpay_host)
 
 
 admin.add_view(BTCPayView(name='BTCPay Setup', endpoint='btcpay'))

@@ -20,6 +20,10 @@
         </div>
     </div>
     <br>
+    {% if btcpay_host %}
+    <p>You can obtain your code by heading <a href="{{ btcpay_host }}" target="_blank" here</a>.</p>
+    {% else %}
     <p>You can obtain your code by heading to "[your BTCPay URL]/api-tokens".</p>
+    {% endif %}
     <br>
 {% endblock %}
