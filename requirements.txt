@@ -28,7 +28,7 @@ Jinja2==2.10
 Mako==1.0.7
 Markdown==3.0.1
 MarkupSafe==1.1.0
-psutil>=5.5.0
+psutil>=5.4.0
 pycparser==2.19
 PyJWT==1.7.1
 pytest==4.0.2
