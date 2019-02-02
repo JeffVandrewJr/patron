@@ -9,6 +9,7 @@ from flask_admin import BaseView, expose
 from flask_admin.contrib.sqla import ModelView
 from flask import flash, redirect, url_for, current_app
 from flask_login import current_user
+from threading import Thread
 
 '''
 Flask-Admin creates views in the admin panel using classes.
@@ -101,7 +102,7 @@ class ThemeView(LibrePatronBaseView):
                 form.theme.data + '.min.css'
             flash('Theme saved. Switch from the admin panel back to \
                     your site to see the changes. You may need to reload.')
-            hup_gunicorn()
+            Thread(target=hup_gunicorn)
             return redirect(url_for('theme.theme'))
         return self.render(
                 'admin/theme.html', form=form, current_theme=temp_theme)
