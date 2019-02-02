@@ -96,6 +96,7 @@ class ThemeView(LibrePatronBaseView):
                 theme.code = form.theme.data
             db.session.commit()
             current_app.config['THEME'] = form.theme.data
+            current_app.jinja_env.cache = {}
             current_app.jinja_env.globals['THEME_FILE'] = 'themes/' + \
                 form.theme.data + '.min.css'
             flash('Theme saved. Switch from the admin panel back to \
