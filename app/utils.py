@@ -34,6 +34,8 @@ def pairing(code, host):
 
 
 def hup_gunicorn():
+    # reload gunicorn workers, keep gunicorn master process alive
+    # this allows reloading of flask global vars on the fly
     processes = []
     for proc in psutil.process_iter(attrs=['pid', 'name']):
         if 'gunicorn' in proc.info['name']:
