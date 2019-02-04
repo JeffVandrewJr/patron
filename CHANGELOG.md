@@ -1,6 +1,6 @@
 <h3>v0.7.27</h3>
 
-* user costumizable themes
+* user customizable themes
 
 * locally host SimpleMDE javascript files
 
