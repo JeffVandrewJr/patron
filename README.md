@@ -58,7 +58,7 @@ If you didn't use the LunaNode one-click install, the same instructions above ap
 
 If you wish to install separately from BTCPay for whatever reason, see the alternate instructions in the 'alternate_install' directory.
 
-In the future, you can upgrade by simply upgrading BTCPay; LibrePatron will upgrade right alongside it. Just log into BTCPay, then go to Server Settings, Maintenance, Update.
+In the future, you can upgrade by simply upgrading BTCPay; LibrePatron will upgrade right alongside it. Just log into BTCPay through the web, then go to Server Settings --> Maintenance --> Update.
 
 IMPORTANT: Before advertising your site, see the section on post-install setup below.
 
