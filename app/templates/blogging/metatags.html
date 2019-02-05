@@ -1,5 +1,4 @@
 {% block meta %}
-<meta name="author" content="{{ post.user_name }}">
 <meta name="keywords" content="{% if config.BLOGGING_KEYWORDS %}{% for keyword in config.BLOGGING_KEYWORDS -%}
     {{ keyword }},
 {%- endfor %}{% endif %}{% if post.meta.keywords %}{% for keyword in post.meta.keywords -%}
