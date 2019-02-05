@@ -1,5 +1,11 @@
 <h3>v0.7.27</h3>
 
+* bug fix: comments not loading after reactivate/deactivate isso
+
+* remove author metadata
+
+<h3>v0.7.27</h3>
+
 * user customizable themes
 
 * locally host SimpleMDE javascript files
