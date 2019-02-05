@@ -2,8 +2,10 @@ from app import db
 from app.admin_utils import bp
 from app.email import send_email
 from app.models import Square, ThirdPartyServices, User, Email
+from app.utils import hup_gunicorn
 from flask import redirect, url_for, flash, current_app
 from flask_login import current_user
+from threading import Thread
 
 
 @bp.route('/deletesquare')
