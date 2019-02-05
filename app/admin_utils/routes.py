@@ -31,6 +31,7 @@ def delete_ga():
         db.session.commit()
     current_app.config['BLOGGING_GOOGLE_ANALYTICS'] = None
     flash('Google Analytics deactivated.')
+    Thread(hup_gunicorn()).start()
     return redirect(url_for('admin.index'))
 
 
@@ -49,6 +50,7 @@ def deactivate_isso():
           Comments deactivated. Due to browser caching,
            there can be a delay before comments disappear.
           ''')
+    Thread(hup_gunicorn()).start()
     return redirect(url_for('admin.index'))
 
 
