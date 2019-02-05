@@ -75,6 +75,7 @@ class GAView(LibrePatronBaseView):
             current_app.config['BLOGGING_GOOGLE_ANALYTICS'] = \
                 ga.code
             flash('Google Analytics data saved.')
+            Thread(hup_gunicorn()).start()
             return redirect(url_for('admin.index'))
         return self.render('admin/ga.html', form=form, ga=ga)
 
@@ -142,6 +143,7 @@ class IssoView(LibrePatronBaseView):
             isso_config()
             current_app.config['COMMENTS'] = True
             flash('User comments active.')
+            Thread(hup_gunicorn()).start()
             return redirect(url_for('admin.index'))
         return self.render('admin/isso.html', form=form, isso=isso)
 
