@@ -24,7 +24,7 @@ If you're a creator reading this unconcerned with free speech issues, Patreon st
 
 Sample site: https://librepatron.com
 
-Slack Group: https://slack.librepatron.com
+Slack Group: http://slack.librepatron.com
 
 <h2>Improvements Roadmap</h2>
 
