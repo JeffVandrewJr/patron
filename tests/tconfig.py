@@ -1,6 +1,7 @@
+from apscheduler.jobstores.sqlalchemy import SQLAlchemyJobStore
 from datetime import datetime, timedelta
 import os
-from os.path import normpath, abspath, join
+from os.path import abspath, join
 
 basedir = abspath(os.path.dirname(__file__))
 
@@ -19,18 +20,17 @@ class Config(object):
     BLOGGING_PLUGINS = None
     BLOGGING_ALLOW_FILE_UPLOAD = True
     BLOGGING_ESCAPE_MARKDOWN = False
-    MAIL_SERVER = 'ssrs.reachmail.net'
-    MAIL_PORT = 587
-    MAIL_USE_TLS = True
-    MAIL_USERNAME = 'example@example.com'
-    MAIL_PASSWORD = 'password'
     PREFERRED_URL_SCHEME = 'https'
     SCHEDULER_BASE = datetime.now() + timedelta(minutes=1)
     SCHEDULER_HOUR = SCHEDULER_BASE.hour
-    SCHEDULER_MINUTE= SCHEDULER_BASE.minute
+    SCHEDULER_MINUTE = SCHEDULER_BASE.minute
     SECRET_KEY = 'a-very-secret-key'
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + join(basedir, 'app.db')
+    SCHEDULER_JOBSTORES = {
+            'default': SQLAlchemyJobStore(url=SQLALCHEMY_DATABASE_URI)
+        }
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    THEME = 'spacelab'
     SERVER_NAME = 'librepatron.com'
     BCRYPT_LOG_ROUNDS = 4
     TESTING = True
