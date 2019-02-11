@@ -24,8 +24,10 @@ class Config(object):
     COMMENTS_SUBURI = os.environ.get('COMMENTS_SUBURI') is not None
     if COMMENTS_SUBURI:
         COMMENTS_URL = BLOGGING_SITEURL + '/isso'
-    else:
+    elif SERVER_NAME is not None:
         COMMENTS_URL = 'https://comments.' + SERVER_NAME
+    else:
+        COMMENTS_URL = None
     PREFERRED_URL_SCHEME = 'https'
     if os.environ.get('SCHEDULER_HOUR') is not None:
         SCHEDULER_HOUR = int(os.environ.get('SCHEDULER_HOUR'))

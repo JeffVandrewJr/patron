@@ -1,5 +1,5 @@
 from app import create_app, db
-from app.models import User
+from app.models import User, PriceLevel, Email
 from tests.tconfig import Config
 from datetime import datetime, timedelta
 import pytest
@@ -11,6 +11,8 @@ def new_user():
         username='test',
         email='test@test.com',
         expiration=(datetime.today() - timedelta(hours=24)),
+        renew=True,
+        role='Patron',
         mail_opt_out=False
     )
     user.set_password('test')
@@ -28,9 +30,42 @@ def test_client():
 
 
 @pytest.fixture(scope='module')
-def init_database(new_user):
+def test_mail():
+    mail = Email(
+            server='junk',
+            username='junk',
+            password='junk',
+            default_sender='junk@junk.com',
+            use_tls=True,
+            port=587,
+            suppress=True
+            )
+    return mail
+
+
+@pytest.fixture(scope='module')
+def init_database(new_user, test_mail):
     db.create_all()
     db.session.add(new_user)
+    db.session.add(test_mail)
+    level_1 = PriceLevel(
+        name='Patron',
+        description="You're a patron!",
+        price=10,
+    )
+    level_2 = PriceLevel(
+        name='Cooler Patron',
+        description="You're a cooler patron!",
+        price=20,
+    )
+    level_3 = PriceLevel(
+        name='Coolest Patron',
+        description="You're the best!",
+        price=60,
+    )
+    db.session.add(level_1)
+    db.session.add(level_2)
+    db.session.add(level_3)
     db.session.commit()
     yield db
     db.drop_all()

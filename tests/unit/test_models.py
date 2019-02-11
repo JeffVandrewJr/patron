@@ -12,5 +12,5 @@ def test_new_user(new_user):
     assert new_user.email == 'test@test.com'
     assert datetime.today() > new_user.expiration
     assert new_user.check_password('test')
-    assert new_user.role is None
+    assert new_user.role == 'Patron'
     assert not new_user.mail_opt_out

@@ -25,7 +25,9 @@ class Config(object):
     SCHEDULER_HOUR = SCHEDULER_BASE.hour
     SCHEDULER_MINUTE = SCHEDULER_BASE.minute
     SECRET_KEY = 'a-very-secret-key'
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + join(basedir, 'app.db')
+    SECRET_KEY_LOCATION = os.environ.get('SECRET_KEY_LOCATION') or \
+        join(basedir, 'key')
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + join(basedir, 'app_test.db')
     SCHEDULER_JOBSTORES = {
             'default': SQLAlchemyJobStore(url=SQLALCHEMY_DATABASE_URI)
         }
