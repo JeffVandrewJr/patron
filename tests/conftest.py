@@ -19,7 +19,7 @@ def new_user():
     return user
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='session')
 def test_client():
     app = create_app(config_class=Config)
     testing_client = app.test_client()
@@ -43,8 +43,9 @@ def test_mail():
     return mail
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='function')
 def init_database(new_user, test_mail):
+    db.drop_all()
     db.create_all()
     db.session.add(new_user)
     db.session.add(test_mail)
