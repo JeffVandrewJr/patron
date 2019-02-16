@@ -1,4 +1,4 @@
-<h3>v0.7.27</h3>
+<h3>v0.7.31</h3>
 
 * bug fix: comments not loading after reactivate/deactivate isso
 
