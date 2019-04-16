@@ -20,7 +20,7 @@ Codex beauty standards!
 '''
 
 
-VERSION = '0.7.33'
+VERSION = '0.7.34'
 
 # register extensions
 bootstrap = Bootstrap()
