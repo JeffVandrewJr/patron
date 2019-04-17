@@ -1,3 +1,7 @@
+<h3>v0.7.34</h3>
+
+* update jinja2 and SQLAlchemy dependencies
+
 <h3>v0.7.31</h3>
 
 * bug fix: comments not loading after reactivate/deactivate isso
