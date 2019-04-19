@@ -1,5 +1,9 @@
 <h3>v0.7.34</h3>
 
+* update urllib dependency
+
+<h3>v0.7.34</h3>
+
 * update jinja2 and SQLAlchemy dependencies
 
 <h3>v0.7.31</h3>
