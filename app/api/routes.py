@@ -84,9 +84,9 @@ def update_sub():
         return "Invalid transaction ID.", 400
 
 
-@bp.route('/v1/square/<int:price>', methods=['GET', 'POST'])
+@bp.route('/v1/square/<int:price>/<string:currency>', methods=['GET', 'POST'])
 @login_required
-def process_square(price):
+def process_square(price, currency):
     '''
     Receives a nonce from Square, and uses the nonce to
     charge the card. Upon successful charge, it updates the
@@ -147,7 +147,7 @@ def process_square(price):
     transactions_api = TransactionsApi(api_client)
     idempotency_key = str(uuid.uuid1())
     cents = price * 100
-    amount = {'amount': cents, 'currency': 'USD'}
+    amount = {'amount': cents, 'currency': currency}
     body = {
         'idempotency_key': idempotency_key,
         'customer_id': current_user.square_id,

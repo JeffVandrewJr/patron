@@ -1,6 +1,7 @@
 from app import blog_engine, db
 from app.main import bp
 from app.models import BTCPayClientStore, Square, PriceLevel
+from babel import numbers
 from datetime import datetime
 from flask import redirect, url_for, flash, render_template, request,\
         current_app
@@ -87,16 +88,19 @@ def support():
             name='Patron',
             description="You're a patron!",
             price=10,
+            currency='USD'
         )
         level_2 = PriceLevel(
             name='Cooler Patron',
             description="You're a cooler patron!",
             price=20,
+            currency='USD'
         )
         level_3 = PriceLevel(
             name='Coolest Patron',
             description="You're the best!",
             price=60,
+            currency='USD'
         )
         db.session.add(level_1)
         db.session.add(level_2)
@@ -109,6 +113,7 @@ def support():
         'main/support.html',
         levels=price_levels,
         square=square,
+        numbers=numbers
     )
 
 
@@ -117,6 +122,7 @@ def support():
 def credit_card():
     # directs user to sqpaymentform.js
     price = request.args.get('price')
+    currency = request.args.get('currency') or 'USD'
     if price is None:
         flash('There was an error. Try again.')
         return redirect(url_for('main.support'))
@@ -127,6 +133,8 @@ def credit_card():
             application_id=square.application_id,
             location_id=square.location_id,
             price=price,
+            currency=currency,
+            numbers=numbers
         )
     else:
         return redirect(url_for('main.index'))
@@ -152,6 +160,7 @@ def create_invoice():
                 else:
                     plan = price_level.name
                     price = price_level.price
+                    currency = price_level.currency or 'USD'
             else:
                 return redirect(url_for('main.support'))
     else:
@@ -160,6 +169,9 @@ def create_invoice():
             return redirect(url_for('main.support'))
         plan = request.args.get('name')
         price = int(string_price)
+        currency = request.args.get('currency')
+        if currency is None:
+            currency = 'USD'
         compare = PriceLevel.query.filter_by(price=price).first()
         if compare is None:
             return redirect(url_for('main.support'))
@@ -183,7 +195,7 @@ def create_invoice():
         try:
             inv_data = btc_client.create_invoice({
                 "price": price,
-                "currency": "USD",
+                "currency": currency,
                 "buyer": {
                     "name": current_user.username,
                     "email": current_user.email,

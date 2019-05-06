@@ -80,7 +80,7 @@ def renewals_square(begin):
                     failed_list.append(user)
                     continue
                 cents = price_level.price * 100
-                amount = {'amount': cents, 'currency': 'USD'}
+                amount = {'amount': cents, 'currency': price_level.currency or 'USD'}
                 body = {
                     'idempotency_key': idempotency_key,
                     'customer_id': user.square_id,

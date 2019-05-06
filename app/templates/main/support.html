@@ -12,11 +12,11 @@
         <h4 class="my-0 font-weight-normal">{{ level.name }}</h4>
       </div>
       <div class="card-body">
-        <h1 class="card-title pricing-card-title">${{ level.price }} <small class="text-muted">/ mo</small></h1>
+        <h1 class="card-title pricing-card-title">{{ numbers.format_currency(level.price, level.currency, locale='en') }} <small class="text-muted">/ mo</small></h1>
         <p>{{ level.description }}</p>
-        <p><a class="btn btn-primary" href="{{ url_for('main.create_invoice', name=level.name, price=level.price) }}">Subscribe (Bitcoin)</a></p>
+        <p><a class="btn btn-primary" href="{{ url_for('main.create_invoice', name=level.name, price=level.price, currency=level.currency) }}">Subscribe (Bitcoin)</a></p>
         {%if square %}
-        <p><a class="btn btn-primary" href="{{ url_for('main.credit_card', name=level.name, price=level.price) }}">Subscribe (Fiat)</a></p>
+        <p><a class="btn btn-primary" href="{{ url_for('main.credit_card', name=level.name, price=level.price, currency=level.currency) }}">Subscribe (Fiat)</a></p>
         {% endif %}
       </div>
       </div>

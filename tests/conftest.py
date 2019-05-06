@@ -52,16 +52,19 @@ def init_database(new_user, test_mail):
     level_1 = PriceLevel(
         name='Patron',
         description="You're a patron!",
+        currency="USD",
         price=10,
     )
     level_2 = PriceLevel(
         name='Cooler Patron',
         description="You're a cooler patron!",
+        currency="USD",
         price=20,
     )
     level_3 = PriceLevel(
         name='Coolest Patron',
         description="You're the best!",
+        currency="USD",
         price=60,
     )
     db.session.add(level_1)
