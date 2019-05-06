@@ -137,7 +137,7 @@ def create_app(config_class=Config):
 
     @app.before_first_request
     def load_tasks():
-        from app import tasks
+        from app import tasks  # noqa: F401
         app.logger.info(f'Next renewal time: \
                 {scheduler._scheduler.get_jobs()[0].next_run_time}')
 
@@ -153,16 +153,15 @@ def create_app(config_class=Config):
                 isso_config = ConfigParser()
                 isso_config['default'] = {}
                 isso_config['default']['dbpath'] = \
-                        'var/lib/db/comments.db'
+                    'var/lib/db/comments.db'
                 isso_config['default']['host'] = \
-                        'http://localhost:5000/'
+                    'http://localhost:5000/'
                 with open(file, 'w') as configfile:
                     isso_config.write(configfile)
         app.logger.info('Isso configuration success.')
 
-
     return app
 
 
-from app import admin_views
-from app import models, subscriptions
+from app import admin_views  # noqa: F401
+from app import models, subscriptions  # noqa: F401
