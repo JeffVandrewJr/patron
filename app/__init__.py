@@ -148,7 +148,7 @@ def create_app(config_class=Config):
         if isso is not None:
             app.config['COMMENTS'] = True
         else:
-            file = '/var/lib/config/isso.cfg'
+            file = app.config['ISSO_CONFIG_PATH']
             if not os.path.isfile(file):
                 isso_config = ConfigParser()
                 isso_config['default'] = {}

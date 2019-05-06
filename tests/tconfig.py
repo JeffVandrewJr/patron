@@ -20,13 +20,13 @@ class Config(object):
     BLOGGING_PLUGINS = None
     BLOGGING_ALLOW_FILE_UPLOAD = True
     BLOGGING_ESCAPE_MARKDOWN = False
+    ISSO_CONFIG_PATH = f'/tmp/{os.urandom(16)}'
     PREFERRED_URL_SCHEME = 'https'
     SCHEDULER_BASE = datetime.now() + timedelta(minutes=1)
     SCHEDULER_HOUR = SCHEDULER_BASE.hour
     SCHEDULER_MINUTE = SCHEDULER_BASE.minute
     SECRET_KEY = 'a-very-secret-key'
-    SECRET_KEY_LOCATION = os.environ.get('SECRET_KEY_LOCATION') or \
-        join(basedir, 'key')
+    SECRET_KEY_LOCATION = f'/tmp/{os.urandom(16)}'
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + join(basedir, 'app_test.db')
     SCHEDULER_JOBSTORES = {
             'default': SQLAlchemyJobStore(url=SQLALCHEMY_DATABASE_URI)

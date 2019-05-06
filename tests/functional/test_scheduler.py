@@ -10,7 +10,7 @@ def test_scheduler(test_client, new_user, init_database):
     def suppressed_mail(message):
         messages.append(message)
 
-    from app import tasks
+    test_client.get('/')
     sleep(65)
     message = messages[0]
     assert message.recipients == [new_user.email]
