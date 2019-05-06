@@ -1,5 +1,4 @@
 from flask_ezmail.connection import email_dispatched
-from threading import Thread
 from time import sleep
 
 
