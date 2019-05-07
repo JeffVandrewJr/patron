@@ -36,3 +36,28 @@ Start the server:
 ```sh
 docker_boot.py & gunicorn patron:app
 ```
+## Run tests
+
+Install Python dependencies:
+
+```sh
+pip3 install pytest
+```
+
+Configure database path:
+
+```sh
+export COMMENTS_DB_PATH_TEST=$PWD/comments-test.db
+```
+
+Create or upgrade the test database:
+
+
+```sh
+flask db upgrade
+```
+
+Run tests:
+``sh
+python3 -m pytest
+```
