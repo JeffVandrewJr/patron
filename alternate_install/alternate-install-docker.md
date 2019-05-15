@@ -5,7 +5,7 @@ If you're not using the installer script mentioned in the README [(click here to
 Before installing, don't forget to point your domain's DNS to your server's address. (You perform this step with your domain registrar: GoDaddy, NameCheap, etc.) You must point both the main domain and the `comments` subdomain. So if you're hosting LibrePatron at `example.com`, both `example.com` and `comments.example.com` must point to your server address. Here are the steps (to be executed from `$HOME` directory):
 
 ```bash
-wget https://raw.githubusercontent.com/JeffVandrewJr/patron/master/alternate_install/isso.env
+wget https://raw.githubusercontent.com/JeffVandrewJr/patron/master/alternate_install/librepatron.env
 
 # open librepatron.env and fill in the necessary info as mentioned in the file comments, and then save
 nano librepatron.env
