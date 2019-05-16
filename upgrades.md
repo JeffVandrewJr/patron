@@ -18,12 +18,12 @@ If you didn't originally install through BTCPay and your LibrePatron instance li
 # if you have an old docker-compose.yml file, first delete it
 rm docker-compose.yml
 
-wget https://raw.githubusercontent.com/JeffVandrewJr/patron/master/librepatron.env
+wget https://raw.githubusercontent.com/JeffVandrewJr/patron/master/alternate_install/librepatron.env
 
 # open librepatron.env and fill in the necessary info as mentioned in the file comments, and then save
 nano librepatron.env
 
-wget https://raw.githubusercontent.com/JeffVandrewJr/patron/master/isso.env
+wget https://raw.githubusercontent.com/JeffVandrewJr/patron/master/alternate_install/isso.env
 
 # open isso.env and fill in the necessary info as mentioned in the file comments, and then save
 nano isso.env
