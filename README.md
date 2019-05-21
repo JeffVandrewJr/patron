@@ -56,7 +56,7 @@ That's it! You would replace `example.com` with the domain where you wish to hos
 
 You only ever need to do that setup once, as from then on LibrePatron will update alongside BTCPay.
 
-If you didn't use the LunaNode one-click install, the same instructions above apply so long as you're using the dockerized version of BTCPay. 
+If you didn't use the LunaNode one-click install, the same instructions above apply so long as you're using the dockerized version of BTCPay.
 
 If you wish to install separately from BTCPay for whatever reason, see the alternate instructions in the 'alternate_install' directory.
 
@@ -66,7 +66,7 @@ IMPORTANT: Before advertising your site, see the section on post-install setup b
 
 <h2>Post-Install Setup</h2>
 
-The first visitor to the site will be prompted to register as administrator. The administrator is the user that posts updates, gets paid, etc. The administrator is the content creator. 
+The first visitor to the site will be prompted to register as administrator. The administrator is the user that posts updates, gets paid, etc. The administrator is the content creator.
 
 Heading to the admin panel should be your first step after registering as the admin, as the site will not function properly until email and BTCPay Server settings are filled in. Square settings for accepting fiat are optional, as are the settings for Google Analytics and user comments. BTCPay pairing and email setup are mandatory, and your site will malfunction without them.
 
@@ -75,3 +75,7 @@ You'll need SMTP server info for the email section. Gmail, Yahoo, etc are not go
 Your users will get a 5 hour subscription as soon as they pay their BTCPay invoice. That is bumped to 30 days as soon as BTCPay recognizes the payment as "confirmed". BTCPay settings determine how many confirmations are required to make a payment "confirmed."
 
 If you decide to allow fiat payments, after setting up square, it is suggested that you run a [test charge by follwing these instructions](https://github.com/JeffVandrewJr/patron/blob/master/test-charge.md).
+
+<h2>Development</h2>
+
+See [DEVELOPMENT.md](DEVELOPMENT.md) for instructions on how to run a local development copy and how to contribute code.

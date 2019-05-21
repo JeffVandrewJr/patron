@@ -6,6 +6,7 @@ key
 
 # config
 *.conf
+*.cfg
 pricing.yaml
 
 # Byte-compiled / optimized / DLL files

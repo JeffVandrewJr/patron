@@ -21,6 +21,7 @@ class Config(object):
     BLOGGING_ALLOW_FILE_UPLOAD = True
     BLOGGING_ESCAPE_MARKDOWN = False
     ISSO_CONFIG_PATH = f'/tmp/{os.urandom(16)}'
+    COMMENTS_DB_PATH = os.environ.get('COMMENTS_DB_PATH_TEST') or '/var/lib/db/comments.db'
     PREFERRED_URL_SCHEME = 'https'
     SCHEDULER_BASE = datetime.now() + timedelta(minutes=1)
     SCHEDULER_HOUR = SCHEDULER_BASE.hour
