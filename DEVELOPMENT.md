@@ -58,6 +58,7 @@ flask db upgrade
 ```
 
 Run tests:
-``sh
+
+```sh
 python3 -m pytest
 ```
