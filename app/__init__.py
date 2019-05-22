@@ -68,6 +68,8 @@ def create_app(config_class=Config):
     app.config.from_object(config_class)
     app.jinja_env.globals['THEME_FILE'] = 'themes/' + \
         app.config['THEME'] + '.min.css'
+    # check for Isso config file. If none exists, make a fake one.
+    # The isso container always needs a config file to read, even if garbage.
     file = app.config['ISSO_CONFIG_PATH']
     if not os.path.isfile(file):
         isso_config = ConfigParser()
