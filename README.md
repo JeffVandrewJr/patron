@@ -74,8 +74,8 @@ You'll need SMTP server info for the email section. Gmail, Yahoo, etc are not go
 
 Your users will get a 5 hour subscription as soon as they pay their BTCPay invoice. That is bumped to 30 days as soon as BTCPay recognizes the payment as "confirmed". BTCPay settings determine how many confirmations are required to make a payment "confirmed."
 
-If you decide to allow fiat payments, after setting up square, it is suggested that you run a [test charge by follwing these instructions](https://github.com/JeffVandrewJr/patron/blob/master/TEST-CC-CHARGE.md).
+If you decide to allow fiat payments, after setting up square, it is suggested that you run a [test charge by following these instructions](https://github.com/JeffVandrewJr/patron/blob/master/TEST-CC-CHARGE.md).
 
 <h2>Development</h2>
 
-See [DEVELOPMENT.md](DEVELOPMENT.md) for instructions on how to run a local development copy and how to contribute code.
+See [DEVELOPMENT.md](DEVELOPMENT.md) if you wish to run a local instance.
