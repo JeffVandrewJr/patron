@@ -1,3 +1,7 @@
+<h3>v0.7.37</h3>
+
+* ensure dummy isso config always is created if not present
+
 <h3>v0.7.34</h3>
 
 * update urllib dependency
