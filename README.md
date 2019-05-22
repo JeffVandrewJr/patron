@@ -37,7 +37,7 @@ You first need a BTCPay installation. If you have not yet installed BTCPay, [her
 
 You can also find an illustrated version of these instructions [here](https://blog.btcpayserver.org/librepatron-patreon-alternative/).
 
-If you set up BTCPay using the one-click LunaNode install (or any dockerized install of BTCPay), to set up LibrePatron you would simply SSH into your LunaNode [(click here if you forgot how to do that)](https://github.com/JeffVandrewJr/patron/blob/master/ssh.md), and then:
+If you set up BTCPay using the one-click LunaNode install (or any dockerized install of BTCPay), to set up LibrePatron you would simply SSH into your LunaNode [(click here if you forgot how to do that)](https://github.com/JeffVandrewJr/patron/blob/master/SSH.md), and then:
 ```bash
 # change to root; do not forget the trailing hyphen
 sudo su -
