@@ -20,8 +20,10 @@ class Config(object):
     BLOGGING_PLUGINS = None
     BLOGGING_ALLOW_FILE_UPLOAD = True
     BLOGGING_ESCAPE_MARKDOWN = False
-    ISSO_CONFIG_PATH = os.environ.get('ISSO_CONFIG_PATH') or '/var/lib/config/isso.cfg'
-    COMMENTS_DB_PATH = os.environ.get('COMMENTS_DB_PATH') or '/var/lib/db/comments.db'
+    ISSO_CONFIG_PATH = os.environ.get('ISSO_CONFIG_PATH') or \
+        '/var/lib/config/isso.cfg'
+    COMMENTS_DB_PATH = os.environ.get('COMMENTS_DB_PATH') or \
+        '/var/lib/db/comments.db'
     COMMENTS = False
     COMMENTS_SUBURI = os.environ.get('COMMENTS_SUBURI') is not None
     if COMMENTS_SUBURI:

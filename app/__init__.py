@@ -20,7 +20,7 @@ Codex beauty standards!
 '''
 
 
-VERSION = '0.7.35'
+VERSION = '0.7.37'
 
 # register extensions
 bootstrap = Bootstrap()
@@ -68,6 +68,17 @@ def create_app(config_class=Config):
     app.config.from_object(config_class)
     app.jinja_env.globals['THEME_FILE'] = 'themes/' + \
         app.config['THEME'] + '.min.css'
+    file = app.config['ISSO_CONFIG_PATH']
+    if not os.path.isfile(file):
+        isso_config = ConfigParser()
+        isso_config['default'] = {}
+        isso_config['default']['dbpath'] = \
+            'var/lib/db/comments.db'
+        isso_config['default']['host'] = \
+            'http://localhost:5000/'
+        with open(file, 'w') as configfile:
+            isso_config.write(configfile)
+        app.logger.info('Isso dummy configuration success.')
     bootstrap.init_app(app)
     db.init_app(app)
     with app.app_context():
@@ -140,25 +151,6 @@ def create_app(config_class=Config):
         from app import tasks  # noqa: F401
         app.logger.info(f'Next renewal time: \
                 {scheduler._scheduler.get_jobs()[0].next_run_time}')
-
-    @app.before_first_request
-    def load_isso():
-        from app.models import ThirdPartyServices
-        isso = ThirdPartyServices.query.filter_by(name='isso').first()
-        if isso is not None:
-            app.config['COMMENTS'] = True
-        else:
-            file = app.config['ISSO_CONFIG_PATH']
-            if not os.path.isfile(file):
-                isso_config = ConfigParser()
-                isso_config['default'] = {}
-                isso_config['default']['dbpath'] = \
-                    'var/lib/db/comments.db'
-                isso_config['default']['host'] = \
-                    'http://localhost:5000/'
-                with open(file, 'w') as configfile:
-                    isso_config.write(configfile)
-        app.logger.info('Isso configuration success.')
 
     return app
 
