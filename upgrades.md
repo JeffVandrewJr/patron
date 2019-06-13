@@ -28,7 +28,6 @@ wget https://raw.githubusercontent.com/JeffVandrewJr/patron/master/alternate_ins
 # open isso.env and fill in the necessary info as mentioned in the file comments, and then save
 nano isso.env
 
-sudo docker network create nginx-net
 wget https://raw.githubusercontent.com/JeffVandrewJr/patron/master/docker-compose.yml
 sudo docker-compose up -d
 ```
