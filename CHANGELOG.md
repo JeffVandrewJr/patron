@@ -1,3 +1,7 @@
+<h3>v0.7.39</h3>
+
+* update werkzeug version
+
 <h3>v0.7.37</h3>
 
 * ensure dummy isso config always is created if not present
