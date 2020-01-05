@@ -1,6 +1,8 @@
 <h1>LibrePatron: A Self-Hosted Patreon Alternative Backed by BTCPay</h1>
 
-Copyright (C) 2018-2019 Jeff Vandrew Jr
+Copyright (C) 2018-2020 Jeff Vandrew Jr
+
+x64 Only. ARM is not supported.
 
 Latest Stable Release: 0.7.39
 
