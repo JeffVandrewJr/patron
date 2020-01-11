@@ -2,7 +2,7 @@
 
 Copyright (C) 2018-2020 Jeff Vandrew Jr
 
-x64 Only. ARM is not supported.
+x64 Only. ARM (ie Raspberry Pi) is not supported.
 
 Latest Stable Release: 0.7.39
 
