@@ -24,8 +24,6 @@ Portions of this package rely on a fork of the Flask-Blogging package by Goutham
 
 If you're a creator reading this unconcerned with free speech issues, Patreon still takes a percentage of your earnings, which can be avoided by using LibrePatron.
 
-Slack Group: http://slack.librepatron.com
-
 <h2>Improvements Roadmap</h2>
 
 1. More granular control over subscription levels.
