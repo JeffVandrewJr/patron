@@ -52,7 +52,7 @@ class PriceLevel(db.Model):
     name = db.Column(db.String(64), index=True, unique=True)
     price = db.Column(db.Integer, index=True, unique=True)
     description = db.Column(db.Text)
-
+    currency = db.Column(db.String(3))
 
 class BTCPayClientStore(db.Model):
     # object for storing pickled BTCPay API client
@@ -100,9 +100,9 @@ class User(UserMixin, db.Model):
         expire_date = self.expiration.date()
         return f'''
                 {self.id},
-                {self.username}, 
-                {self.email}, 
-                {expire_date}, 
+                {self.username},
+                {self.email},
+                {expire_date},
                 {self.role},
                 {self.mail_opt_out}
                 '''

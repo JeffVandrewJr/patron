@@ -1,6 +1,7 @@
 alembic==1.0.5
 APScheduler==3.5.3
 asn1crypto==0.24.0
+Babel==2.6.0
 blinker==1.4
 btcpay-python==1.1.0
 certifi==2018.11.29
